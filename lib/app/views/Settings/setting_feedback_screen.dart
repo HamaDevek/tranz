@@ -1,11 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:trancehouse/app/controllers/cms_api_controller.dart';
+import 'package:trancehouse/app/models/feedback_model.dart';
+import 'package:trancehouse/components/button_custom_component.dart';
+import 'package:trancehouse/components/textarea_custom_component.dart';
+import 'package:trancehouse/components/textfield_custom_component.dart';
 import 'package:trancehouse/services/theme_service.dart';
 import 'package:get/get.dart';
+import 'package:trancehouse/utils/config.dart';
 import 'package:trancehouse/utils/extentions.dart';
+import 'package:trancehouse/utils/utils.dart';
 
-class SettingFeedbackScreen extends StatelessWidget {
+class SettingFeedbackScreen extends StatefulWidget {
   const SettingFeedbackScreen({Key? key}) : super(key: key);
+
+  @override
+  _SettingFeedbackScreenState createState() => _SettingFeedbackScreenState();
+}
+
+class _SettingFeedbackScreenState extends State<SettingFeedbackScreen> {
+  final CmsApiController _cmsApiController = Get.put(CmsApiController());
+  TextEditingController? _nameController,
+      _infoController,
+      _phoneController,
+      _messageController;
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController();
+    _infoController = TextEditingController();
+    _phoneController = TextEditingController();
+    _messageController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _nameController?.dispose();
+    _infoController?.dispose();
+    _phoneController?.dispose();
+    _messageController?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +48,76 @@ class SettingFeedbackScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            Column(),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 100,
+                  ),
+                  TextfieldCustomComponent(
+                      hintText: 'name'.tr, controller: _nameController),
+                  SizedBox(height: 16),
+                  TextfieldCustomComponent(
+                      hintText: 'service'.tr, controller: _infoController),
+                  SizedBox(height: 16),
+                  TextfieldCustomComponent(
+                      hintText: 'phone'.tr, controller: _phoneController),
+                  SizedBox(height: 16),
+                  TextareaCustomComponent(
+                      hintText: 'info'.tr, controller: _messageController),
+                  SizedBox(height: 16),
+                  Obx(
+                    () => Padding(
+                      padding: const EdgeInsets.only(top: 32),
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 16),
+                        child: ButtonCustomComponent(
+                          onPress: () async {
+                            if (_infoController!.value.text.length > 3 &&
+                                _nameController!.value.text.length >= 3 &&
+                                _messageController!.value.text.length >= 10 &&
+                                _phoneController!.value.text.isPhoneNumber &&
+                                !_cmsApiController.isLoading.value) {
+                              await _cmsApiController.sendFeedback(
+                                FeedbackModel(
+                                    name: _nameController!.value.text,
+                                    phone: _phoneController!.value.text,
+                                    info: {
+                                      'type': _infoController!.value.text,
+                                      'imei': await initPlatformState()
+                                    },
+                                    message: _messageController!.value.text,
+                                    branch: ConfigApp.branchAccess,
+                                    type: 'feedback'),
+                              );
+                              if (this.mounted) {
+                                _infoController!.text = '';
+                                _nameController!.text = '';
+                                _messageController!.text = '';
+                                _phoneController!.text = '';
+                              }
+                            }
+                          },
+                          child: Text(
+                            _cmsApiController.isLoading.value
+                                ? 'sending'.tr.firstUpperCase
+                                : 'send'.tr.firstUpperCase,
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Color(0xFF1E272E),
+                              fontFamily:
+                                  'language.rtl'.tr.parseBool ? 'Rabar' : '',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                ],
+              ),
+            ),
             Container(
               child: Container(
                 height: 90,
@@ -43,7 +147,7 @@ class SettingFeedbackScreen extends StatelessWidget {
                           Expanded(
                             child: Container(
                               child: Text(
-                                'feedback'.tr,
+                                'feedback.send'.tr,
                                 textAlign: 'language.rtl'.tr.parseBool
                                     ? TextAlign.right
                                     : TextAlign.left,
@@ -62,14 +166,15 @@ class SettingFeedbackScreen extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                              onPressed: () {
-                                Get.back();
-                              },
-                              icon: Icon(
-                                'language.rtl'.tr.parseBool
-                                    ? Iconsax.arrow_left_2
-                                    : Iconsax.arrow_right_3,
-                              ))
+                            onPressed: () {
+                              Get.back();
+                            },
+                            icon: Icon(
+                              'language.rtl'.tr.parseBool
+                                  ? Iconsax.arrow_left_2
+                                  : Iconsax.arrow_right_3,
+                            ),
+                          ),
                         ],
                       ),
                     )

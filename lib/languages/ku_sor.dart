@@ -16,6 +16,8 @@ final Map<String, String> kuSor = {
   "welcome.3": "تاقی کردنەوەی یەکەم بۆ تێست",
   "welcome.4": "تاقی کردنەوەی یەکەم بۆ تێست",
   "blog": "بلۆگ",
+  "success": "سەرکەوتوو بوو",
+  "success.insert": "ناردنی @type سەرکەوتوو بوو",
   "error": "‌هەڵە رویداوە",
   "empty": "بەتاڵە",
   "error.fetch":
@@ -29,6 +31,16 @@ final Map<String, String> kuSor = {
   "our": "ئێمە",
   "about": "دەربارە",
   "contact": "پەیوەندی",
-  "feedback": "ناردنی ڕەخنە و پێشنیار",
+  "feedback": 'فیدباک',
+  "feedback.send": "ناردنی ڕەخنە و پێشنیار",
   "choose": "هەڵبژاردن",
+  "name": "ناو",
+  "service": "خزمەتگوزاری",
+  "phone": "ژمارە موبایل",
+  "info": "تکایە بە وردی باسی بکە",
+  "send": "ناردن",
+  "sending": "لە ناردندایە",
+  "items": "کاڵاکان",
+  "all": "هەمووی",
+
 };

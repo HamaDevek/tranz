@@ -5,6 +5,7 @@ class ButtonCustomComponent extends StatelessWidget {
   final color;
   final onPress;
   final height;
+
   const ButtonCustomComponent({
     Key? key,
     required Widget? this.child,

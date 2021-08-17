@@ -14,36 +14,54 @@ final client = http.Client();
 
 class BlogApiController extends GetxController {
   var isLoading = false.obs;
+  var isLoadingMore = false.obs;
+  var length = 0.obs;
   var blogs = <BlogModel>[].obs;
 
   @override
   void onInit() async {
     if (!isLoading()) {
+      print("RUN FIRST");
+
       isLoading(true);
-      blogs.value = await compute(fetchBlog, 'OK');
+      var tempVar = await compute(fetchBlog, {'from': 0, 'to': 10});
+      blogs.value = tempVar['data'];
+      length(tempVar['total']);
       isLoading(false);
     }
     super.onInit();
   }
+
+  Future<void> getMore(int from, int to) async {
+    isLoadingMore(true);
+    var tempList = await compute(fetchBlog, {'from': from, 'to': to});
+    blogs.value = [...tempList['data']];
+    isLoadingMore(false);
+  }
 }
 
-Future<List<BlogModel>> fetchBlog(String _) async {
+Future<Map<String, dynamic>> fetchBlog(Map limit) async {
   try {
     var response = await RetryOptions(maxAttempts: 5).retry(
-      () => client.post(Uri.parse('${ConfigApp.apiUrl}/v1/cms/blog/section'),
-          body: {
-            'branch': ConfigApp.branchAccess,
-            'limit': '10'
-          }).timeout(Duration(seconds: 5)),
+      () => client
+          .post(Uri.parse('${ConfigApp.apiUrl}/v1/cms/blog/section'), body: {
+        'branch': ConfigApp.branchAccess,
+        'skip': '${limit['form']}',
+        'docsLimit': '${limit['to']}',
+      }).timeout(Duration(seconds: 5)),
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
 
     if (response.statusCode == 200) {
-      return json
-          .decode(json.encode(json.decode(response.body)['sections']))
-          .cast<Map<String, dynamic>>()
-          .map<BlogModel>((json) => BlogModel.fromJson(json))
-          .toList();
+      print("RUN REQUEST");
+      return {
+        'total': json.decode(response.body)['total'],
+        'data': json
+            .decode(json.encode(json.decode(response.body)['sections']))
+            .cast<Map<String, dynamic>>()
+            .map<BlogModel>((json) => BlogModel.fromJson(json))
+            .toList()
+      };
     }
   } catch (e) {
     Get.snackbar(
@@ -75,7 +93,7 @@ Future<List<BlogModel>> fetchBlog(String _) async {
       ),
     );
   }
-  return [];
+  return {'length': 0, 'data': []};
 }
 
 Future<List<BlogModel>> convertToModel(String json) async {

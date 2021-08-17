@@ -1,0 +1,219 @@
+import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:trancehouse/app/controllers/category_api_controller.dart';
+import 'package:trancehouse/components/button_category_component.dart';
+import 'package:trancehouse/services/theme_service.dart';
+import 'package:trancehouse/utils/extentions.dart';
+
+class ShopScreen extends StatefulWidget {
+  const ShopScreen({Key? key}) : super(key: key);
+
+  @override
+  _ShopScreenState createState() => _ShopScreenState();
+}
+
+class _ShopScreenState extends State<ShopScreen> {
+  int counter = 99;
+  final CategoryApiController _categoryApiControllerController =
+      Get.put(CategoryApiController());
+  String _isSelected = 'all';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 32,
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(16),
+                    width: double.infinity,
+                    child: Text(
+                      'items'.tr,
+                      textAlign: 'language.rtl'.tr.parseBool
+                          ? TextAlign.right
+                          : TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: !ThemeService().isSavedDarkMode()
+                            ? Color(0xFF1E272E)
+                            : Colors.white,
+                      ),
+                    ),
+                  ),
+                  Obx(() {
+                    if (_categoryApiControllerController.isLoading.value) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                              child: Shimmer.fromColors(
+                                baseColor: Theme.of(context)
+                                    .accentColor
+                                    .withOpacity(.5),
+                                highlightColor: Colors.grey.withOpacity(.5),
+                                child: Container(
+                                  height: 45,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    color: Theme.of(context).accentColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                              child: Shimmer.fromColors(
+                                baseColor: Theme.of(context)
+                                    .accentColor
+                                    .withOpacity(.5),
+                                highlightColor: Colors.grey.withOpacity(.5),
+                                child: Container(
+                                  height: 45,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    color: Theme.of(context).accentColor,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: 40,
+                        child: ListView.builder(
+                          itemBuilder: (context, index) {
+                            if (index == 0) {
+                              return Row(
+                                children: [
+                                  ButtonCategoryComponent(
+                                    text: 'all'.tr,
+                                    isSelected: _isSelected == 'all',
+                                    onPress: () {
+                                      _isSelected = 'all';
+                                      setState(() {});
+                                    },
+                                  ),
+                                  ButtonCategoryComponent(
+                                    text: _categoryApiControllerController
+                                        .category[index].name,
+                                    isSelected: _isSelected ==
+                                        '${_categoryApiControllerController.category[index].id}',
+                                    onPress: () => _onClickCategory(
+                                        _categoryApiControllerController
+                                            .category[index].id),
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return ButtonCategoryComponent(
+                                text: _categoryApiControllerController
+                                    .category[index].name,
+                                isSelected: _isSelected ==
+                                    '${_categoryApiControllerController.category[index].id}',
+                                onPress: () => _onClickCategory(
+                                    _categoryApiControllerController
+                                        .category[index].id),
+                              );
+                            }
+                          },
+                          itemCount:
+                              _categoryApiControllerController.category.length,
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.symmetric(horizontal: 8),
+                        ),
+                      );
+                    }
+                  }),
+                  SizedBox(
+                    height: 14,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: Container(
+        width: 60,
+        height: 60,
+        child: RawMaterialButton(
+          shape: CircleBorder(),
+          fillColor: Theme.of(context).primaryColor,
+          // elevation: 0.0,
+          child: Container(
+            height: 50,
+            width: 50,
+            child: Stack(
+              children: [
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Iconsax.bag_2,
+                        color: Colors.black,
+                      ),
+                    ],
+                  ),
+                ),
+                counter < 1
+                    ? Container()
+                    : Positioned(
+                        top: 8,
+                        right: 4,
+                        child: Container(
+                          height: 20,
+                          width: 20,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: Colors.red,
+                            border: Border.all(color: Colors.white),
+                          ),
+                          child: Center(
+                            child: Text(
+                              counter >= 10 ? '9+' : '$counter',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      )
+              ],
+            ),
+          ),
+          onPressed: () {
+            print(_categoryApiControllerController.category[0].name);
+          },
+        ),
+      ),
+    );
+  }
+
+  _onClickCategory(id) {
+    setState(() {
+      _isSelected = '$id';
+    });
+  }
+}

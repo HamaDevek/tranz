@@ -198,7 +198,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       Get.toNamed('/feedback');
                     },
                     icon: Icon(Iconsax.edit_2),
-                    text: 'feedback'.tr,
+                    text: 'feedback.send'.tr,
                   ),
                 ],
               ),
