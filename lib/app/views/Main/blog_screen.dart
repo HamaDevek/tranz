@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trancehouse/app/controllers/blog_api_controller.dart';
 import 'package:trancehouse/components/blog/blog_component.dart';
 import 'package:trancehouse/components/blog/blog_loading_component.dart';
+import 'package:trancehouse/components/no_glow_component.dart';
 import 'package:trancehouse/services/theme_service.dart';
 import 'package:get/get.dart';
 import 'package:trancehouse/utils/extentions.dart';
@@ -18,7 +19,7 @@ class _BlogScreenState extends State<BlogScreen> {
   @override
   void initState() {
     super.initState();
-    _blogsController.onInit();
+    // _blogsController.onInit();
   }
 
   @override
@@ -49,11 +50,14 @@ class _BlogScreenState extends State<BlogScreen> {
           ),
           Expanded(child: Obx(() {
             if (_blogsController.isLoading.value) {
-              return ListView.builder(
-                itemBuilder: (_, __) {
-                  return BlogLoadingComponent();
-                },
-                itemCount: 3,
+              return ScrollConfiguration(
+                behavior: NoGlowComponent(),
+                child: ListView.builder(
+                  itemBuilder: (_, __) {
+                    return BlogLoadingComponent();
+                  },
+                  itemCount: 3,
+                ),
               );
             } else {
               return NotificationListener<ScrollNotification>(
@@ -76,17 +80,20 @@ class _BlogScreenState extends State<BlogScreen> {
                   children: [
                     RefreshIndicator(
                       onRefresh: () async => _blogsController.onInit(),
-                      child: ListView.builder(
-                        padding: EdgeInsets.only(
-                            bottom: _blogsController.isLoadingMore.value
-                                ? 100
-                                : 16),
-                        itemBuilder: (context, index) {
-                          return BlogComponent(
-                            blog: _blogsController.blogs[index],
-                          );
-                        },
-                        itemCount: _blogsController.blogs.length,
+                      child: ScrollConfiguration(
+                        behavior: NoGlowComponent(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.only(
+                              bottom: _blogsController.isLoadingMore.value
+                                  ? 100
+                                  : 16),
+                          itemBuilder: (context, index) {
+                            return BlogComponent(
+                              blog: _blogsController.blogs[index],
+                            );
+                          },
+                          itemCount: _blogsController.blogs.length,
+                        ),
                       ),
                     ),
                     _blogsController.isLoadingMore.value

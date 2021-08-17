@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:trancehouse/app/models/blog_model.dart';
+import 'package:trancehouse/components/no_glow_component.dart';
 import 'package:trancehouse/services/theme_service.dart';
 import 'package:trancehouse/utils/config.dart';
 import 'package:trancehouse/utils/extentions.dart';
@@ -32,91 +33,95 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 100,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Container(
+            ScrollConfiguration(
+              behavior: NoGlowComponent(),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 100,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Container(
+                        width: double.infinity,
+                        child: Text(
+                          '${DateFormat('yyyy-MM-dd').format(blog!.createdAt ?? DateTime.now())}',
+                          textAlign: 'language.rtl'.tr.parseBool
+                              ? TextAlign.right
+                              : TextAlign.left,
+                          style: TextStyle(
+                            fontFamily:
+                                'language.rtl'.tr.parseBool ? "Rabar" : "",
+                            fontSize: 14,
+                            color: !ThemeService().isSavedDarkMode()
+                                ? Color(0xFF1E272E)
+                                : Color(0xff9D9D9D),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      height: 260,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            "${blog!.picture?.isBlank ?? false ? ConfigApp.placeholder : blog!.picture?[0]}",
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        placeholder: (context, url) => Center(
+                          child: Icon(
+                            Iconsax.gallery,
+                            size: 50,
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Icon(
+                          Iconsax.gallery_slash,
+                          size: 50,
+                        ),
+                        cacheManager: CacheManager(
+                          Config(
+                            '${blog!.picture?.isBlank ?? false ? ConfigApp.placeholder : blog!.picture?[0]}',
+                            stalePeriod: const Duration(days: 15),
+                            maxNrOfCacheObjects: 100,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(16),
                       width: double.infinity,
                       child: Text(
-                        '${DateFormat('yyyy-MM-dd').format(blog!.createdAt ?? DateTime.now())}',
+                        '${blog!.description?["x-lang".tr] ?? "empty".tr}',
                         textAlign: 'language.rtl'.tr.parseBool
                             ? TextAlign.right
                             : TextAlign.left,
                         style: TextStyle(
                           fontFamily:
                               'language.rtl'.tr.parseBool ? "Rabar" : "",
-                          fontSize: 14,
+                          fontSize: 20,
                           color: !ThemeService().isSavedDarkMode()
                               ? Color(0xFF1E272E)
-                              : Color(0xff9D9D9D),
+                              : Colors.white,
                         ),
+                        overflow: TextOverflow.fade,
                       ),
                     ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    height: 260,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                    SizedBox(
+                      height: 16,
                     ),
-                    child: CachedNetworkImage(
-                      imageUrl:
-                          "${blog!.picture?.isBlank ?? false ? ConfigApp.placeholder : blog!.picture?[0]}",
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      placeholder: (context, url) => Center(
-                        child: Icon(
-                          Iconsax.gallery,
-                          size: 50,
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => Icon(
-                        Iconsax.gallery_slash,
-                        size: 50,
-                      ),
-                      cacheManager: CacheManager(
-                        Config(
-                          '${blog!.picture?.isBlank ?? false ? ConfigApp.placeholder : blog!.picture?[0]}',
-                          stalePeriod: const Duration(days: 15),
-                          maxNrOfCacheObjects: 100,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    width: double.infinity,
-                    child: Text(
-                      '${blog!.description?["x-lang".tr] ?? "empty".tr}',
-                      textAlign: 'language.rtl'.tr.parseBool
-                          ? TextAlign.right
-                          : TextAlign.left,
-                      style: TextStyle(
-                        fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-                        fontSize: 20,
-                        color: !ThemeService().isSavedDarkMode()
-                            ? Color(0xFF1E272E)
-                            : Colors.white,
-                      ),
-                      overflow: TextOverflow.fade,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Container(

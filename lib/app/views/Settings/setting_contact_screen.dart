@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:trancehouse/components/no_glow_component.dart';
 import 'package:trancehouse/components/setting/setting_component.dart';
 import 'package:trancehouse/services/theme_service.dart';
 import 'package:get/get.dart';
@@ -15,58 +16,61 @@ class SettingContactScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 100,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: SettingComponent(
-                      onPress: () async {
-                        String _url =
-                            'https://www.google.com/maps/search/?api=1&query=${Get.arguments["location"]["lat"]},${Get.arguments["location"]["long"]}';
-                        await canLaunch(_url)
-                            ? await launch(_url)
-                            : throw 'Could not launch :$_url';
-                      },
-                      icon: Icon(Iconsax.location),
-                      text: Get.arguments['address'],
+            ScrollConfiguration(
+                        behavior: NoGlowComponent(),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 100,
                     ),
-                  ),
-                  ...Get.arguments['email']
-                      .toString()
-                      .split('~')
-                      .map((e) => Padding(
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: SettingComponent(
+                        onPress: () async {
+                          String _url =
+                              'https://www.google.com/maps/search/?api=1&query=${Get.arguments["location"]["lat"]},${Get.arguments["location"]["long"]}';
+                          await canLaunch(_url)
+                              ? await launch(_url)
+                              : throw 'Could not launch :$_url';
+                        },
+                        icon: Icon(Iconsax.location),
+                        text: Get.arguments['address'],
+                      ),
+                    ),
+                    ...Get.arguments['email']
+                        .toString()
+                        .split('~')
+                        .map((e) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              child: SettingComponent(
+                                onPress: () async {
+                                  await canLaunch('mailto:$e')
+                                      ? await launch('mailto:$e')
+                                      : throw 'Could not launch mailto:$e';
+                                },
+                                icon: Icon(Iconsax.global),
+                                text: e,
+                              ),
+                            )),
+                    ...Get.arguments['phone'].toString().split('~').map(
+                          (e) => Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: SettingComponent(
                               onPress: () async {
-                                await canLaunch('mailto:$e')
-                                    ? await launch('mailto:$e')
-                                    : throw 'Could not launch mailto:$e';
+                                await canLaunch('tel:$e')
+                                    ? await launch('tel:$e')
+                                    : throw 'Could not launch tel:$e';
                               },
-                              icon: Icon(Iconsax.global),
-                              text: e,
+                              icon: Icon(Iconsax.call),
+                              text: 'language.rtl'.tr.parseBool
+                                  ? e.split('').reversed.join()
+                                  : e,
                             ),
-                          )),
-                  ...Get.arguments['phone'].toString().split('~').map(
-                        (e) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: SettingComponent(
-                            onPress: () async {
-                              await canLaunch('tel:$e')
-                                  ? await launch('tel:$e')
-                                  : throw 'Could not launch tel:$e';
-                            },
-                            icon: Icon(Iconsax.call),
-                            text: 'language.rtl'.tr.parseBool
-                                ? e.split('').reversed.join()
-                                : e,
                           ),
                         ),
-                      ),
-                ],
+                  ],
+                ),
               ),
             ),
             Container(

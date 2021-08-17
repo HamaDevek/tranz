@@ -3,6 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:trancehouse/app/controllers/cms_api_controller.dart';
 import 'package:trancehouse/app/models/feedback_model.dart';
 import 'package:trancehouse/components/button_custom_component.dart';
+import 'package:trancehouse/components/no_glow_component.dart';
 import 'package:trancehouse/components/textarea_custom_component.dart';
 import 'package:trancehouse/components/textfield_custom_component.dart';
 import 'package:trancehouse/services/theme_service.dart';
@@ -48,74 +49,77 @@ class _SettingFeedbackScreenState extends State<SettingFeedbackScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 100,
-                  ),
-                  TextfieldCustomComponent(
-                      hintText: 'name'.tr, controller: _nameController),
-                  SizedBox(height: 16),
-                  TextfieldCustomComponent(
-                      hintText: 'service'.tr, controller: _infoController),
-                  SizedBox(height: 16),
-                  TextfieldCustomComponent(
-                      hintText: 'phone'.tr, controller: _phoneController),
-                  SizedBox(height: 16),
-                  TextareaCustomComponent(
-                      hintText: 'info'.tr, controller: _messageController),
-                  SizedBox(height: 16),
-                  Obx(
-                    () => Padding(
-                      padding: const EdgeInsets.only(top: 32),
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 16),
-                        child: ButtonCustomComponent(
-                          onPress: () async {
-                            if (_infoController!.value.text.length > 3 &&
-                                _nameController!.value.text.length >= 3 &&
-                                _messageController!.value.text.length >= 10 &&
-                                _phoneController!.value.text.isPhoneNumber &&
-                                !_cmsApiController.isLoading.value) {
-                              await _cmsApiController.sendFeedback(
-                                FeedbackModel(
-                                    name: _nameController!.value.text,
-                                    phone: _phoneController!.value.text,
-                                    info: {
-                                      'type': _infoController!.value.text,
-                                      'imei': await initPlatformState()
-                                    },
-                                    message: _messageController!.value.text,
-                                    branch: ConfigApp.branchAccess,
-                                    type: 'feedback'),
-                              );
-                              if (this.mounted) {
-                                _infoController!.text = '';
-                                _nameController!.text = '';
-                                _messageController!.text = '';
-                                _phoneController!.text = '';
+            ScrollConfiguration(
+                        behavior: NoGlowComponent(),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 100,
+                    ),
+                    TextfieldCustomComponent(
+                        hintText: 'name'.tr, controller: _nameController),
+                    SizedBox(height: 16),
+                    TextfieldCustomComponent(
+                        hintText: 'service'.tr, controller: _infoController),
+                    SizedBox(height: 16),
+                    TextfieldCustomComponent(
+                        hintText: 'phone'.tr, controller: _phoneController),
+                    SizedBox(height: 16),
+                    TextareaCustomComponent(
+                        hintText: 'info'.tr, controller: _messageController),
+                    SizedBox(height: 16),
+                    Obx(
+                      () => Padding(
+                        padding: const EdgeInsets.only(top: 32),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 16),
+                          child: ButtonCustomComponent(
+                            onPress: () async {
+                              if (_infoController!.value.text.length > 3 &&
+                                  _nameController!.value.text.length >= 3 &&
+                                  _messageController!.value.text.length >= 10 &&
+                                  _phoneController!.value.text.isPhoneNumber &&
+                                  !_cmsApiController.isLoading.value) {
+                                await _cmsApiController.sendFeedback(
+                                  FeedbackModel(
+                                      name: _nameController!.value.text,
+                                      phone: _phoneController!.value.text,
+                                      info: {
+                                        'type': _infoController!.value.text,
+                                        'imei': await initPlatformState()
+                                      },
+                                      message: _messageController!.value.text,
+                                      branch: ConfigApp.branchAccess,
+                                      type: 'feedback'),
+                                );
+                                if (this.mounted) {
+                                  _infoController!.text = '';
+                                  _nameController!.text = '';
+                                  _messageController!.text = '';
+                                  _phoneController!.text = '';
+                                }
                               }
-                            }
-                          },
-                          child: Text(
-                            _cmsApiController.isLoading.value
-                                ? 'sending'.tr.firstUpperCase
-                                : 'send'.tr.firstUpperCase,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Color(0xFF1E272E),
-                              fontFamily:
-                                  'language.rtl'.tr.parseBool ? 'Rabar' : '',
-                              fontWeight: FontWeight.w600,
+                            },
+                            child: Text(
+                              _cmsApiController.isLoading.value
+                                  ? 'sending'.tr.firstUpperCase
+                                  : 'send'.tr.firstUpperCase,
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Color(0xFF1E272E),
+                                fontFamily:
+                                    'language.rtl'.tr.parseBool ? 'Rabar' : '',
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 16),
-                ],
+                    SizedBox(height: 16),
+                  ],
+                ),
               ),
             ),
             Container(

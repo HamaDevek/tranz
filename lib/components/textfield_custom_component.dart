@@ -18,7 +18,7 @@ class TextfieldCustomComponent extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: ThemeService().isSavedDarkMode()
               ? Color(0xFF292D32)
-              : Colors.grey.shade400,
+              : Theme.of(context).accentColor,
         ),
         child: Center(
           child: Column(

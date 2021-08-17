@@ -94,7 +94,7 @@ class _SettingChangeLangaugeComponentState
                   borderRadius: BorderRadius.circular(10),
                   color: ThemeService().isSavedDarkMode()
                       ? Color(0xFF292D32)
-                      : Colors.grey.shade400,
+                      : Colors.grey.shade300,
                 ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton(

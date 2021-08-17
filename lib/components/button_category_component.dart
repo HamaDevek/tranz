@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trancehouse/services/theme_service.dart';
 import 'package:trancehouse/utils/extentions.dart';
 
+// ignore: must_be_immutable
 class ButtonCategoryComponent extends StatefulWidget {
   final text;
   final onPress;
@@ -28,8 +30,11 @@ class _ButtonCategoryComponentState extends State<ButtonCategoryComponent> {
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Material(
         borderRadius: BorderRadius.circular(100),
-        color:
-            widget.isSelected ? Theme.of(context).primaryColor : Colors.white,
+        color: widget.isSelected
+            ? Theme.of(context).primaryColor
+            : ThemeService().isSavedDarkMode()
+                ? Colors.white
+                : Theme.of(context).accentColor,
         child: InkWell(
           onTap: widget.onPress,
           borderRadius: BorderRadius.circular(100),

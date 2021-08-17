@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trancehouse/components/button_custom_component.dart';
+import 'package:trancehouse/components/no_glow_component.dart';
 import 'package:trancehouse/model/pageview_model.dart';
 import 'package:trancehouse/services/is_first_service.dart';
 import 'package:trancehouse/services/theme_service.dart';
@@ -54,81 +55,84 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 25,
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height / 1.5,
-                    child: PageView.builder(
-                      physics: BouncingScrollPhysics(),
-                      reverse: "language.rtl".tr.parseBool,
-                      onPageChanged: (page) {
-                        setState(() {
-                          _selectedPage = _pageView[page];
-                        });
-                      },
-                      itemBuilder: (_, index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('${_pageView[index].image}'),
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        );
-                      },
-                      itemCount: _pageView.length,
-                      controller: _pageViewcontroller,
+            ScrollConfiguration(
+              behavior: NoGlowComponent(),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 25,
                     ),
-                  ),
-                  SizedBox(
-                    height: 45,
-                  ),
-                  Center(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ..."language.rtl".tr.parseBool
-                              ? _pageViewPointer(context).reversed
-                              : _pageViewPointer(context)
-                        ],
+                    Container(
+                      height: MediaQuery.of(context).size.height / 1.5,
+                      child: PageView.builder(
+                        physics: BouncingScrollPhysics(),
+                        reverse: "language.rtl".tr.parseBool,
+                        onPageChanged: (page) {
+                          setState(() {
+                            _selectedPage = _pageView[page];
+                          });
+                        },
+                        itemBuilder: (_, index) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('${_pageView[index].image}'),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          );
+                        },
+                        itemCount: _pageView.length,
+                        controller: _pageViewcontroller,
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 45,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width - 32,
-                      child: Text(
-                        "${_selectedPage!.desc}",
-                        textAlign: 'language.rtl'.tr.parseBool
-                            ? TextAlign.right
-                            : TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: !ThemeService().isSavedDarkMode()
-                              ? Color(0xFF1E272E)
-                              : Colors.white,
-                          fontFamily:
-                              'language.rtl'.tr.parseBool ? 'Rabar' : '',
-                          fontWeight: FontWeight.w600,
+                    SizedBox(
+                      height: 45,
+                    ),
+                    Center(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 2,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ..."language.rtl".tr.parseBool
+                                ? _pageViewPointer(context).reversed
+                                : _pageViewPointer(context)
+                          ],
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 110,
-                  ),
-                ],
+                    SizedBox(
+                      height: 45,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width - 32,
+                        child: Text(
+                          "${_selectedPage!.desc}",
+                          textAlign: 'language.rtl'.tr.parseBool
+                              ? TextAlign.right
+                              : TextAlign.left,
+                          style: TextStyle(
+                            fontSize: 25,
+                            color: !ThemeService().isSavedDarkMode()
+                                ? Color(0xFF1E272E)
+                                : Colors.white,
+                            fontFamily:
+                                'language.rtl'.tr.parseBool ? 'Rabar' : '',
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 110,
+                    ),
+                  ],
+                ),
               ),
             ),
             Column(

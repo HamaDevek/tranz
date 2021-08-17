@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:trancehouse/app/controllers/category_api_controller.dart';
 import 'package:trancehouse/components/button_category_component.dart';
+import 'package:trancehouse/components/no_glow_component.dart';
+import 'package:trancehouse/components/shop/shop_card_component.dart';
 import 'package:trancehouse/services/theme_service.dart';
 import 'package:trancehouse/utils/extentions.dart';
 
@@ -26,7 +28,8 @@ class _ShopScreenState extends State<ShopScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            SingleChildScrollView(
+            ScrollConfiguration(
+              behavior: NoGlowComponent(),
               child: Column(
                 children: [
                   SizedBox(
@@ -98,52 +101,74 @@ class _ShopScreenState extends State<ShopScreen> {
                     } else {
                       return Container(
                         height: 40,
-                        child: ListView.builder(
-                          itemBuilder: (context, index) {
-                            if (index == 0) {
-                              return Row(
-                                children: [
-                                  ButtonCategoryComponent(
-                                    text: 'all'.tr,
-                                    isSelected: _isSelected == 'all',
-                                    onPress: () {
-                                      _isSelected = 'all';
-                                      setState(() {});
-                                    },
-                                  ),
-                                  ButtonCategoryComponent(
-                                    text: _categoryApiControllerController
-                                        .category[index].name,
-                                    isSelected: _isSelected ==
-                                        '${_categoryApiControllerController.category[index].id}',
-                                    onPress: () => _onClickCategory(
-                                        _categoryApiControllerController
-                                            .category[index].id),
-                                  ),
-                                ],
-                              );
-                            } else {
-                              return ButtonCategoryComponent(
-                                text: _categoryApiControllerController
-                                    .category[index].name,
-                                isSelected: _isSelected ==
-                                    '${_categoryApiControllerController.category[index].id}',
-                                onPress: () => _onClickCategory(
-                                    _categoryApiControllerController
-                                        .category[index].id),
-                              );
-                            }
-                          },
-                          itemCount:
-                              _categoryApiControllerController.category.length,
-                          scrollDirection: Axis.horizontal,
-                          padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: ScrollConfiguration(
+                          behavior: NoGlowComponent(),
+                          child: ListView.builder(
+                            itemBuilder: (context, index) {
+                              if (index == 0) {
+                                return Row(
+                                  children: [
+                                    ButtonCategoryComponent(
+                                      text: 'all'.tr,
+                                      isSelected: _isSelected == 'all',
+                                      onPress: () {
+                                        _isSelected = 'all';
+                                        setState(() {});
+                                      },
+                                    ),
+                                    ButtonCategoryComponent(
+                                      text: _categoryApiControllerController
+                                          .category[index].name,
+                                      isSelected: _isSelected ==
+                                          '${_categoryApiControllerController.category[index].id}',
+                                      onPress: () => _onClickCategory(
+                                          _categoryApiControllerController
+                                              .category[index].id),
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return ButtonCategoryComponent(
+                                  text: _categoryApiControllerController
+                                      .category[index].name,
+                                  isSelected: _isSelected ==
+                                      '${_categoryApiControllerController.category[index].id}',
+                                  onPress: () => _onClickCategory(
+                                      _categoryApiControllerController
+                                          .category[index].id),
+                                );
+                              }
+                            },
+                            itemCount: _categoryApiControllerController
+                                .category.length,
+                            scrollDirection: Axis.horizontal,
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                          ),
                         ),
                       );
                     }
                   }),
-                  SizedBox(
-                    height: 14,
+                  SizedBox(height: 16),
+                  Expanded(
+                    child: GridView.builder(
+                      itemCount: 15,
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: MediaQuery.of(context).size.width /
+                              (MediaQuery.of(context).size.height / 1.6),
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                          mainAxisExtent: 230),
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      itemBuilder: (BuildContext context, int index) {
+                        return ShopCardComponent(
+                          image: '',
+                          price: '20,000',
+                          title: 'پەیژە',
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),

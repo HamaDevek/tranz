@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:trancehouse/components/no_glow_component.dart';
 import 'package:trancehouse/services/theme_service.dart';
 import 'package:get/get.dart';
 import 'package:trancehouse/utils/extentions.dart';
@@ -13,31 +14,35 @@ class SettingAboutScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 100,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    width: double.infinity,
-                    child: Text(
-                      '${Get.arguments["aboutus"]?["x-lang".tr] ?? "empty".tr}',
-                      textAlign: 'language.rtl'.tr.parseBool
-                          ? TextAlign.right
-                          : TextAlign.left,
-                      style: TextStyle(
-                        fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-                        fontSize: 20,
-                        color: !ThemeService().isSavedDarkMode()
-                            ? Color(0xFF1E272E)
-                            : Colors.white,
-                      ),
-                      overflow: TextOverflow.fade,
+            ScrollConfiguration(
+              behavior: NoGlowComponent(),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 100,
                     ),
-                  ),
-                ],
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      width: double.infinity,
+                      child: Text(
+                        '${Get.arguments["aboutus"]?["x-lang".tr] ?? "empty".tr}',
+                        textAlign: 'language.rtl'.tr.parseBool
+                            ? TextAlign.right
+                            : TextAlign.left,
+                        style: TextStyle(
+                          fontFamily:
+                              'language.rtl'.tr.parseBool ? "Rabar" : "",
+                          fontSize: 20,
+                          color: !ThemeService().isSavedDarkMode()
+                              ? Color(0xFF1E272E)
+                              : Colors.white,
+                        ),
+                        overflow: TextOverflow.fade,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Container(
