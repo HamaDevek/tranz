@@ -18,7 +18,7 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   final WebinfoApiController _webinfoApiController =
-      Get.find<WebinfoApiController>();
+      Get.find<WebinfoApiController>(tag: 'webinfo');
 
   @override
   Widget build(BuildContext context) {

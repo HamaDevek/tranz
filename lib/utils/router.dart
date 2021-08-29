@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
 import 'package:trancehouse/app/views/Blogs/single_blog_screen.dart';
+import 'package:trancehouse/app/views/Cart/cart_screen.dart';
 import 'package:trancehouse/app/views/Settings/setting_about_screen.dart';
 import 'package:trancehouse/app/views/Settings/setting_archive_screen.dart';
 import 'package:trancehouse/app/views/Settings/setting_contact_screen.dart';
 import 'package:trancehouse/app/views/Settings/setting_feedback_screen.dart';
+import 'package:trancehouse/app/views/Shop/single_item_screen.dart';
 import 'package:trancehouse/app/views/WelcomeScreens/choose_language_view.dart';
 import 'package:trancehouse/app/views/WelcomeScreens/choose_mode_view.dart';
 import 'package:trancehouse/app/views/WelcomeScreens/welcome_screen_view.dart';
@@ -67,6 +69,16 @@ class RouteName {
     GetPage(
       name: '/archive',
       page: () => const SettingArchiveScreen(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: '/cart',
+      page: () => const CartScreen(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: '/single-item',
+      page: () => const SingleItemScreen(),
       transition: Transition.fadeIn,
     ),
   ];

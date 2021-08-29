@@ -33,7 +33,7 @@ class BlogModel {
   Map? description;
   String? html;
   int? priority;
-  int? section;
+  String? section;
   String? author;
   String? category;
   String? link;
@@ -54,7 +54,7 @@ class BlogModel {
     Map? description,
     String? html,
     int? priority,
-    int? section,
+    String? section,
     String? author,
     String? category,
     String? link,
@@ -95,8 +95,8 @@ class BlogModel {
   factory BlogModel.fromMap(Map<String, dynamic> json) => BlogModel(
         picture: json["picture"] == null
             ? null
-            : List<String>.from(
-                json["picture"].map((x) => '${ConfigApp.apiUrl}/public/uploads/blog/' + x)),
+            : List<String>.from(json["picture"]
+                .map((x) => '${ConfigApp.apiUrl}/public/uploads/blog/' + x)),
         state: json["state"] == null ? null : json["state"],
         type: json["type"] == null ? null : json["type"],
         id: json["_id"] == null ? null : json["_id"],

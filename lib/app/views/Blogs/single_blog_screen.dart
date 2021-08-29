@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
@@ -87,7 +88,7 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                         ),
                         errorWidget: (context, url, error) => Icon(
                           Iconsax.gallery_slash,
-                          size: 50,
+                          size: 50, 
                         ),
                         cacheManager: CacheManager(
                           Config(
@@ -115,6 +116,12 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                               : Colors.white,
                         ),
                         overflow: TextOverflow.fade,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Html(
+                        data: blog!.html.toString(),
                       ),
                     ),
                     SizedBox(

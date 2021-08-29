@@ -13,12 +13,6 @@ class WebinfoApiController extends GetxController {
   static final client = http.Client();
   RxMap webInfo = {}.obs;
 
-  @override
-  void onInit() async {
-    webInfo(await fetchWebinfo());
-    super.onInit();
-  }
-
   Future<Map<String, dynamic>> fetchWebinfo() async {
     try {
       var response = await RetryOptions(maxAttempts: 5).retry(
@@ -28,6 +22,7 @@ class WebinfoApiController extends GetxController {
         retryIf: (e) => e is SocketException || e is TimeoutException,
       );
       if (response.statusCode == 200) {
+        webInfo(json.decode(response.body)['data']);
         return json.decode(response.body)['data'];
       }
     } catch (e) {

@@ -2,23 +2,24 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:trancehouse/app/models/item_model.dart';
 import 'package:trancehouse/services/theme_service.dart';
 import 'package:get/get.dart';
 import 'package:trancehouse/utils/config.dart';
 import 'package:trancehouse/utils/extentions.dart';
 
 class ShopCardComponent extends StatelessWidget {
-  const ShopCardComponent(
-      {Key? key, required this.title, required this.price, required this.image})
-      : super(key: key);
-  final title, price, image;
+  const ShopCardComponent({Key? key, required this.item}) : super(key: key);
+  final ItemModel item;
   @override
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(10),
       color: Theme.of(context).accentColor,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Get.toNamed('/single-item', arguments: item);
+        },
         borderRadius: BorderRadius.circular(10),
         child: Container(
           width: double.infinity,
@@ -37,7 +38,8 @@ class ShopCardComponent extends StatelessWidget {
                   color: Theme.of(context).scaffoldBackgroundColor,
                 ),
                 child: CachedNetworkImage(
-                  imageUrl: "${ConfigApp.placeholder}",
+                  imageUrl:
+                      "${item.picture?.isBlank ?? false ? ConfigApp.placeholder : item.picture?[0]}",
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -61,7 +63,7 @@ class ShopCardComponent extends StatelessWidget {
                   ),
                   cacheManager: CacheManager(
                     Config(
-                      '${ConfigApp.placeholder}',
+                      '${item.picture?.isBlank ?? false ? ConfigApp.placeholder : item.picture?[0]}',
                       stalePeriod: const Duration(days: 15),
                       maxNrOfCacheObjects: 100,
                     ),
@@ -72,7 +74,7 @@ class ShopCardComponent extends StatelessWidget {
                 margin: EdgeInsets.symmetric(horizontal: 16),
                 width: double.infinity,
                 child: Text(
-                  '${title ?? "empty".tr}',
+                  '${item.name ?? "empty".tr}',
                   textAlign: 'language.rtl'.tr.parseBool
                       ? TextAlign.right
                       : TextAlign.left,
@@ -83,14 +85,14 @@ class ShopCardComponent extends StatelessWidget {
                         ? Color(0xFF1E272E)
                         : Colors.white,
                   ),
-                  overflow: TextOverflow.fade,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16),
                 width: double.infinity,
                 child: Text(
-                  '${price ?? "20,000"}',
+                  '${item.sellingPrice ?? "0"} ' + 'IQD'.tr,
                   textAlign: 'language.rtl'.tr.parseBool
                       ? TextAlign.right
                       : TextAlign.left,

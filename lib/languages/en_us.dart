@@ -29,7 +29,7 @@ final Map<String, String> enUs = {
   "our": "Our Team",
   "about": "About",
   "contact": "Contact",
-  "feedback" : 'Feedback',
+  "feedback": 'Feedback',
   "feedback.send": "Send feedback",
   "choose": "Choose",
   "name": "Name",
@@ -40,5 +40,16 @@ final Map<String, String> enUs = {
   "sending": "Sending",
   "items": "Items",
   "all": "All",
+  "cart": "Cart",
+  "cart.empty.head": "The cart is empty.",
+  "cart.empty.footer": "Search for goods and add them to cart",
+  "total": "Total",
+  "total.all": "Totals",
+  "finish.transaction": "Complete transaction",
+  "transportation.fee": "Transportation fee",
+  "IQD": "IQD",
+  "ratio": "Ratio",
+  "cart.add": "Add to basket",
+
 
 };

@@ -42,5 +42,14 @@ final Map<String, String> kuSor = {
   "sending": "لە ناردندایە",
   "items": "کاڵاکان",
   "all": "هەمووی",
-
+  "cart": "سەبەتە",
+  "cart.empty.head": "سەبەتەکەو خاڵییە",
+  "cart.empty.footer": "بگەڕێ لەناو کاڵاکان و زیادیانبکە بۆ سەبەتە",
+  "total": "کۆ",
+  "total.all": "کۆی گشتی",
+  "finish.transaction": "تەواوکردنی مامەڵە",
+  "transportation.fee": "کرێی گواستنەوە",
+  "IQD": "دینار",
+  "ratio": "ڕێژە",
+  "cart.add": "زیادکردن بۆ سەبەتە",
 };

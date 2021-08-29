@@ -3,9 +3,12 @@ import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:trancehouse/app/controllers/category_api_controller.dart';
+import 'package:trancehouse/app/controllers/item_api_controller.dart';
+import 'package:trancehouse/app/models/item_model.dart';
 import 'package:trancehouse/components/button_category_component.dart';
 import 'package:trancehouse/components/no_glow_component.dart';
 import 'package:trancehouse/components/shop/shop_card_component.dart';
+import 'package:trancehouse/components/shop/shop_loading_component.dart';
 import 'package:trancehouse/services/theme_service.dart';
 import 'package:trancehouse/utils/extentions.dart';
 
@@ -17,10 +20,12 @@ class ShopScreen extends StatefulWidget {
 }
 
 class _ShopScreenState extends State<ShopScreen> {
-  int counter = 99;
   final CategoryApiController _categoryApiControllerController =
       Get.put(CategoryApiController());
+  final ItemApiController _itemsController = Get.put(ItemApiController());
+  int counter = 99;
   String _isSelected = 'all';
+  List<ItemModel>? _listItem;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +118,11 @@ class _ShopScreenState extends State<ShopScreen> {
                                       isSelected: _isSelected == 'all',
                                       onPress: () {
                                         _isSelected = 'all';
-                                        setState(() {});
+                                        setState(() {
+                                          _listItem = [
+                                            ..._itemsController.items
+                                          ];
+                                        });
                                       },
                                     ),
                                     ButtonCategoryComponent(
@@ -150,25 +159,53 @@ class _ShopScreenState extends State<ShopScreen> {
                   }),
                   SizedBox(height: 16),
                   Expanded(
-                    child: GridView.builder(
-                      itemCount: 15,
-                      shrinkWrap: true,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: MediaQuery.of(context).size.width /
-                              (MediaQuery.of(context).size.height / 1.6),
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                          mainAxisExtent: 230),
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      itemBuilder: (BuildContext context, int index) {
-                        return ShopCardComponent(
-                          image: '',
-                          price: '20,000',
-                          title: 'پەیژە',
+                    child: Obx(() {
+                      if (_itemsController.isLoading.value) {
+                        return GridView.builder(
+                          itemCount: 6,
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio:
+                                      MediaQuery.of(context).size.width /
+                                          (MediaQuery.of(context).size.height /
+                                              1.6),
+                                  crossAxisSpacing: 16,
+                                  mainAxisSpacing: 16,
+                                  mainAxisExtent: 230),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
+                          itemBuilder: (BuildContext context, int index) {
+                            return ShopLoadingComponent();
+                          },
                         );
-                      },
-                    ),
+                      } else {
+                        return GridView.builder(
+                          itemCount: _listItem?.length ??
+                              _itemsController.items.length,
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio:
+                                      MediaQuery.of(context).size.width /
+                                          (MediaQuery.of(context).size.height /
+                                              1.6),
+                                  crossAxisSpacing: 16,
+                                  mainAxisSpacing: 16,
+                                  mainAxisExtent: 230),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
+                          itemBuilder: (BuildContext context, int index) {
+                            return ShopCardComponent(
+                              item: _listItem?[index] ??
+                                  _itemsController.items[index],
+                            );
+                          },
+                        );
+                      }
+                    }),
                   ),
                 ],
               ),
@@ -229,7 +266,7 @@ class _ShopScreenState extends State<ShopScreen> {
             ),
           ),
           onPressed: () {
-            print(_categoryApiControllerController.category[0].name);
+            Get.toNamed('/cart');
           },
         ),
       ),
@@ -237,6 +274,9 @@ class _ShopScreenState extends State<ShopScreen> {
   }
 
   _onClickCategory(id) {
+    _listItem = [
+      ..._itemsController.items.where((element) => element.category == id)
+    ];
     setState(() {
       _isSelected = '$id';
     });

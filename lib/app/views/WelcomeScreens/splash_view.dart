@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trancehouse/app/controllers/language_controller.dart';
+import 'package:trancehouse/app/controllers/webinfo_api_controller.dart';
 import 'package:trancehouse/helpers/responsive.dart';
 import 'package:trancehouse/services/is_first_service.dart';
 
@@ -14,10 +15,12 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
   final LanguageController _languageController = Get.find<LanguageController>();
-
+  final WebinfoApiController _webinfoapiController =
+      Get.put(WebinfoApiController(), tag: 'webinfo', permanent: true);
   @override
   void initState() {
     super.initState();
+    _webinfoapiController.fetchWebinfo();
     Future.delayed(const Duration(seconds: 2), () {
       ResponsiveConfig().init(context);
       if (IsFirstService().getIsFirst()) {

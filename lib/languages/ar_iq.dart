@@ -40,4 +40,15 @@ final Map<String, String> arIq = {
   "sending": "في إرسال",
   "items": "العناصر",
   "all": "كل",
+  "cart": "سلة",
+  "cart.empty.head": "السلة فارغة",
+  "cart.empty.footer": "البحث عن السلع وإضافتها إلى سلال",
+  "total": "مجموع",
+  "total.all": "المجموع الكلي",
+  "finish.transaction": "إتمام الحركة",
+  "transportation.fee": "رسوم النقل",
+  "IQD": "دینار",
+  "ratio": "معدل",
+  "cart.add": "إضافة إلى السلة",
+
 };
