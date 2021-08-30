@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:trancehouse/app/controllers/cart_controller.dart';
 import 'package:trancehouse/components/cart/cart_empty_state_component.dart';
 import 'package:trancehouse/components/cart/cart_total_contract.dart';
 import 'package:trancehouse/services/theme_service.dart';
@@ -14,25 +15,33 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  bool isEm = !false;
+  final CartController _cartController = Get.put(CartController());
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Stack(
           children: [
-            isEm
-                ? CartEmptyStateComponent()
-                : Column(
-                    children: [
-                      SizedBox(
-                        height: 100,
-                      ),
-                      SizedBox(
-                        height: 210,
-                      ),
-                    ],
-                  ),
+            Obx(
+              () => _cartController.cart.length <= 0
+                  ? CartEmptyStateComponent()
+                  : Column(
+                      children: [
+                        SizedBox(
+                          height: 100,
+                        ),
+                        SizedBox(
+                          height: 210,
+                        ),
+                      ],
+                    ),
+            ),
             Container(
               height: 90,
               decoration: BoxDecoration(
@@ -93,12 +102,14 @@ class _CartScreenState extends State<CartScreen> {
                 ],
               ),
             ),
-            isEm
-                ? Container()
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [CartTotalComponent()],
-                  ),
+            Obx(
+              () => _cartController.cart.length <= 0
+                  ? Container()
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [CartTotalComponent()],
+                    ),
+            ),
           ],
         ),
       ),

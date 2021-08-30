@@ -50,5 +50,6 @@ final Map<String, String> arIq = {
   "IQD": "دینار",
   "ratio": "معدل",
   "cart.add": "إضافة إلى السلة",
+  "cart.added": "أضيف إلى السلة",
 
 };

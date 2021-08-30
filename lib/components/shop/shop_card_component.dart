@@ -38,8 +38,9 @@ class ShopCardComponent extends StatelessWidget {
                   color: Theme.of(context).scaffoldBackgroundColor,
                 ),
                 child: CachedNetworkImage(
-                  imageUrl:
-                      "${item.picture?.isBlank ?? false ? ConfigApp.placeholder : item.picture?[0]}",
+                  imageUrl: item.picture?.isBlank ?? false
+                      ? "${ConfigApp.placeholder}"
+                      : "${ConfigApp.apiUrl}/public/uploads/item/${item.picture?[0]}",
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -63,7 +64,9 @@ class ShopCardComponent extends StatelessWidget {
                   ),
                   cacheManager: CacheManager(
                     Config(
-                      '${item.picture?.isBlank ?? false ? ConfigApp.placeholder : item.picture?[0]}',
+                      item.picture?.isBlank ?? false
+                          ? "${ConfigApp.placeholder}"
+                          : "${ConfigApp.apiUrl}/public/uploads/item/${item.picture?[0]}",
                       stalePeriod: const Duration(days: 15),
                       maxNrOfCacheObjects: 100,
                     ),

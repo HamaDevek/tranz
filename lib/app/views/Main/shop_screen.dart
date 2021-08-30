@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:trancehouse/app/controllers/cart_controller.dart';
 import 'package:trancehouse/app/controllers/category_api_controller.dart';
 import 'package:trancehouse/app/controllers/item_api_controller.dart';
 import 'package:trancehouse/app/models/item_model.dart';
@@ -23,9 +24,14 @@ class _ShopScreenState extends State<ShopScreen> {
   final CategoryApiController _categoryApiControllerController =
       Get.put(CategoryApiController());
   final ItemApiController _itemsController = Get.put(ItemApiController());
-  int counter = 99;
+  final CartController _cartController = Get.put(CartController());
+
   String _isSelected = 'all';
   List<ItemModel>? _listItem;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -236,32 +242,36 @@ class _ShopScreenState extends State<ShopScreen> {
                     ],
                   ),
                 ),
-                counter < 1
-                    ? Container()
-                    : Positioned(
-                        top: 8,
-                        right: 4,
-                        child: Container(
-                          height: 20,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: Colors.red,
-                            border: Border.all(color: Colors.white),
-                          ),
-                          child: Center(
-                            child: Text(
-                              counter >= 10 ? '9+' : '$counter',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                Obx(() {
+                  return _cartController.cart.length <= 0
+                      ? Container()
+                      : Positioned(
+                          top: 8,
+                          right: 4,
+                          child: Container(
+                            height: 20,
+                            width: 20,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: Colors.red,
+                              border: Border.all(color: Colors.white),
+                            ),
+                            child: Center(
+                              child: Text(
+                                _cartController.cart.length >= 10
+                                    ? '9+'
+                                    : '${_cartController.cart.length}',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
                             ),
                           ),
-                        ),
-                      )
+                        );
+                })
               ],
             ),
           ),

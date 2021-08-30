@@ -52,4 +52,5 @@ final Map<String, String> kuSor = {
   "IQD": "دینار",
   "ratio": "ڕێژە",
   "cart.add": "زیادکردن بۆ سەبەتە",
+  "cart.added": "زیادکرا بۆ سەبەتە",
 };

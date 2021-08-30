@@ -12,10 +12,12 @@ class ItemModel {
     this.category,
     this.brand,
     this.itemInfo,
+    this.amount,
   });
 
   List<String>? picture;
   int? sellingPrice;
+  int? amount;
   String? id;
   String? barcode;
   String? name;
@@ -28,7 +30,7 @@ class ItemModel {
         picture: json["picture"] == null
             ? null
             : List<String>.from(json["picture"]
-                .map((x) => '${ConfigApp.apiUrl}/public/uploads/item/' + x)),
+                .map((x) =>  x)),
         sellingPrice:
             json["sellingPrice"] == null ? null : json["sellingPrice"],
         id: json["_id"] == null ? null : json["_id"],
@@ -37,6 +39,7 @@ class ItemModel {
         category: json["category"] == null ? null : json["category"],
         brand: json["brand"] == null ? null : json["brand"],
         itemInfo: json["itemInfo"] == null ? null : json["itemInfo"],
+        amount: json["amount"] == null ? 1 : json["amount"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -49,5 +52,28 @@ class ItemModel {
         "category": category == null ? null : category,
         "brand": brand == null ? null : brand,
         "itemInfo": itemInfo == null ? null : itemInfo,
+        "amount": amount == null ? null : amount,
       };
+  ItemModel copyWith({
+    List<String>? picture,
+    int? sellingPrice,
+    int? amount,
+    String? id,
+    String? barcode,
+    String? name,
+    String? category,
+    String? brand,
+    String? itemInfo,
+  }) =>
+      ItemModel(
+        picture: picture ?? this.picture,
+        sellingPrice: sellingPrice ?? this.sellingPrice,
+        id: id ?? this.id,
+        barcode: barcode ?? this.barcode,
+        name: name ?? this.name,
+        category: category ?? this.category,
+        brand: brand ?? this.brand,
+        itemInfo: itemInfo ?? this.itemInfo,
+        amount: amount ?? this.amount,
+      );
 }

@@ -50,6 +50,6 @@ final Map<String, String> enUs = {
   "IQD": "IQD",
   "ratio": "Ratio",
   "cart.add": "Add to basket",
-
+  "cart.added": "Added to basket",
 
 };

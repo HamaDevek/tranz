@@ -5,6 +5,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
+import 'package:trancehouse/app/controllers/cart_controller.dart';
 import 'package:trancehouse/app/models/item_model.dart';
 import 'package:trancehouse/app/models/item_model.dart';
 import 'package:trancehouse/components/button_custom_component.dart';
@@ -23,12 +24,13 @@ class SingleItemScreen extends StatefulWidget {
 class _SingleItemScreenState extends State<SingleItemScreen> {
   ItemModel? item;
   int? counter;
+  final CartController _cartController = Get.put(CartController());
   @override
   void initState() {
     super.initState();
     setState(() {
       item = Get.arguments;
-      counter = 1;
+      counter = _cartController.getItemFromCart(item!).amount;
     });
   }
 
@@ -53,8 +55,9 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: CachedNetworkImage(
-                        imageUrl:
-                            "${item!.picture?.isBlank ?? false ? ConfigApp.placeholder : item!.picture?[0]}",
+                        imageUrl: item!.picture?.isBlank ?? false
+                            ? "${ConfigApp.placeholder}"
+                            : "${ConfigApp.apiUrl}/public/uploads/item/${item!.picture?[0]}",
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -76,7 +79,9 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                         ),
                         cacheManager: CacheManager(
                           Config(
-                            '${item!.picture?.isBlank ?? false ? ConfigApp.placeholder : item!.picture?[0]}',
+                            item!.picture?.isBlank ?? false
+                                ? "${ConfigApp.placeholder}"
+                                : "${ConfigApp.apiUrl}/public/uploads/item/${item!.picture?[0]}",
                             stalePeriod: const Duration(days: 15),
                             maxNrOfCacheObjects: 100,
                           ),
@@ -337,7 +342,10 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                         padding: const EdgeInsets.only(
                             left: 16, right: 16, bottom: 32),
                         child: ButtonCustomComponent(
-                          onPress: () async {},
+                          onPress: () async {
+                            _cartController.addItem(item!, counter!);
+                            // print(_cartController.cart);
+                          },
                           child: Text(
                             'cart.add'.tr,
                             style: TextStyle(
