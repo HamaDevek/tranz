@@ -1,14 +1,15 @@
 import 'package:get/get.dart';
-import 'package:trancehouse/app/views/Blogs/single_blog_screen.dart';
-import 'package:trancehouse/app/views/Cart/cart_screen.dart';
-import 'package:trancehouse/app/views/Settings/setting_about_screen.dart';
-import 'package:trancehouse/app/views/Settings/setting_archive_screen.dart';
-import 'package:trancehouse/app/views/Settings/setting_contact_screen.dart';
-import 'package:trancehouse/app/views/Settings/setting_feedback_screen.dart';
-import 'package:trancehouse/app/views/Shop/single_item_screen.dart';
-import 'package:trancehouse/app/views/WelcomeScreens/choose_language_view.dart';
-import 'package:trancehouse/app/views/WelcomeScreens/choose_mode_view.dart';
-import 'package:trancehouse/app/views/WelcomeScreens/welcome_screen_view.dart';
+import '../app/views/Blogs/single_blog_screen.dart';
+import '../app/views/Cart/cart_finish_screen.dart';
+import '../app/views/Cart/cart_screen.dart';
+import '../app/views/Settings/setting_about_screen.dart';
+import '../app/views/Settings/setting_archive_screen.dart';
+import '../app/views/Settings/setting_contact_screen.dart';
+import '../app/views/Settings/setting_feedback_screen.dart';
+import '../app/views/Shop/single_item_screen.dart';
+import '../app/views/WelcomeScreens/choose_language_view.dart';
+import '../app/views/WelcomeScreens/choose_mode_view.dart';
+import '../app/views/WelcomeScreens/welcome_screen_view.dart';
 import '../app/views/Main/mian_screen.dart';
 
 import '../app/views/PageNotFound/unknowen_route_page.dart';
@@ -79,6 +80,11 @@ class RouteName {
     GetPage(
       name: '/single-item',
       page: () => const SingleItemScreen(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: '/finish-cart',
+      page: () => const CartFinishScreen(),
       transition: Transition.fadeIn,
     ),
   ];

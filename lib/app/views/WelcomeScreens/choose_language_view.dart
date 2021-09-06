@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trancehouse/app/controllers/language_controller.dart';
-import 'package:trancehouse/components/button_custom_component.dart';
-import 'package:trancehouse/components/button_custom_dark_component.dart';
-import 'package:trancehouse/components/no_glow_component.dart';
-import 'package:trancehouse/model/language_model.dart';
-import 'package:trancehouse/services/theme_service.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../../../app/controllers/language_controller.dart';
+import '../../../components/button_custom_component.dart';
+import '../../../components/button_custom_dark_component.dart';
+import '../../../components/no_glow_component.dart';
+import '../../../model/language_model.dart';
+import '../../../services/theme_service.dart';
+import '../../../utils/extentions.dart';
 
 class ChooseLanguage extends StatefulWidget {
   const ChooseLanguage({Key? key}) : super(key: key);
@@ -22,7 +22,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
     return Scaffold(
       body: SafeArea(
         child: ScrollConfiguration(
-                        behavior: NoGlowComponent(),
+          behavior: NoGlowComponent(),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -127,7 +127,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                             value: 'ku',
                             code: 'ar_SO',
                           ));
-        
+
                         Get.toNamed('/choose-mode');
                       },
                       child: Text(
@@ -135,7 +135,8 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                         style: TextStyle(
                           fontSize: 20,
                           color: Color(0xFF1E272E),
-                          fontFamily: 'language.rtl'.tr.parseBool ? 'Rabar' : '',
+                          fontFamily:
+                              'language.rtl'.tr.parseBool ? 'Rabar' : '',
                           fontWeight: FontWeight.w600,
                         ),
                       ),

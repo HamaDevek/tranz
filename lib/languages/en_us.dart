@@ -51,5 +51,15 @@ final Map<String, String> enUs = {
   "ratio": "Ratio",
   "cart.add": "Add to basket",
   "cart.added": "Added to basket",
-
+  "cart.buy": "Buy",
+  "address": "Address",
+  "address.onmap": "Address on map",
+  "cart.info": "Information",
+  "cart.city": "Delivery location",
+  "cart.date": "Date",
+  "cart.time": "Time",
+  "cancel": "Cancel",
+  "ok": "Ok",
+  "select.date": "SELECT DATE",
+  "services": "Services",
 };

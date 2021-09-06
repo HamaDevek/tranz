@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import 'package:trancehouse/services/theme_service.dart';
-import 'package:trancehouse/theme/theme_modes.dart';
-import 'package:trancehouse/utils/config.dart';
+import '../services/theme_service.dart';
+import '../theme/theme_modes.dart';
+import '../utils/config.dart';
 import '../app/bindings/binding_manager.dart';
 import '../app/views/PageNotFound/unknowen_route_page.dart';
 import '../utils/messages.dart';

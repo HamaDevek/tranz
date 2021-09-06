@@ -1,18 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:intl/intl.dart';
-import 'package:trancehouse/app/controllers/cart_controller.dart';
-import 'package:trancehouse/app/models/item_model.dart';
-import 'package:trancehouse/app/models/item_model.dart';
-import 'package:trancehouse/components/button_custom_component.dart';
-import 'package:trancehouse/components/no_glow_component.dart';
-import 'package:trancehouse/services/theme_service.dart';
-import 'package:trancehouse/utils/config.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../../../app/controllers/cart_controller.dart';
+import '../../../app/models/item_model.dart';
+import '../../../components/button_custom_component.dart';
+import '../../../components/no_glow_component.dart';
+import '../../../services/theme_service.dart';
+import '../../../utils/config.dart';
+import '../../../utils/extentions.dart';
 
 class SingleItemScreen extends StatefulWidget {
   const SingleItemScreen({Key? key}) : super(key: key);
@@ -23,14 +20,13 @@ class SingleItemScreen extends StatefulWidget {
 
 class _SingleItemScreenState extends State<SingleItemScreen> {
   ItemModel? item;
-  int? counter;
+  int counter = 1;
   final CartController _cartController = Get.put(CartController());
   @override
   void initState() {
     super.initState();
     setState(() {
       item = Get.arguments;
-      counter = _cartController.getItemFromCart(item!).amount;
     });
   }
 
@@ -248,7 +244,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                                             BorderRadius.circular(100),
                                         onTap: () {
                                           setState(() {
-                                            counter = counter! + 1;
+                                            counter = counter + 1;
                                           });
                                         },
                                         child: Container(
@@ -294,8 +290,8 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                                             BorderRadius.circular(100),
                                         onTap: () {
                                           setState(() {
-                                            counter = counter! > 1
-                                                ? counter! - 1
+                                            counter = counter > 1
+                                                ? counter - 1
                                                 : counter;
                                           });
                                         },
@@ -316,7 +312,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                                   ],
                                 ),
                                 Text(
-                                  '${(item?.sellingPrice ?? 0) * counter!} ' +
+                                  '${(item?.sellingPrice ?? 0) * counter} ' +
                                       'IQD'.tr,
                                   textAlign: 'language.rtl'.tr.parseBool
                                       ? TextAlign.right
@@ -343,7 +339,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                             left: 16, right: 16, bottom: 32),
                         child: ButtonCustomComponent(
                           onPress: () async {
-                            _cartController.addItem(item!, counter!);
+                            _cartController.addItem(item!, counter);
                             // print(_cartController.cart);
                           },
                           child: Text(

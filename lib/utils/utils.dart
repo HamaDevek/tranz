@@ -1,23 +1,27 @@
 import 'dart:io' as io;
 
+import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:imei_plugin/imei_plugin.dart';
+
 import 'package:intl/intl.dart';
 
-Future<String> initPlatformState() async {
-  String platformImei = 'Unknown';
+Future<String> getDeviceIdentifier() async {
+  String identifier = 'Unknowen';
+  final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
   try {
     if (io.Platform.isAndroid) {
-      platformImei = await ImeiPlugin.getId();
+      var build = await deviceInfoPlugin.androidInfo;
+      identifier = build.androidId; //UUID for Android
     } else if (io.Platform.isIOS) {
-      platformImei = await ImeiPlugin.getImei();
+      var data = await deviceInfoPlugin.iosInfo;
+      identifier = data.identifierForVendor; //UUID for iOS
     }
   } on PlatformException {
-    platformImei = 'Failed to get Device Imei Address.';
+    print('Failed to get platform version');
   }
-  return platformImei;
+  return identifier;
 }
 
 Size screenSize(BuildContext context) {

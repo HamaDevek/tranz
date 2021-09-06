@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:trancehouse/services/theme_service.dart';
+import '../../../services/theme_service.dart';
 import 'package:get/get.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../../../utils/extentions.dart';
 
 class SettingArchiveScreen extends StatelessWidget {
   const SettingArchiveScreen({Key? key}) : super(key: key);

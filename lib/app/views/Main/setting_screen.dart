@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:trancehouse/app/controllers/webinfo_api_controller.dart';
-import 'package:trancehouse/components/no_glow_component.dart';
-import 'package:trancehouse/components/setting/setting_change_language_component.dart';
-import 'package:trancehouse/components/setting/setting_change_mode_component.dart';
-import 'package:trancehouse/components/setting/setting_component.dart';
-import 'package:trancehouse/services/theme_service.dart';
+import '../../../app/controllers/webinfo_api_controller.dart';
+import '../../../components/no_glow_component.dart';
+import '../../../components/setting/setting_change_language_component.dart';
+import '../../../components/setting/setting_change_mode_component.dart';
+import '../../../components/setting/setting_component.dart';
+import '../../../services/theme_service.dart';
 import 'package:get/get.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../../../utils/extentions.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);

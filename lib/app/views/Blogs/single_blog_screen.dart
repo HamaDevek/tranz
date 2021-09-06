@@ -5,11 +5,11 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:trancehouse/app/models/blog_model.dart';
-import 'package:trancehouse/components/no_glow_component.dart';
-import 'package:trancehouse/services/theme_service.dart';
-import 'package:trancehouse/utils/config.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../../../app/models/blog_model.dart';
+import '../../../components/no_glow_component.dart';
+import '../../../services/theme_service.dart';
+import '../../../utils/config.dart';
+import '../../../utils/extentions.dart';
 
 class SingleBlogScreen extends StatefulWidget {
   const SingleBlogScreen({Key? key}) : super(key: key);
@@ -88,7 +88,7 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                         ),
                         errorWidget: (context, url, error) => Icon(
                           Iconsax.gallery_slash,
-                          size: 50, 
+                          size: 50,
                         ),
                         cacheManager: CacheManager(
                           Config(

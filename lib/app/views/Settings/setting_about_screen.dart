@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:trancehouse/components/no_glow_component.dart';
-import 'package:trancehouse/services/theme_service.dart';
+import '../../../components/no_glow_component.dart';
+import '../../../services/theme_service.dart';
 import 'package:get/get.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../../../utils/extentions.dart';
 
 class SettingAboutScreen extends StatelessWidget {
   const SettingAboutScreen({Key? key}) : super(key: key);

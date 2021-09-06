@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:trancehouse/app/controllers/cart_controller.dart';
-import 'package:trancehouse/components/cart/cart_empty_state_component.dart';
-import 'package:trancehouse/components/cart/cart_total_contract.dart';
-import 'package:trancehouse/services/theme_service.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../../../app/controllers/cart_controller.dart';
+import '../../../components/cart/cart_empty_state_component.dart';
+import '../../../components/cart/cart_item_component.dart';
+import '../../../components/cart/cart_total_contract_component.dart';
+import '../../../components/no_glow_component.dart';
+import '../../../services/theme_service.dart';
+import '../../../utils/extentions.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -20,6 +22,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     super.initState();
+    _cartController.getCartInfo();
   }
 
   @override
@@ -35,6 +38,23 @@ class _CartScreenState extends State<CartScreen> {
                       children: [
                         SizedBox(
                           height: 100,
+                        ),
+                        Expanded(
+                          child: ScrollConfiguration(
+                            behavior: NoGlowComponent(),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Obx(() => ListView.builder(
+                                    itemBuilder: (_, index) {
+                                      return CartItemComponent(
+                                        item: _cartController.cart[index],
+                                      );
+                                    },
+                                    itemCount: _cartController.cart.length,
+                                  )),
+                            ),
+                          ),
                         ),
                         SizedBox(
                           height: 210,
@@ -98,7 +118,7 @@ class _CartScreenState extends State<CartScreen> {
                             ))
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trancehouse/services/theme_service.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../services/theme_service.dart';
+import '../utils/extentions.dart';
 
 // ignore: must_be_immutable
 class ButtonCategoryComponent extends StatefulWidget {

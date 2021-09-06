@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:get/get.dart';
-import 'package:trancehouse/enums/connectivity_status.dart';
+import '../../enums/connectivity_status.dart';
 
 class NetworkManagerController extends GetxController {
   ConnectivityStatus connectivityType = ConnectivityStatus.offline;

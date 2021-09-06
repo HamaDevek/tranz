@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:trancehouse/app/models/blog_model.dart';
-import 'package:trancehouse/services/theme_service.dart';
+import '../../app/models/blog_model.dart';
+import '../../services/theme_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
-import 'package:trancehouse/utils/config.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../../utils/config.dart';
+import '../../utils/extentions.dart';
 
 class BlogComponent extends StatelessWidget {
   const BlogComponent({Key? key, required this.blog}) : super(key: key);

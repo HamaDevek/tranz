@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:trancehouse/app/controllers/language_controller.dart';
-import 'package:trancehouse/app/controllers/webinfo_api_controller.dart';
-import 'package:trancehouse/helpers/responsive.dart';
-import 'package:trancehouse/services/is_first_service.dart';
+import '../../../app/controllers/city_api_controller.dart';
+import '../../../app/controllers/language_controller.dart';
+import '../../../app/controllers/webinfo_api_controller.dart';
+import '../../../helpers/responsive.dart';
+import '../../../services/is_first_service.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
+    Get.put(CityApiController(), tag: 'city', permanent: true).getCity();
     _webinfoapiController.fetchWebinfo();
     Future.delayed(const Duration(seconds: 2), () {
       ResponsiveConfig().init(context);

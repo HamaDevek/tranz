@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trancehouse/components/button_custom_component.dart';
-import 'package:trancehouse/components/no_glow_component.dart';
-import 'package:trancehouse/model/pageview_model.dart';
-import 'package:trancehouse/services/is_first_service.dart';
-import 'package:trancehouse/services/theme_service.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../../../components/button_custom_component.dart';
+import '../../../components/no_glow_component.dart';
+import '../../../model/pageview_model.dart';
+import '../../../services/is_first_service.dart';
+import '../../../services/theme_service.dart';
+import '../../../utils/extentions.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);

@@ -5,9 +5,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:trancehouse/utils/config.dart';
+import '../../utils/config.dart';
 import 'package:retry/retry.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../../utils/extentions.dart';
 
 class WebinfoApiController extends GetxController {
   static final client = http.Client();

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trancehouse/services/theme_service.dart';
+import '../services/theme_service.dart';
 
 class ButtonCustomDarkComponent extends StatelessWidget {
   final text;

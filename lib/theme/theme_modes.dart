@@ -41,6 +41,9 @@ class Themes {
     colorScheme: const ColorScheme.light().copyWith(
       primary: Color(0xffFEEC46),
       secondary: Color(0xFFF9F1A3),
+      onPrimary: Colors.black,
+      onSurface: Colors.white,
+      surface: Color(0xff222F3E),
     ),
     primaryColor: Color(0xffFEEC46),
     buttonColor: Color(0xffFEEC46),

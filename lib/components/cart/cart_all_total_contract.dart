@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:trancehouse/components/button_custom_component.dart';
+import '../../app/controllers/cart_controller.dart';
+import '../../components/button_custom_component.dart';
 import 'package:get/get.dart';
-import 'package:trancehouse/services/theme_service.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../../services/theme_service.dart';
+import '../../utils/extentions.dart';
 
-class CartTotalComponent extends StatefulWidget {
-  const CartTotalComponent({Key? key}) : super(key: key);
+class CartAllTotalComponent extends StatefulWidget {
+  final onPress;
+
+  const CartAllTotalComponent({Key? key, required this.onPress})
+      : super(key: key);
 
   @override
-  _CartTotalComponentState createState() => _CartTotalComponentState();
+  _CartAllTotalComponentState createState() =>
+      _CartAllTotalComponentState(this.onPress);
 }
 
-class _CartTotalComponentState extends State<CartTotalComponent> {
+class _CartAllTotalComponentState extends State<CartAllTotalComponent> {
+  final CartController _cartController = Get.put(CartController());
+  final onPress;
+
+  _CartAllTotalComponentState(this.onPress);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,7 +77,7 @@ class _CartTotalComponentState extends State<CartTotalComponent> {
                   Expanded(
                     child: Container(
                       child: Text(
-                        '20.000',
+                        '${_cartController.total.value.toInt()}',
                         textAlign: !'language.rtl'.tr.parseBool
                             ? TextAlign.right
                             : TextAlign.left,
@@ -119,7 +128,7 @@ class _CartTotalComponentState extends State<CartTotalComponent> {
                   Expanded(
                     child: Container(
                       child: Text(
-                        '5.000',
+                        '${_cartController.fee.value.toInt()}',
                         textAlign: !'language.rtl'.tr.parseBool
                             ? TextAlign.right
                             : TextAlign.left,
@@ -167,26 +176,28 @@ class _CartTotalComponentState extends State<CartTotalComponent> {
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      child: Text(
-                        '25.000',
-                        textAlign: !'language.rtl'.tr.parseBool
-                            ? TextAlign.right
-                            : TextAlign.left,
-                        style: TextStyle(
-                          fontFamily:
-                              'language.rtl'.tr.parseBool ? "Rabar" : "",
-                          fontSize: 20,
-                          color: !ThemeService().isSavedDarkMode()
-                              ? Color(0xFF1E272E)
-                              : Colors.white,
-                          fontWeight: FontWeight.bold,
+                  Obx(
+                    () => Expanded(
+                      child: Container(
+                        child: Text(
+                          '${_cartController.total.value.toInt() + _cartController.fee.value.toInt()}',
+                          textAlign: !'language.rtl'.tr.parseBool
+                              ? TextAlign.right
+                              : TextAlign.left,
+                          style: TextStyle(
+                            fontFamily:
+                                'language.rtl'.tr.parseBool ? "Rabar" : "",
+                            fontSize: 20,
+                            color: !ThemeService().isSavedDarkMode()
+                                ? Color(0xFF1E272E)
+                                : Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.fade,
                         ),
-                        overflow: TextOverflow.fade,
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -194,9 +205,9 @@ class _CartTotalComponentState extends State<CartTotalComponent> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ButtonCustomComponent(
-              onPress: () async {},
+              onPress: onPress,
               child: Text(
-                'finish.transaction'.tr,
+                'cart.buy'.tr,
                 style: TextStyle(
                   fontSize: 20,
                   color: Color(0xFF1E272E),

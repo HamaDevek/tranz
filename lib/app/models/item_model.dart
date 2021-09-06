@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:trancehouse/utils/config.dart';
-
 class ItemModel {
   ItemModel({
     this.picture,
@@ -29,8 +27,7 @@ class ItemModel {
   factory ItemModel.fromMap(Map<String, dynamic> json) => ItemModel(
         picture: json["picture"] == null
             ? null
-            : List<String>.from(json["picture"]
-                .map((x) =>  x)),
+            : List<String>.from(json["picture"].map((x) => x)),
         sellingPrice:
             json["sellingPrice"] == null ? null : json["sellingPrice"],
         id: json["_id"] == null ? null : json["_id"],

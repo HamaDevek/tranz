@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trancehouse/components/button_custom_component.dart';
-import 'package:trancehouse/services/theme_service.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../../components/button_custom_component.dart';
+import '../../services/theme_service.dart';
+import '../../utils/extentions.dart';
 
 class SettingChangeColorComponent extends StatefulWidget {
   const SettingChangeColorComponent({Key? key}) : super(key: key);

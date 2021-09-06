@@ -5,10 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:trancehouse/app/models/blog_model.dart';
-import 'package:trancehouse/utils/config.dart';
+import '../../app/models/blog_model.dart';
+import '../../utils/config.dart';
 import 'package:retry/retry.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../../utils/extentions.dart';
 
 final client = http.Client();
 

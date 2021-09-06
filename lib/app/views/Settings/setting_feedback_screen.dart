@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:trancehouse/app/controllers/cms_api_controller.dart';
-import 'package:trancehouse/app/models/feedback_model.dart';
-import 'package:trancehouse/components/button_custom_component.dart';
-import 'package:trancehouse/components/no_glow_component.dart';
-import 'package:trancehouse/components/textarea_custom_component.dart';
-import 'package:trancehouse/components/textfield_custom_component.dart';
-import 'package:trancehouse/services/theme_service.dart';
+import '../../../app/controllers/cms_api_controller.dart';
+import '../../../app/models/feedback_model.dart';
+import '../../../components/button_custom_component.dart';
+import '../../../components/no_glow_component.dart';
+import '../../../components/textarea_custom_component.dart';
+import '../../../components/textfield_custom_component.dart';
+import '../../../services/theme_service.dart';
 import 'package:get/get.dart';
-import 'package:trancehouse/utils/config.dart';
-import 'package:trancehouse/utils/extentions.dart';
-import 'package:trancehouse/utils/utils.dart';
+import '../../../utils/config.dart';
+import '../../../utils/extentions.dart';
+import '../../../utils/utils.dart';
 
 class SettingFeedbackScreen extends StatefulWidget {
   const SettingFeedbackScreen({Key? key}) : super(key: key);
@@ -50,7 +50,7 @@ class _SettingFeedbackScreenState extends State<SettingFeedbackScreen> {
         child: Stack(
           children: [
             ScrollConfiguration(
-                        behavior: NoGlowComponent(),
+              behavior: NoGlowComponent(),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -64,7 +64,9 @@ class _SettingFeedbackScreenState extends State<SettingFeedbackScreen> {
                         hintText: 'service'.tr, controller: _infoController),
                     SizedBox(height: 16),
                     TextfieldCustomComponent(
-                        hintText: 'phone'.tr, controller: _phoneController),
+                        hintText: 'phone'.tr,
+                        controller: _phoneController,
+                        keyboardType: TextInputType.phone),
                     SizedBox(height: 16),
                     TextareaCustomComponent(
                         hintText: 'info'.tr, controller: _messageController),
@@ -87,7 +89,7 @@ class _SettingFeedbackScreenState extends State<SettingFeedbackScreen> {
                                       phone: _phoneController!.value.text,
                                       info: {
                                         'type': _infoController!.value.text,
-                                        'imei': await initPlatformState()
+                                        'imei': await getDeviceIdentifier()
                                       },
                                       message: _messageController!.value.text,
                                       branch: ConfigApp.branchAccess,

@@ -51,5 +51,13 @@ final Map<String, String> arIq = {
   "ratio": "معدل",
   "cart.add": "إضافة إلى السلة",
   "cart.added": "أضيف إلى السلة",
-
+  "cart.buy": "ابتاع",
+  "address": "عنوان",
+  "address.onmap": "حدد موقعك على الخريطة",
+  "cart.info": "معلومات",
+  "cart.city": "موقع التسليم",
+  "cart.date": "تاريخ",
+  "cart.time": "الوقت",
+  "select.date": "تحديد تاريخ",
+  "services": "خدمات",
 };

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trancehouse/app/controllers/language_controller.dart';
-import 'package:trancehouse/components/button_custom_component.dart';
-import 'package:trancehouse/model/language_model.dart';
-import 'package:trancehouse/services/theme_service.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../../app/controllers/language_controller.dart';
+import '../../components/button_custom_component.dart';
+import '../../model/language_model.dart';
+import '../../services/theme_service.dart';
+import '../../utils/extentions.dart';
 
 class SettingChangeLangaugeComponent extends StatefulWidget {
   const SettingChangeLangaugeComponent({Key? key}) : super(key: key);

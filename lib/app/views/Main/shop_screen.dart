@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:trancehouse/app/controllers/cart_controller.dart';
-import 'package:trancehouse/app/controllers/category_api_controller.dart';
-import 'package:trancehouse/app/controllers/item_api_controller.dart';
-import 'package:trancehouse/app/models/item_model.dart';
-import 'package:trancehouse/components/button_category_component.dart';
-import 'package:trancehouse/components/no_glow_component.dart';
-import 'package:trancehouse/components/shop/shop_card_component.dart';
-import 'package:trancehouse/components/shop/shop_loading_component.dart';
-import 'package:trancehouse/services/theme_service.dart';
-import 'package:trancehouse/utils/extentions.dart';
+import '../../../app/controllers/cart_controller.dart';
+import '../../../app/controllers/category_api_controller.dart';
+import '../../../app/controllers/item_api_controller.dart';
+import '../../../app/models/item_model.dart';
+import '../../../components/button_category_component.dart';
+import '../../../components/no_glow_component.dart';
+import '../../../components/shop/shop_card_component.dart';
+import '../../../components/shop/shop_loading_component.dart';
+import '../../../services/theme_service.dart';
+import '../../../utils/extentions.dart';
 
 class ShopScreen extends StatefulWidget {
   const ShopScreen({Key? key}) : super(key: key);

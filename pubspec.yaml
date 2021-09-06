@@ -24,6 +24,7 @@ dependencies:
   cached_network_image: ^3.1.0
   connectivity: ^3.0.6
   cupertino_icons: ^1.0.2
+  device_info: ^2.0.2
   flutter:
     sdk: flutter
 
@@ -35,7 +36,6 @@ dependencies:
   get_storage: ^2.0.3
   http: ^0.13.3
   iconsax: ^0.0.8
-  imei_plugin:
   intl: ^0.17.0
   # lint: ^1.5.3
   photo_view: ^0.12.0

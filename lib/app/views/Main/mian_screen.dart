@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:trancehouse/app/views/Main/blog_screen.dart';
-import 'package:trancehouse/app/views/Main/service_screen.dart';
-import 'package:trancehouse/app/views/Main/setting_screen.dart';
-import 'package:trancehouse/app/views/Main/shop_screen.dart';
+import '../../../app/views/Main/blog_screen.dart';
+import '../../../app/views/Main/service_screen.dart';
+import '../../../app/views/Main/setting_screen.dart';
+import '../../../app/views/Main/shop_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);

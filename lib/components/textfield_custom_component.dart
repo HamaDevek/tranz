@@ -1,12 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:trancehouse/services/theme_service.dart';
+import '../services/theme_service.dart';
 
 class TextfieldCustomComponent extends StatelessWidget {
   const TextfieldCustomComponent(
-      {Key? key, required this.hintText, this.inputFormatters, this.controller})
+      {Key? key,
+      required this.hintText,
+      this.inputFormatters,
+      this.controller,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.onTap,
+      this.keyboardType,
+      this.readOnly})
       : super(key: key);
-  final hintText, inputFormatters, controller;
+  final hintText,
+      inputFormatters,
+      controller,
+      prefixIcon,
+      suffixIcon,
+      keyboardType,
+      readOnly,
+      onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +40,8 @@ class TextfieldCustomComponent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
+                onTap: onTap,
+                readOnly: readOnly ?? false,
                 controller: controller,
                 maxLength: 255,
                 inputFormatters: inputFormatters,
@@ -33,11 +50,13 @@ class TextfieldCustomComponent extends StatelessWidget {
                         ? Color(0xFF1E272E)
                         : Colors.white,
                     fontSize: 20),
-                keyboardType: TextInputType.text,
+                keyboardType: keyboardType ?? TextInputType.text,
                 textInputAction: TextInputAction.done,
                 autocorrect: false,
                 autofocus: false,
                 decoration: InputDecoration(
+                  prefixIcon: prefixIcon,
+                  suffixIcon: suffixIcon,
                   hintText: hintText,
                   hintStyle: TextStyle(fontSize: 20),
                   border: InputBorder.none,
