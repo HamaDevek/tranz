@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../../app/models/feedback_model.dart';
+import '../models/feedback_api_model.dart';
 import '../../utils/config.dart';
 import 'package:retry/retry.dart';
 import '../../utils/extentions.dart';
@@ -13,7 +13,7 @@ final client = http.Client();
 
 class CmsApiController extends GetxController {
   var isLoading = false.obs;
-  Future<bool> sendFeedback(FeedbackModel feedback) async {
+  Future<bool> sendFeedback(FeedbackApiModel feedback) async {
     if (!isLoading()) {
       isLoading(true);
       bool isTrue = await compute(sendFeedbackThread, feedback);
@@ -50,7 +50,7 @@ class CmsApiController extends GetxController {
   }
 }
 
-Future<bool> sendFeedbackThread(FeedbackModel feedback) async {
+Future<bool> sendFeedbackThread(FeedbackApiModel feedback) async {
   try {
     var response = await RetryOptions(maxAttempts: 5).retry(
       () => client.post(

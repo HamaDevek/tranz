@@ -48,10 +48,10 @@ class CategoryModel {
         "_id": id == null ? null : id,
         "name": name == null ? null : name,
         "showInGrid": showInGrid == null ? null : showInGrid,
-        "createdAt": createdAt == null ? null : createdAt?.toIso8601String(),
+        "createdAt": createdAt == null ? null : createdAt!.toIso8601String(),
         "createdBy": createdBy == null ? null : createdBy,
         "__v": v == null ? null : v,
-        "updatedAt": updatedAt == null ? null : updatedAt?.toIso8601String(),
+        "updatedAt": updatedAt == null ? null : updatedAt!.toIso8601String(),
         "updatedBy": updatedBy == null ? null : updatedBy,
       };
 }

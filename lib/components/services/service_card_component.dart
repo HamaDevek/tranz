@@ -1,17 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:trancehouse/app/controllers/service_api_controller.dart';
 import '../../app/models/service_model.dart';
-import '../../services/theme_service.dart';
 import 'package:get/get.dart';
 import '../../utils/config.dart';
-import '../../utils/extentions.dart';
 
-class ServiceCardComponent extends StatelessWidget {
-  const ServiceCardComponent({Key? key}) : super(key: key);
-  // final ServiceModel service;
+class ServiceCardComponent extends StatefulWidget {
+  const ServiceCardComponent({Key? key, required this.service})
+      : super(key: key);
+
+  final ServiceModel service;
+
+  @override
+  _ServiceCardComponentState createState() => _ServiceCardComponentState();
+}
+
+class _ServiceCardComponentState extends State<ServiceCardComponent> {
+  final ServiceApiController _serviceApiController =
+      Get.put(ServiceApiController());
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -19,7 +28,14 @@ class ServiceCardComponent extends StatelessWidget {
       color: Theme.of(context).accentColor,
       child: InkWell(
         onTap: () {
-          // Get.toNamed('/single-item', arguments: item);
+          if (_serviceApiController
+                  .getchiled(widget.service.id!.toString())!
+                  .length >
+              0) {
+            Get.toNamed('/subservice', arguments: widget.service);
+          } else {
+             Get.toNamed('/subservice/blogs', arguments: widget.service);
+          }
         },
         borderRadius: BorderRadius.circular(10),
         child: Container(
@@ -29,7 +45,8 @@ class ServiceCardComponent extends StatelessWidget {
           child: Stack(
             children: [
               CachedNetworkImage(
-                imageUrl: '${ConfigApp.placeholder}',
+                imageUrl:
+                    '${widget.service.picture.isBlank ?? false ? ConfigApp.placeholder : "${ConfigApp.apiUrl}/public/uploads/category/${widget.service.picture}"}',
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -53,7 +70,7 @@ class ServiceCardComponent extends StatelessWidget {
                 ),
                 cacheManager: CacheManager(
                   Config(
-                    '${ConfigApp.placeholder}',
+                    '${widget.service.picture.isBlank ?? false ? ConfigApp.placeholder : "${ConfigApp.apiUrl}/public/uploads/category/${widget.service.picture}"}',
                     stalePeriod: const Duration(days: 15),
                     maxNrOfCacheObjects: 100,
                   ),
@@ -84,7 +101,7 @@ class ServiceCardComponent extends StatelessWidget {
                     children: [
                       Flexible(
                         child: Text(
-                          'خزمەتگوزاریەکان',
+                          '${widget.service.title?["x-lang".tr] ?? "empty".tr}',
                           style: TextStyle(
                             fontSize: 20,
                           ),

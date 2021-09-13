@@ -64,4 +64,8 @@ final Map<String, String> kuSor = {
   "ok": "باشە",
   "select.date": "هەڵبژاردنی بەروار",
   "services": "خزمەتگوزاریەکان",
+  "services.types": "جۆرەکانی خزمەتگوزاری",
+  "services.order": "داواکردنی ئەم خزمەتگوزاریە",
+  "order": "داواکردن",
+  "services.success": "داواکاریەکات بە سەرکەوتووی نێردرا",
 };

@@ -62,4 +62,8 @@ final Map<String, String> enUs = {
   "ok": "Ok",
   "select.date": "SELECT DATE",
   "services": "Services",
+  "services.types": "Service types",
+  "services.order": "Order this service",
+  "order": "Order",
+  "services.success": "Your order has been successfully sent",
 };

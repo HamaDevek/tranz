@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../../app/controllers/cms_api_controller.dart';
-import '../../../app/models/feedback_model.dart';
+import '../../models/feedback_api_model.dart';
 import '../../../components/button_custom_component.dart';
 import '../../../components/no_glow_component.dart';
 import '../../../components/textarea_custom_component.dart';
@@ -84,13 +84,13 @@ class _SettingFeedbackScreenState extends State<SettingFeedbackScreen> {
                                   _phoneController!.value.text.isPhoneNumber &&
                                   !_cmsApiController.isLoading.value) {
                                 await _cmsApiController.sendFeedback(
-                                  FeedbackModel(
+                                  FeedbackApiModel(
                                       name: _nameController!.value.text,
                                       phone: _phoneController!.value.text,
                                       info: {
                                         'type': _infoController!.value.text,
-                                        'imei': await getDeviceIdentifier()
                                       },
+                                      imei: await getDeviceIdentifier(),
                                       message: _messageController!.value.text,
                                       branch: ConfigApp.branchAccess,
                                       type: 'feedback'),

@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:trancehouse/app/views/Services/service_order_screen.dart';
+import 'package:trancehouse/app/views/Services/service_subservice_screen.dart';
+import 'package:trancehouse/app/views/Services/single_service_with_blog.dart';
 import '../app/views/Blogs/single_blog_screen.dart';
 import '../app/views/Cart/cart_finish_screen.dart';
 import '../app/views/Cart/cart_screen.dart';
@@ -86,6 +89,21 @@ class RouteName {
       name: '/finish-cart',
       page: () => const CartFinishScreen(),
       transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: '/subservice',
+      page: () => const ServiceSubserviceScreen(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: '/subservice/blogs',
+      page: () => const SingleServiceWithBlog(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: '/service/order',
+      page: () => const ServiceOrderScreen(),
+      transition: Transition.downToUp,
     ),
   ];
 }

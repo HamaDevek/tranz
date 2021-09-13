@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:trancehouse/app/controllers/service_api_controller.dart';
 import 'package:trancehouse/components/no_glow_component.dart';
 import 'package:trancehouse/components/services/service_card_component.dart';
+import 'package:trancehouse/components/services/service_loading_component.dart';
 import 'package:trancehouse/services/theme_service.dart';
 import 'package:get/get.dart';
 import '../../../utils/extentions.dart';
@@ -14,7 +16,9 @@ class ServiceScreen extends StatefulWidget {
 }
 
 class _ServiceScreenState extends State<ServiceScreen> {
-  bool _isGrid = true;
+  final ServiceApiController _serviceApiController =
+      Get.put(ServiceApiController());
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -74,35 +78,61 @@ class _ServiceScreenState extends State<ServiceScreen> {
                   ),
                   IconButton(
                     onPressed: () {
-                      setState(() {
-                        _isGrid = !_isGrid;
-                      });
+                      _serviceApiController.changeVertical();
                     },
-                    icon: Icon(_isGrid
-                        ? Iconsax.row_vertical
-                        : Iconsax.row_horizontal),
+                    icon: Obx(() {
+                      return Icon(_serviceApiController.isVertical.value
+                          ? Iconsax.row_vertical
+                          : Iconsax.row_horizontal);
+                    }),
                   )
                 ],
               )),
-          Expanded(
-            child: ScrollConfiguration(
-              behavior: NoGlowComponent(),
-              child: GridView.builder(
-                  itemCount: 12,
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: _isGrid ? 2 : 1,
-                      childAspectRatio: MediaQuery.of(context).size.width /
-                          (MediaQuery.of(context).size.height / 1.6),
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                      mainAxisExtent: _isGrid ? 145 : 185),
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  itemBuilder: (_, __) {
-                    return ServiceCardComponent();
-                  }),
-            ),
-          ),
+          Expanded(child: Obx(() {
+            if (_serviceApiController.isLoading.value) {
+              return ScrollConfiguration(
+                behavior: NoGlowComponent(),
+                child: GridView.builder(
+                    itemCount: 6,
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount:
+                            _serviceApiController.isVertical.value ? 2 : 1,
+                        childAspectRatio: MediaQuery.of(context).size.width /
+                            (MediaQuery.of(context).size.height / 1.6),
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                        mainAxisExtent:
+                            _serviceApiController.isVertical.value ? 145 : 185),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                    itemBuilder: (context, index) {
+                      return ServiceLoadingComponent();
+                    }),
+              );
+            } else {
+              return ScrollConfiguration(
+                behavior: NoGlowComponent(),
+                child: GridView.builder(
+                    itemCount: _serviceApiController.getParent()!.length,
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount:
+                            _serviceApiController.isVertical.value ? 2 : 1,
+                        childAspectRatio: MediaQuery.of(context).size.width /
+                            (MediaQuery.of(context).size.height / 1.6),
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                        mainAxisExtent:
+                            _serviceApiController.isVertical.value ? 145 : 185),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                    itemBuilder: (context, index) {
+                      return ServiceCardComponent(
+                        service: _serviceApiController.getParent()![index],
+                      );
+                    }),
+              );
+            }
+          })),
         ],
       ),
     );

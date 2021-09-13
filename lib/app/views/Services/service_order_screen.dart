@@ -1,6 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
+import 'package:trancehouse/app/controllers/service_api_controller.dart';
+import 'package:trancehouse/app/models/service_api_model.dart';
+import 'package:trancehouse/app/models/service_model.dart';
+import 'package:trancehouse/components/button_custom_component.dart';
+import 'package:trancehouse/utils/config.dart';
+import 'package:trancehouse/utils/utils.dart';
 import '../../../app/controllers/cart_controller.dart';
 import '../../../app/controllers/city_api_controller.dart';
 import '../../../app/models/city_model.dart';
@@ -9,98 +18,115 @@ import '../../../components/textfield_custom_component.dart';
 import '../../../services/theme_service.dart';
 import '../../../utils/extentions.dart';
 
-class CartFinishScreen extends StatefulWidget {
-  const CartFinishScreen({Key? key}) : super(key: key);
+class ServiceOrderScreen extends StatefulWidget {
+  const ServiceOrderScreen({Key? key}) : super(key: key);
 
   @override
-  _CartFinishScreenState createState() => _CartFinishScreenState();
+  _ServiceOrderScreenState createState() => _ServiceOrderScreenState();
 }
 
-class _CartFinishScreenState extends State<CartFinishScreen> {
-  final CartController _cartController = Get.put(CartController());
+class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
   final CityApiController _cityApiController =
       Get.find<CityApiController>(tag: 'city');
+  final ServiceApiController _serviceApiController =
+      Get.find<ServiceApiController>();
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
   late CityModel selectedCity;
+  late ServiceModel service;
 
-  // Future<void> _selectDate(BuildContext context) async {
-  //   final DateTime? picked = await showDatePicker(
-  //     context: context,
-  //     initialDate: DateTime.now(),
-  //     firstDate: DateTime.now(),
-  //     lastDate: DateTime.now().add(Duration(days: 30)),
-  //     cancelText: 'cancel'.tr,
-  //     confirmText: 'ok'.tr,
-  //     helpText: "select.date".tr,
-  //     initialEntryMode: DatePickerEntryMode.calendarOnly,
-  //     builder: (context, child) {
-  //       return Theme(
-  //         data: Theme.of(context).copyWith(
-  //           colorScheme: Theme.of(context).colorScheme.copyWith(
-  //                 brightness: Brightness.light,
-  //                 onPrimary: Colors.black,
-  //               ),
-  //           textButtonTheme: TextButtonThemeData(
-  //             style: TextButton.styleFrom(
-  //               primary: !ThemeService().isSavedDarkMode()
-  //                   ? Colors.black
-  //                   : Theme.of(context).primaryColor,
-  //             ),
-  //           ),
-  //         ),
-  //         child: child!,
-  //       );
-  //     },
-  //   );
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 30)),
+      cancelText: 'cancel'.tr,
+      confirmText: 'ok'.tr,
+      helpText: "select.date".tr,
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+                  brightness: Brightness.light,
+                  onPrimary: Colors.black,
+                ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                primary: !ThemeService().isSavedDarkMode()
+                    ? Colors.black
+                    : Theme.of(context).primaryColor,
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
 
-  //   if (picked != null && picked != selectedDate)
-  //     setState(() {
-  //       selectedDate = picked;
-  //     });
-  // }
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        var formatter = new DateFormat('yyyy-MM-dd');
+        selectedDate = picked;
+        _dateController?.text = formatter.format(selectedDate);
+      });
+  }
 
-  // Future<void> _selectTime(BuildContext context) async {
-  //   Future<TimeOfDay?> selectedTime24Hour = showTimePicker(
-  //     context: context,
-  //     cancelText: 'cancel'.tr,
-  //     confirmText: 'ok'.tr,
-  //     initialEntryMode: TimePickerEntryMode.dial,
-  //     initialTime: const TimeOfDay(hour: 10, minute: 47),
-  //     builder: (BuildContext context, Widget? child) {
-  //       return MediaQuery(
-  //         data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-  //         child: Theme(
-  //           data: Theme.of(context).copyWith(
-  //             colorScheme: Theme.of(context).colorScheme.copyWith(
-  //                   brightness: Brightness.light,
-  //                   onPrimary: Colors.black,
-  //                 ),
-  //             textButtonTheme: TextButtonThemeData(
-  //               style: TextButton.styleFrom(
-  //                 primary: !ThemeService().isSavedDarkMode()
-  //                     ? Colors.black
-  //                     : Theme.of(context).primaryColor,
-  //               ),
-  //             ),
-  //           ),
-  //           child: child!,
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
+  Future<void> _selectTime(BuildContext context) async {
+    var selectedTime24Hour = await showTimePicker(
+      context: context,
+      cancelText: 'cancel'.tr,
+      confirmText: 'ok'.tr,
+      initialEntryMode: TimePickerEntryMode.dial,
+      initialTime: const TimeOfDay(hour: 10, minute: 47),
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: Theme.of(context).colorScheme.copyWith(
+                    brightness: Brightness.light,
+                    onPrimary: Colors.black,
+                  ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  primary: !ThemeService().isSavedDarkMode()
+                      ? Colors.black
+                      : Theme.of(context).primaryColor,
+                ),
+              ),
+            ),
+            child: child!,
+          ),
+        );
+      },
+    );
+    if (selectedTime24Hour != null) {
+      print(selectedTime24Hour.format(context));
+      DateTime parsedTime =
+          DateFormat.jm().parse(selectedTime24Hour.format(context).toString());
+      String formattedTime = DateFormat('HH:mm a').format(parsedTime);
+      _timeController?.text = formattedTime;
+    }
+  }
 
-  TextEditingController? _nameController, _addressController, _phoneController;
+  TextEditingController? _nameController,
+      _addressController,
+      _phoneController,
+      _timeController,
+      _dateController;
 
   @override
   void initState() {
     super.initState();
+    service = Get.arguments;
     _nameController = TextEditingController();
     _addressController = TextEditingController();
     _phoneController = TextEditingController();
+    _timeController = TextEditingController();
+    _dateController = TextEditingController();
     selectedCity = _cityApiController.cities[0];
-    _cartController.fee.value = selectedCity.deliveryPrice!;
   }
 
   @override
@@ -124,30 +150,6 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
                   SizedBox(
                     height: 80,
                   ),
-                  // Row(
-                  //   children: [
-                  //     Container(
-                  //       margin:
-                  //           EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  //       child: Text(
-                  //         'cart.city'.tr,
-                  //         textAlign: 'language.rtl'.tr.parseBool
-                  //             ? TextAlign.right
-                  //             : TextAlign.left,
-                  //         style: TextStyle(
-                  //           fontFamily:
-                  //               'language.rtl'.tr.parseBool ? "Rabar" : "",
-                  //           fontSize: 24,
-                  //           color: !ThemeService().isSavedDarkMode()
-                  //               ? Color(0xFF1E272E)
-                  //               : Colors.white,
-                  //         ),
-                  //         overflow: TextOverflow.fade,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-
                   Row(
                     children: [
                       Container(
@@ -224,8 +226,6 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
                               onChanged: (city) {
                                 setState(() {
                                   selectedCity = city!;
-                                  _cartController.fee.value =
-                                      city.deliveryPrice!;
                                 });
                               },
                             ),
@@ -233,10 +233,9 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
                         }
                       })),
                   SizedBox(height: 16),
-
                   TextfieldCustomComponent(
                       hintText: 'address'.tr, controller: _addressController),
-                  SizedBox(height: 16),
+                  // SizedBox(height: 16),
                   // TextfieldCustomComponent(
                   //   readOnly: true,
                   //   hintText: 'address.onmap'.tr,
@@ -246,33 +245,95 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
                   //     print("MAP");
                   //   },
                   // ),
-                  // SizedBox(height: 16),
-                  // Row(
-                  //   children: [
-                  //     Expanded(
-                  //       child: TextfieldCustomComponent(
-                  //           hintText: 'cart.date'.tr,
-                  //           readOnly: true,
-                  //           onTap: () {
-                  //             _selectDate(context);
-                  //           },
-                  //           controller: _phoneController),
-                  //     ),
-                  //     Expanded(
-                  //       child: TextfieldCustomComponent(
-                  //         hintText: 'cart.time'.tr,
-                  //         controller: _phoneController,
-                  //         readOnly: true,
-                  //         onTap: () {
-                  //           _selectTime(context);
-                  //         },
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  SizedBox(
-                    height: 250 + MediaQuery.of(context).viewInsets.bottom,
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextfieldCustomComponent(
+                            hintText: 'cart.date'.tr,
+                            readOnly: true,
+                            onTap: () {
+                              _selectDate(context);
+                            },
+                            controller: _dateController),
+                      ),
+                      Expanded(
+                        child: TextfieldCustomComponent(
+                          hintText: 'cart.time'.tr,
+                          controller: _timeController,
+                          readOnly: true,
+                          onTap: () {
+                            _selectTime(context);
+                          },
+                        ),
+                      ),
+                    ],
                   ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 32),
+                    child: ButtonCustomComponent(
+                        child: Text(
+                          'services.order'.tr,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Color(0xFF1E272E),
+                            fontFamily:
+                                'language.rtl'.tr.parseBool ? 'Rabar' : '',
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        onPress: () async {
+                          if (!_serviceApiController.isLoadingSend.value) {
+                            bool isDone = await _serviceApiController
+                                .sendServiceReuqest(ServiceApiModel(
+                                    name: _nameController!.value.text,
+                                    phone: _phoneController!.value.text,
+                                    address: _addressController!.value.text,
+                                    info: {
+                                      'city': selectedCity.name,
+                                      'date': _dateController!.value.text,
+                                      'time': _timeController!.value.text,
+                                    },
+                                    message: '',
+                                    imei: await getDeviceIdentifier(),
+                                    branch: ConfigApp.branchAccess,
+                                    type: 'service'));
+                            if (isDone) {
+                              Get.snackbar(
+                                'success'.tr,
+                                'success.insert'
+                                    .trParams({'type': 'services'.tr}),
+                                duration: Duration(seconds: 3),
+                                backgroundColor: Colors.green.withOpacity(.6),
+                                titleText: Container(
+                                  child: Text(
+                                    'success'.tr,
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                    ),
+                                    // textAlign:
+                                  ),
+                                ),
+                                messageText: Container(
+                                  child: Text(
+                                    'success.insert'
+                                        .trParams({'type': 'services'.tr}),
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              );
+                              sleep(Duration(seconds: 2));
+                              Get.offAllNamed('/main');
+                            }
+                          }
+                        }),
+                  )
                 ],
               ),
             ),
@@ -304,7 +365,7 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
                         Expanded(
                           child: Container(
                             child: Text(
-                              'finish.transaction'.tr,
+                              'services.order'.tr,
                               textAlign: 'language.rtl'.tr.parseBool
                                   ? TextAlign.right
                                   : TextAlign.left,
@@ -337,25 +398,6 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
                 ],
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CartAllTotalComponent(
-                  onPress: () {
-                    if (_nameController!.value.text.length >= 3 &&
-                        _addressController!.value.text.length >= 3 &&
-                        _phoneController!.value.text.isPhoneNumber) {
-                      if (this.mounted) {
-                        _nameController!.text = '';
-                        _addressController!.text = '';
-                        _phoneController!.text = '';
-                        // _cartController.sendOrderRequest();
-                      }
-                    }
-                  },
-                )
-              ],
-            )
           ],
         ),
       ),

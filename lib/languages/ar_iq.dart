@@ -60,4 +60,8 @@ final Map<String, String> arIq = {
   "cart.time": "الوقت",
   "select.date": "تحديد تاريخ",
   "services": "خدمات",
+  "services.types": "أنواع الخدمات",
+  "services.order": "اطلب هذه الخدمة",
+  "order": "اطلب",
+  "services.success": "تم إرسال طلبك بنجاح",
 };
