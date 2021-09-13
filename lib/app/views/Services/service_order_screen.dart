@@ -288,7 +288,7 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                         ),
                         onPress: () async {
                           if (!_serviceApiController.isLoadingSend.value) {
-                            bool isDone = await _serviceApiController
+                            await _serviceApiController
                                 .sendServiceReuqest(ServiceApiModel(
                                     name: _nameController!.value.text,
                                     phone: _phoneController!.value.text,
@@ -302,35 +302,7 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                                     imei: await getDeviceIdentifier(),
                                     branch: ConfigApp.branchAccess,
                                     type: 'service'));
-                            if (isDone) {
-                              Get.snackbar(
-                                'success'.tr,
-                                'success.insert'
-                                    .trParams({'type': 'services'.tr}),
-                                duration: Duration(seconds: 3),
-                                backgroundColor: Colors.green.withOpacity(.6),
-                                titleText: Container(
-                                  child: Text(
-                                    'success'.tr,
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                    ),
-                                    // textAlign:
-                                  ),
-                                ),
-                                messageText: Container(
-                                  child: Text(
-                                    'success.insert'
-                                        .trParams({'type': 'services'.tr}),
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              );
-                              sleep(Duration(seconds: 2));
-                              Get.offAllNamed('/main');
-                            }
+                                     
                           }
                         }),
                   )

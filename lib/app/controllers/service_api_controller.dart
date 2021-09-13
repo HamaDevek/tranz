@@ -43,12 +43,40 @@ class ServiceApiController extends GetxController {
   }
 
   Future<bool> sendServiceReuqest(ServiceApiModel service) async {
-    isLoadingSend(true);
-
-    bool isTrue = await compute(sendServiceThread, service);
-
-    isLoadingSend(false);
-    return isTrue;
+    if (!isLoadingSend()) {
+      isLoadingSend(true);
+      bool isTrue = await compute(sendServiceThread, service);
+      isLoadingSend(false);
+      if (isTrue) {
+        Get.offAllNamed('/main');
+        Get.snackbar(
+          'success'.tr,
+          'success.insert'.trParams({'type': 'services'.tr}),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.green.withOpacity(.6),
+          titleText: Container(
+            child: Text(
+              'success'.tr,
+              style: TextStyle(
+                fontSize: 24,
+              ),
+              // textAlign:
+            ),
+          ),
+          messageText: Container(
+            child: Text(
+              'success.insert'.trParams({'type': 'services'.tr}),
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          ),
+        );
+        return isTrue;
+      }
+      return isTrue;
+    }
+    return false;
   }
 
   List<ServiceModel>? getParent() {
