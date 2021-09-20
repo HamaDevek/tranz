@@ -32,80 +32,78 @@ class BlogComponent extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 160,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        "${blog.picture?.isBlank ?? false ? ConfigApp.placeholder : blog.picture?[0]}",
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                          // colorFilter:
+                          //     ColorFilter.mode(Colors.red, BlendMode.colorBurn),
+                        ),
+                      ),
                     ),
-                    child: CachedNetworkImage(
-                      imageUrl:
-                          "${blog.picture?.isBlank ?? false ? ConfigApp.placeholder : blog.picture?[0]}",
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                            // colorFilter:
-                            //     ColorFilter.mode(Colors.red, BlendMode.colorBurn),
-                          ),
-                        ),
-                      ),
-                      placeholder: (context, url) => Center(
-                        child: Icon(
-                          Iconsax.gallery,
-                          size: 50,
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => Icon(
-                        Iconsax.gallery_slash,
+                    placeholder: (context, url) => Center(
+                      child: Icon(
+                        Iconsax.gallery,
                         size: 50,
                       ),
-                      cacheManager: CacheManager(
-                        Config(
-                          '${blog.picture?.isBlank ?? false ? ConfigApp.placeholder : blog.picture?[0]}',
-                          stalePeriod: const Duration(days: 15),
-                          maxNrOfCacheObjects: 100,
-                        ),
+                    ),
+                    errorWidget: (context, url, error) => Icon(
+                      Iconsax.gallery_slash,
+                      size: 50,
+                    ),
+                    cacheManager: CacheManager(
+                      Config(
+                        '${blog.picture?.isBlank ?? false ? ConfigApp.placeholder : blog.picture?[0]}',
+                        stalePeriod: const Duration(days: 15),
+                        maxNrOfCacheObjects: 100,
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: _listTitle,
-                    ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: _listTitle,
                   ),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      height: 100,
-                      child: Text(
-                        '${blog.description?["x-lang".tr] ?? "empty".tr}',
-                        textAlign: 'language.rtl'.tr.parseBool
-                            ? TextAlign.right
-                            : TextAlign.left,
-                        style: TextStyle(
-                          fontFamily:
-                              'language.rtl'.tr.parseBool ? "Rabar" : "",
-                          fontSize: 16,
-                          color: !ThemeService().isSavedDarkMode()
-                              ? Color(0xFF1E272E)
-                              : Colors.white,
-                        ),
-                        overflow: TextOverflow.fade,
+                ),
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    height: 100,
+                    child: Text(
+                      '${blog.description?["x-lang".tr] ?? ""}',
+                      textAlign: 'language.rtl'.tr.parseBool
+                          ? TextAlign.right
+                          : TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
+                        fontSize: 16,
+                        color: !ThemeService().isSavedDarkMode()
+                            ? Color(0xFF1E272E)
+                            : Colors.white,
                       ),
+                      overflow: TextOverflow.fade,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -118,7 +116,7 @@ class BlogComponent extends StatelessWidget {
       Expanded(
         child: Container(
           child: Text(
-            '${blog.title?["x-lang".tr] ?? "empty".tr}',
+            '${blog.title?["x-lang".tr] ?? ""}',
             textAlign:
                 'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
             style: TextStyle(

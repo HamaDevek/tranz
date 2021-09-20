@@ -72,7 +72,8 @@ class _CartTotalComponentState extends State<CartTotalComponent> {
                     () => Expanded(
                       child: Container(
                         child: Text(
-                          '${_cartController.total.value.toInt()} ' + 'IQD'.tr,
+                          '${_cartController.total.value.toInt().parseToCurrency} ' +
+                              'IQD'.tr,
                           textAlign: !'language.rtl'.tr.parseBool
                               ? TextAlign.right
                               : TextAlign.left,

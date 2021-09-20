@@ -5,6 +5,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../app/models/blog_model.dart';
 import '../../../components/no_glow_component.dart';
 import '../../../services/theme_service.dart';
@@ -68,33 +69,42 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: CachedNetworkImage(
-                        imageUrl:
-                            "${blog!.picture?.isBlank ?? false ? ConfigApp.placeholder : blog!.picture?[0]}",
-                        imageBuilder: (context, imageProvider) => Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
+                      child: InkWell(
+                        onTap: () async {
+                          if (blog!.link!.length > 0) {
+                            await canLaunch(blog?.link ?? '')
+                                ? await launch(blog?.link ?? '')
+                                : throw 'Could not launch :$blog!.link';
+                          }
+                        },
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              "${blog!.picture?.isBlank ?? false ? ConfigApp.placeholder : blog!.picture?[0]}",
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                        placeholder: (context, url) => Center(
-                          child: Icon(
-                            Iconsax.gallery,
+                          placeholder: (context, url) => Center(
+                            child: Icon(
+                              Iconsax.gallery,
+                              size: 50,
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Icon(
+                            Iconsax.gallery_slash,
                             size: 50,
                           ),
-                        ),
-                        errorWidget: (context, url, error) => Icon(
-                          Iconsax.gallery_slash,
-                          size: 50,
-                        ),
-                        cacheManager: CacheManager(
-                          Config(
-                            '${blog!.picture?.isBlank ?? false ? ConfigApp.placeholder : blog!.picture?[0]}',
-                            stalePeriod: const Duration(days: 15),
-                            maxNrOfCacheObjects: 100,
+                          cacheManager: CacheManager(
+                            Config(
+                              '${blog!.picture?.isBlank ?? false ? ConfigApp.placeholder : blog!.picture?[0]}',
+                              stalePeriod: const Duration(days: 15),
+                              maxNrOfCacheObjects: 100,
+                            ),
                           ),
                         ),
                       ),
@@ -103,7 +113,7 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                       padding: const EdgeInsets.all(16),
                       width: double.infinity,
                       child: Text(
-                        '${blog!.description?["x-lang".tr] ?? "empty".tr}',
+                        '${blog!.description?["x-lang".tr] ?? ""}',
                         textAlign: 'language.rtl'.tr.parseBool
                             ? TextAlign.right
                             : TextAlign.left,
@@ -121,8 +131,13 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: Html(
-                        data: blog!.html.toString(),
-                      ),
+                          data: blog!.html.toString(),
+                          onLinkTap: (String? url, RenderContext context,
+                              attributes, element) async {
+                            await canLaunch(url!)
+                                ? await launch(url)
+                                : throw 'Could not launch :$url';
+                          }),
                     ),
                     SizedBox(
                       height: 16,
@@ -160,7 +175,7 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                           Expanded(
                             child: Container(
                               child: Text(
-                                '${blog!.title?["x-lang".tr] ?? "empty".tr} ',
+                                '${blog!.title?["x-lang".tr] ?? ""} ',
                                 textAlign: 'language.rtl'.tr.parseBool
                                     ? TextAlign.right
                                     : TextAlign.left,

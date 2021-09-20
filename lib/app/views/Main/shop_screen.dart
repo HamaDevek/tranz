@@ -64,6 +64,9 @@ class _ShopScreenState extends State<ShopScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 18,
+                  ),
                   Obx(() {
                     if (_categoryApiControllerController.isLoading.value) {
                       return Padding(
@@ -200,10 +203,12 @@ class _ShopScreenState extends State<ShopScreen> {
                                               1.6),
                                   crossAxisSpacing: 16,
                                   mainAxisSpacing: 16,
-                                  mainAxisExtent: 230),
+                                  mainAxisExtent: 250),
                           padding: EdgeInsets.symmetric(
                               horizontal: 16, vertical: 16),
                           itemBuilder: (BuildContext context, int index) {
+                            print(MediaQuery.of(context).size.width /
+                                (MediaQuery.of(context).size.height / 1.6));
                             return ShopCardComponent(
                               item: _listItem?[index] ??
                                   _itemsController.items[index],

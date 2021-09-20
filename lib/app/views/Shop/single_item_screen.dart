@@ -46,7 +46,8 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                     ),
                     Container(
                       padding: const EdgeInsets.all(16),
-                      height: 200,
+                      height: MediaQuery.of(context).size.width,
+                      width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -88,7 +89,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                       padding: const EdgeInsets.all(16),
                       width: double.infinity,
                       child: Text(
-                        '${item!.itemInfo ?? "empty".tr}',
+                        '${item!.itemInfo ?? ""}',
                         textAlign: 'language.rtl'.tr.parseBool
                             ? TextAlign.right
                             : TextAlign.left,
@@ -142,7 +143,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                               Expanded(
                                 child: Container(
                                   child: Text(
-                                    '${item!.name ?? "empty".tr} ',
+                                    '${item!.name ?? ""} ',
                                     textAlign: 'language.rtl'.tr.parseBool
                                         ? TextAlign.right
                                         : TextAlign.left,
@@ -312,7 +313,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                                   ],
                                 ),
                                 Text(
-                                  '${(item?.sellingPrice ?? 0) * counter} ' +
+                                  '${((item?.sellingPrice ?? 0) * counter).parseToCurrency} ' +
                                       'IQD'.tr,
                                   textAlign: 'language.rtl'.tr.parseBool
                                       ? TextAlign.right

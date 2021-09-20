@@ -16,7 +16,7 @@
         </intent>
     </queries>
    <application
-        android:label="Tranz"
+        android:label="Tranz House"
         android:icon="@mipmap/ic_launcher">
         
         <activity

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trancehouse/app/controllers/language_controller.dart';
 
 import '../services/theme_service.dart';
 import '../theme/theme_modes.dart';
@@ -37,6 +39,21 @@ class MaterialAppWithProvider extends StatefulWidget {
 }
 
 class _MaterialAppWithProviderState extends State<MaterialAppWithProvider> {
+  final LanguageController _languageController = Get.put(LanguageController());
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLanguage();
+  }
+
+  Future<void> _loadLanguage() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    _languageController.changeLanguage(
+        dialect: prefs.getString('dialect').toString(),
+        language: prefs.getString('language').toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

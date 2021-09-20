@@ -26,7 +26,7 @@ class SettingAboutScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(16),
                       width: double.infinity,
                       child: Text(
-                        '${Get.arguments["aboutus"]?["x-lang".tr] ?? "empty".tr}',
+                        '${Get.arguments["aboutus"]?["x-lang".tr] ?? ""}',
                         textAlign: 'language.rtl'.tr.parseBool
                             ? TextAlign.right
                             : TextAlign.left,

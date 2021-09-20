@@ -8,9 +8,16 @@ import 'package:get/get.dart';
 import '../../utils/config.dart';
 import '../../utils/extentions.dart';
 
-class ShopCardComponent extends StatelessWidget {
-  const ShopCardComponent({Key? key, required this.item}) : super(key: key);
+class ShopCardComponent extends StatefulWidget {
+  ShopCardComponent({Key? key, required this.item}) : super(key: key);
+
   final ItemModel item;
+
+  @override
+  _ShopCardComponentState createState() => _ShopCardComponentState();
+}
+
+class _ShopCardComponentState extends State<ShopCardComponent> {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -18,29 +25,30 @@ class ShopCardComponent extends StatelessWidget {
       color: Theme.of(context).accentColor,
       child: InkWell(
         onTap: () {
-          Get.toNamed('/single-item', arguments: item);
+          Get.toNamed('/single-item', arguments: widget.item);
         },
         borderRadius: BorderRadius.circular(10),
         child: Container(
+          height: 1000,
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.all(16),
-                height: 100,
+                // margin: EdgeInsets.all(16),
+                height: 140,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Theme.of(context).scaffoldBackgroundColor,
                 ),
                 child: CachedNetworkImage(
-                  imageUrl: item.picture?.isBlank ?? false
+                  imageUrl: widget.item.picture?.isBlank ?? false
                       ? "${ConfigApp.placeholder}"
-                      : "${ConfigApp.apiUrl}/public/uploads/item/${item.picture?[0]}",
+                      : "${ConfigApp.apiUrl}/public/uploads/item/${widget.item.picture?[0]}",
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -64,20 +72,23 @@ class ShopCardComponent extends StatelessWidget {
                   ),
                   cacheManager: CacheManager(
                     Config(
-                      item.picture?.isBlank ?? false
+                      widget.item.picture?.isBlank ?? false
                           ? "${ConfigApp.placeholder}"
-                          : "${ConfigApp.apiUrl}/public/uploads/item/${item.picture?[0]}",
+                          : "${ConfigApp.apiUrl}/public/uploads/item/${widget.item.picture?[0]}",
                       stalePeriod: const Duration(days: 15),
                       maxNrOfCacheObjects: 100,
                     ),
                   ),
                 ),
               ),
+              SizedBox(
+                height: 8,
+              ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 16),
+                margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 width: double.infinity,
                 child: Text(
-                  '${item.name ?? "empty".tr}',
+                  '${widget.item.name ?? ""}',
                   textAlign: 'language.rtl'.tr.parseBool
                       ? TextAlign.right
                       : TextAlign.left,
@@ -95,13 +106,14 @@ class ShopCardComponent extends StatelessWidget {
                 margin: EdgeInsets.symmetric(horizontal: 16),
                 width: double.infinity,
                 child: Text(
-                  '${item.sellingPrice ?? "0"} ' + 'IQD'.tr,
+                  '${widget.item.sellingPrice?.parseToCurrency ?? "0"} ' +
+                      'IQD'.tr,
                   textAlign: 'language.rtl'.tr.parseBool
                       ? TextAlign.right
                       : TextAlign.left,
                   style: TextStyle(
                     fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-                    fontSize: 20,
+                    fontSize: 16,
                     color: !ThemeService().isSavedDarkMode()
                         ? Color(0xFF1E272E)
                         : Colors.white,

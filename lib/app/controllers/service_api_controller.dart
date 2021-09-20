@@ -17,8 +17,10 @@ final client = http.Client();
 
 class ServiceApiController extends GetxController {
   var service = <ServiceModel>[].obs;
+  var length = 0.obs;
   var blogs = <BlogModel>[].obs;
   var isLoading = false.obs;
+  var isOnScreenBlogService = false.obs;
   var isLoadingBlog = false.obs;
   var isLoadingSend = false.obs;
   var isVertical = false.obs;
@@ -27,7 +29,6 @@ class ServiceApiController extends GetxController {
     isLoading(true);
     service.value = await compute(fetchService, 'ok');
     isLoading(false);
-
     super.onInit();
   }
 

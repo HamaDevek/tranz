@@ -25,69 +25,71 @@ class _ServiceScreenState extends State<ServiceScreen> {
       child: Column(
         children: [
           SizedBox(
-            height: 32,
+            height: 18,
           ),
-          Row(
-            children: [
-              Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () {},
-                  child: Container(
-                    margin: EdgeInsets.only(
-                        left: 'language.rtl'.tr.parseBool ? 0 : 16,
-                        right: 'language.rtl'.tr.parseBool ? 16 : 0),
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: ThemeService().isSavedDarkMode()
-                          ? Color(0xFF292D32)
-                          : Colors.white,
-                    ),
-                    child: Icon(Iconsax.notification),
+          // Row(
+          //   children: [
+          //     Material(
+          //       color: Colors.transparent,
+          //       child: InkWell(
+          //         splashColor: Colors.transparent,
+          //         highlightColor: Colors.transparent,
+          //         onTap: () {},
+          //         child: Container(
+          //           margin: EdgeInsets.only(
+          //               left: 'language.rtl'.tr.parseBool ? 0 : 16,
+          //               right: 'language.rtl'.tr.parseBool ? 16 : 0),
+          //           height: 50,
+          //           width: 50,
+          //           decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(10),
+          //             color: ThemeService().isSavedDarkMode()
+          //                 ? Color(0xFF292D32)
+          //                 : Colors.white,
+          //           ),
+          //           child: Icon(Iconsax.notification),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // SizedBox(
+          //   height: 16,
+          // ),
+          Container(
+            margin: EdgeInsets.all(16),
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'services'.tr,
+                  textAlign: 'language.rtl'.tr.parseBool
+                      ? TextAlign.right
+                      : TextAlign.left,
+                  style: TextStyle(
+                    fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: !ThemeService().isSavedDarkMode()
+                        ? Color(0xFF1E272E)
+                        : Colors.white,
                   ),
                 ),
-              ),
-            ],
+                IconButton(
+                  onPressed: () {
+                    _serviceApiController.changeVertical();
+                  },
+                  icon: Obx(() {
+                    return Icon(_serviceApiController.isVertical.value
+                        ? Iconsax.row_vertical
+                        : Iconsax.row_horizontal);
+                  }),
+                )
+              ],
+            ),
           ),
-          SizedBox(
-            height: 16,
-          ),
-          Container(
-              margin: EdgeInsets.all(16),
-              width: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'services'.tr,
-                    textAlign: 'language.rtl'.tr.parseBool
-                        ? TextAlign.right
-                        : TextAlign.left,
-                    style: TextStyle(
-                      fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: !ThemeService().isSavedDarkMode()
-                          ? Color(0xFF1E272E)
-                          : Colors.white,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      _serviceApiController.changeVertical();
-                    },
-                    icon: Obx(() {
-                      return Icon(_serviceApiController.isVertical.value
-                          ? Iconsax.row_vertical
-                          : Iconsax.row_horizontal);
-                    }),
-                  )
-                ],
-              )),
+
           Expanded(child: Obx(() {
             if (_serviceApiController.isLoading.value) {
               return ScrollConfiguration(

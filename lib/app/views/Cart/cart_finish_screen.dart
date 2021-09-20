@@ -207,7 +207,7 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 16),
                                     child: Text(
-                                      "${city.name ?? "empty".tr}",
+                                      "${city.name ?? ""}",
                                       style: TextStyle(
                                         fontFamily: "Rabar",
                                         fontSize: 20,

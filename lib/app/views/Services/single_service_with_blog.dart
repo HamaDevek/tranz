@@ -27,6 +27,19 @@ class _SingleServiceWithBlogState extends State<SingleServiceWithBlog> {
     super.initState();
     service = Get.arguments;
     _serviceApiController.getBlogByService(service!.id.toString());
+    _serviceApiController.isOnScreenBlogService(true);
+    _serviceApiController.blogs.listen((val) {
+      print(_serviceApiController.isOnScreenBlogService.value);
+      if (_serviceApiController.isOnScreenBlogService.value) {
+        Get.offNamed('/service/order', arguments: service);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _serviceApiController.isOnScreenBlogService(false);
+    super.dispose();
   }
 
   @override
@@ -65,6 +78,7 @@ class _SingleServiceWithBlogState extends State<SingleServiceWithBlog> {
                       ),
                       IconButton(
                           onPressed: () {
+                            _serviceApiController.isOnScreenBlogService(false);
                             Get.back();
                           },
                           icon: Icon(
@@ -125,7 +139,11 @@ class _SingleServiceWithBlogState extends State<SingleServiceWithBlog> {
                         ),
                       ),
                       onPress: () {
-                        Get.toNamed('/service/order', arguments: service);
+                        if (_serviceApiController.blogs.length > 0) {
+                          Get.toNamed('/service/order', arguments: service);
+                        } else {
+                          Get.offNamed('/service/order', arguments: service);
+                        }
                       }),
                 )
               ],

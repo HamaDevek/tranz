@@ -40,7 +40,6 @@ class BlogApiController extends GetxController {
 
 Future<Map<String, dynamic>> fetchBlog(Map limit) async {
   print("RUN BLOG");
-
   try {
     var response = await RetryOptions(maxAttempts: 5).retry(
       () => client

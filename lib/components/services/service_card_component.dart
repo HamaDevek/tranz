@@ -6,6 +6,7 @@ import 'package:trancehouse/app/controllers/service_api_controller.dart';
 import '../../app/models/service_model.dart';
 import 'package:get/get.dart';
 import '../../utils/config.dart';
+import '../../../utils/extentions.dart';
 
 class ServiceCardComponent extends StatefulWidget {
   const ServiceCardComponent({Key? key, required this.service})
@@ -34,7 +35,7 @@ class _ServiceCardComponentState extends State<ServiceCardComponent> {
               0) {
             Get.toNamed('/subservice', arguments: widget.service);
           } else {
-             Get.toNamed('/subservice/blogs', arguments: widget.service);
+            Get.toNamed('/subservice/blogs', arguments: widget.service);
           }
         },
         borderRadius: BorderRadius.circular(10),
@@ -101,8 +102,10 @@ class _ServiceCardComponentState extends State<ServiceCardComponent> {
                     children: [
                       Flexible(
                         child: Text(
-                          '${widget.service.title?["x-lang".tr] ?? "empty".tr}',
+                          '${widget.service.title?["x-lang".tr] ?? ""}',
                           style: TextStyle(
+                            fontFamily:
+                                'language.rtl'.tr.parseBool ? "Rabar" : "",
                             fontSize: 20,
                           ),
                           overflow: TextOverflow.fade,

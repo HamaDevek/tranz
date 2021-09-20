@@ -1,19 +1,15 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:trancehouse/app/controllers/service_api_controller.dart';
-import 'package:trancehouse/app/models/service_api_model.dart';
-import 'package:trancehouse/app/models/service_model.dart';
-import 'package:trancehouse/components/button_custom_component.dart';
-import 'package:trancehouse/utils/config.dart';
-import 'package:trancehouse/utils/utils.dart';
-import '../../../app/controllers/cart_controller.dart';
+import '../../../components/button_custom_component.dart';
+import '../../../utils/config.dart';
+import '../../../utils/utils.dart';
+import '../../../app/controllers/service_api_controller.dart';
+import '../../../app/models/service_api_model.dart';
+import '../../../app/models/service_model.dart';
 import '../../../app/controllers/city_api_controller.dart';
 import '../../../app/models/city_model.dart';
-import '../../../components/cart/cart_all_total_contract.dart';
 import '../../../components/textfield_custom_component.dart';
 import '../../../services/theme_service.dart';
 import '../../../utils/extentions.dart';
@@ -209,7 +205,7 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 16),
                                     child: Text(
-                                      "${city.name ?? "empty".tr}",
+                                      "${city.name ?? ""}",
                                       style: TextStyle(
                                         fontFamily: "Rabar",
                                         fontSize: 20,
@@ -302,7 +298,6 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                                     imei: await getDeviceIdentifier(),
                                     branch: ConfigApp.branchAccess,
                                     type: 'service'));
-                                     
                           }
                         }),
                   )

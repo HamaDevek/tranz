@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trancehouse/services/theme_service.dart';
 import '../../../app/controllers/city_api_controller.dart';
 import '../../../app/controllers/language_controller.dart';
 import '../../../app/controllers/webinfo_api_controller.dart';
 import '../../../helpers/responsive.dart';
 import '../../../services/is_first_service.dart';
+import '../../../utils/extentions.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -58,6 +60,26 @@ class _SplashViewState extends State<SplashView> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(1000),
                 color: Theme.of(context).primaryColor,
+              ),
+            ),
+            SizedBox(
+              height: 200,
+            ),
+            Container(
+              child: Text(
+                'welcome.to'.tr,
+                textAlign: 'language.rtl'.tr.parseBool
+                    ? TextAlign.right
+                    : TextAlign.left,
+                style: TextStyle(
+                  fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
+                  fontSize: 24,
+                  color: !ThemeService().isSavedDarkMode()
+                      ? Color(0xFF1E272E)
+                      : Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.fade,
               ),
             ),
           ],

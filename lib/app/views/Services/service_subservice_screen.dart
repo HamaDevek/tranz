@@ -47,8 +47,8 @@ class _ServiceSubserviceScreenState extends State<ServiceSubserviceScreen> {
               children: [
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 16),
-                  height: 60,
-                  width: 60,
+                  height: 40,
+                  width: 40,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
                   ),

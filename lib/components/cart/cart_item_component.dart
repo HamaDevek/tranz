@@ -89,7 +89,7 @@ class _CartItemComponentState extends State<CartItemComponent> {
                       children: [
                         Expanded(
                           child: Text(
-                            '${widget.item.name ?? "empty".tr}',
+                            '${widget.item.name ?? ""}',
                             textAlign: 'language.rtl'.tr.parseBool
                                 ? TextAlign.right
                                 : TextAlign.left,
@@ -121,7 +121,7 @@ class _CartItemComponentState extends State<CartItemComponent> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          '${(widget.item.sellingPrice ?? 0) * (widget.item.amount ?? 0)}',
+                          '${((widget.item.sellingPrice ?? 0) * (widget.item.amount ?? 0)).parseToCurrency}',
                           textAlign: 'language.rtl'.tr.parseBool
                               ? TextAlign.right
                               : TextAlign.left,

@@ -77,7 +77,7 @@ class _CartAllTotalComponentState extends State<CartAllTotalComponent> {
                   Expanded(
                     child: Container(
                       child: Text(
-                        '${_cartController.total.value.toInt()}',
+                        '${_cartController.total.value.toInt().parseToCurrency}',
                         textAlign: !'language.rtl'.tr.parseBool
                             ? TextAlign.right
                             : TextAlign.left,
@@ -128,7 +128,7 @@ class _CartAllTotalComponentState extends State<CartAllTotalComponent> {
                   Expanded(
                     child: Container(
                       child: Text(
-                        '${_cartController.fee.value.toInt()}',
+                        '${_cartController.fee.value.toInt().parseToCurrency}',
                         textAlign: !'language.rtl'.tr.parseBool
                             ? TextAlign.right
                             : TextAlign.left,
@@ -166,7 +166,7 @@ class _CartAllTotalComponentState extends State<CartAllTotalComponent> {
                         style: TextStyle(
                           fontFamily:
                               'language.rtl'.tr.parseBool ? "Rabar" : "",
-                          fontSize: 20,
+                          fontSize: 24,
                           color: !ThemeService().isSavedDarkMode()
                               ? Color(0xFF1E272E)
                               : Colors.white,
@@ -180,14 +180,14 @@ class _CartAllTotalComponentState extends State<CartAllTotalComponent> {
                     () => Expanded(
                       child: Container(
                         child: Text(
-                          '${_cartController.total.value.toInt() + _cartController.fee.value.toInt()}',
+                          '${(_cartController.total.value.toInt() + _cartController.fee.value.toInt()).parseToCurrency}',
                           textAlign: !'language.rtl'.tr.parseBool
                               ? TextAlign.right
                               : TextAlign.left,
                           style: TextStyle(
                             fontFamily:
                                 'language.rtl'.tr.parseBool ? "Rabar" : "",
-                            fontSize: 20,
+                            fontSize: 24,
                             color: !ThemeService().isSavedDarkMode()
                                 ? Color(0xFF1E272E)
                                 : Colors.white,
