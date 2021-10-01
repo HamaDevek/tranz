@@ -49,44 +49,44 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.all(16),
-                width: double.infinity,
-                child: Text(
-                  'account'.tr,
-                  textAlign: 'language.rtl'.tr.parseBool
-                      ? TextAlign.right
-                      : TextAlign.left,
-                  style: TextStyle(
-                    fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: !ThemeService().isSavedDarkMode()
-                        ? Color(0xFF1E272E)
-                        : Color(0xff818181),
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                height: 80,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).accentColor,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SettingComponent(
-                      onPress: () {
-                        Get.toNamed('/archive');
-                      },
-                      icon: Icon(Iconsax.archive_1),
-                      text: 'archive'.tr,
-                    ),
-                  ],
-                ),
-              ),
+              // Container(
+              //   margin: EdgeInsets.all(16),
+              //   width: double.infinity,
+              //   child: Text(
+              //     'account'.tr,
+              //     textAlign: 'language.rtl'.tr.parseBool
+              //         ? TextAlign.right
+              //         : TextAlign.left,
+              //     style: TextStyle(
+              //       fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
+              //       fontSize: 16,
+              //       fontWeight: FontWeight.bold,
+              //       color: !ThemeService().isSavedDarkMode()
+              //           ? Color(0xFF1E272E)
+              //           : Color(0xff818181),
+              //     ),
+              //   ),
+              // ),
+              // Container(
+              //   margin: const EdgeInsets.symmetric(horizontal: 16),
+              //   height: 80,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(10),
+              //     color: Theme.of(context).accentColor,
+              //   ),
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //     children: [
+              //       SettingComponent(
+              //         onPress: () {
+              //           Get.toNamed('/archive');
+              //         },
+              //         icon: Icon(Iconsax.archive_1),
+              //         text: 'archive'.tr,
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Container(
                 margin: EdgeInsets.all(16),
                 width: double.infinity,

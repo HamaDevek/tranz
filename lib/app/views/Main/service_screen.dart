@@ -114,24 +114,29 @@ class _ServiceScreenState extends State<ServiceScreen> {
             } else {
               return ScrollConfiguration(
                 behavior: NoGlowComponent(),
-                child: GridView.builder(
-                    itemCount: _serviceApiController.getParent()!.length,
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount:
-                            _serviceApiController.isVertical.value ? 2 : 1,
-                        childAspectRatio: MediaQuery.of(context).size.width /
-                            (MediaQuery.of(context).size.height / 1.6),
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
-                        mainAxisExtent:
-                            _serviceApiController.isVertical.value ? 145 : 185),
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                    itemBuilder: (context, index) {
-                      return ServiceCardComponent(
-                        service: _serviceApiController.getParent()![index],
-                      );
-                    }),
+                child: RefreshIndicator(
+                  onRefresh: () async => _serviceApiController.onInit(),
+                  child: GridView.builder(
+                      itemCount: _serviceApiController.getParent()!.length,
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount:
+                              _serviceApiController.isVertical.value ? 2 : 1,
+                          childAspectRatio: MediaQuery.of(context).size.width /
+                              (MediaQuery.of(context).size.height / 1.6),
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                          mainAxisExtent: _serviceApiController.isVertical.value
+                              ? 145
+                              : 185),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      itemBuilder: (context, index) {
+                        return ServiceCardComponent(
+                          service: _serviceApiController.getParent()![index],
+                        );
+                      }),
+                ),
               );
             }
           })),

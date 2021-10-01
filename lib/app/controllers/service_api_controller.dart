@@ -36,6 +36,7 @@ class ServiceApiController extends GetxController {
     isLoadingBlog(true);
     blogs.value = (await compute(fetchBlogService, id))['data'];
     isLoadingBlog(false);
+    update();
   }
 
   void changeVertical() {
@@ -54,7 +55,7 @@ class ServiceApiController extends GetxController {
           'success'.tr,
           'success.insert'.trParams({'type': 'services'.tr}),
           duration: Duration(seconds: 3),
-          backgroundColor: Colors.green.withOpacity(.6),
+          backgroundColor: Color(0xffFEDA00).withOpacity(.6),
           titleText: Container(
             child: Text(
               'success'.tr,
@@ -188,15 +189,13 @@ Future<Map<String, dynamic>> fetchBlogService(String id) async {
             'branch': ConfigApp.branchAccess,
             'query': {
               "category": "$id",
-              "section": "service-blog",
             },
           }),
           headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
+            'Content-Type': 'application/json',
           }).timeout(Duration(seconds: 5)),
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
-
     if (response.statusCode == 200) {
       print("RUN REQUEST");
       return {
@@ -209,7 +208,6 @@ Future<Map<String, dynamic>> fetchBlogService(String id) async {
       };
     }
   } catch (e) {
-    print(e);
     Get.snackbar(
       'error'.tr,
       'error.fetch'.tr,

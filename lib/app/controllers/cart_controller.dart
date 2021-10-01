@@ -73,7 +73,7 @@ class CartController extends GetxController {
       'success'.tr,
       'success.insert'.trParams({'type': 'cart.added'.tr}),
       duration: Duration(seconds: 1),
-      backgroundColor: Colors.green.withOpacity(.6),
+      backgroundColor: Color(0xffFEDA00).withOpacity(.6),
       titleText: Container(
         child: Text(
           'success'.tr,

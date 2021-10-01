@@ -3,6 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:trancehouse/app/controllers/service_api_controller.dart';
 import 'package:trancehouse/app/models/service_model.dart';
 import 'package:trancehouse/components/button_custom_component.dart';
+import 'package:trancehouse/components/empty_state_component.dart';
 import '../../../components/blog/blog_component.dart';
 import '../../../components/blog/blog_loading_component.dart';
 import '../../../components/no_glow_component.dart';
@@ -28,12 +29,13 @@ class _SingleServiceWithBlogState extends State<SingleServiceWithBlog> {
     service = Get.arguments;
     _serviceApiController.getBlogByService(service!.id.toString());
     _serviceApiController.isOnScreenBlogService(true);
-    _serviceApiController.blogs.listen((val) {
-      print(_serviceApiController.isOnScreenBlogService.value);
-      if (_serviceApiController.isOnScreenBlogService.value) {
-        Get.offNamed('/service/order', arguments: service);
-      }
-    });
+    // _serviceApiController.blogs.listen((val) {
+    //   if (_serviceApiController.isOnScreenBlogService.value) {
+    //     if (service!.type != 'noorder') {
+    //       Get.offNamed('/service/order', arguments: service);
+    //     }
+    //   }
+    // });
   }
 
   @override
@@ -61,7 +63,7 @@ class _SingleServiceWithBlogState extends State<SingleServiceWithBlog> {
                       Container(
                         margin: EdgeInsets.all(16),
                         child: Text(
-                          '${service?.name}',
+                          '${service?.title?["x-lang".tr] ?? ''}',
                           textAlign: 'language.rtl'.tr.parseBool
                               ? TextAlign.right
                               : TextAlign.left,
@@ -101,56 +103,84 @@ class _SingleServiceWithBlogState extends State<SingleServiceWithBlog> {
                       ),
                     );
                   } else {
-                    return Stack(
-                      children: [
-                        ScrollConfiguration(
-                          behavior: NoGlowComponent(),
-                          child: ListView.builder(
-                            padding: EdgeInsets.only(bottom: 16),
-                            itemBuilder: (context, index) {
-                              return BlogComponent(
-                                blog: _serviceApiController.blogs[index],
-                              );
-                            },
-                            itemCount: _serviceApiController.blogs.length,
+                    if (_serviceApiController.blogs.length > 0) {
+                      return Stack(
+                        children: [
+                          ScrollConfiguration(
+                            behavior: NoGlowComponent(),
+                            child: ListView.builder(
+                              padding: EdgeInsets.only(bottom: 16),
+                              itemBuilder: (context, index) {
+                                return BlogComponent(
+                                  blog: _serviceApiController.blogs[index],
+                                );
+                              },
+                              itemCount: _serviceApiController.blogs.length,
+                            ),
                           ),
-                        ),
-                      ],
-                    );
+                        ],
+                      );
+                    } else {
+                      _changeScreen();
+                      return Stack(
+                        children: [
+                          ScrollConfiguration(
+                            behavior: NoGlowComponent(),
+                            child: EmptyStateComponent(
+                              icon: Iconsax.book_saved,
+                              header: 'blog.empty.head'.tr,
+                            ),
+                          ),
+                        ],
+                      );
+                    }
                   }
                 })),
               ],
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-                  child: ButtonCustomComponent(
-                      child: Text(
-                        'services.order'.tr,
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Color(0xFF1E272E),
-                          fontFamily:
-                              'language.rtl'.tr.parseBool ? 'Rabar' : '',
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      onPress: () {
-                        if (_serviceApiController.blogs.length > 0) {
-                          Get.toNamed('/service/order', arguments: service);
-                        } else {
-                          Get.offNamed('/service/order', arguments: service);
-                        }
-                      }),
-                )
-              ],
-            ),
+            service!.type == 'noorder'
+                ? SizedBox()
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 32),
+                        child: ButtonCustomComponent(
+                            child: Text(
+                              'services.order'.tr,
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Color(0xFF1E272E),
+                                fontFamily:
+                                    'language.rtl'.tr.parseBool ? 'Rabar' : '',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            onPress: () {
+                              if (_serviceApiController.blogs.length > 0) {
+                                Get.toNamed('/service/order',
+                                    arguments: service);
+                              } else {
+                                Get.offNamed('/service/order',
+                                    arguments: service);
+                              }
+                            }),
+                      )
+                    ],
+                  ),
           ],
         ),
       ),
     );
+  }
+
+  _changeScreen() async {
+    if (_serviceApiController.isOnScreenBlogService.value) {
+      if (service!.type != 'noorder') {
+        await Future.delayed(const Duration(milliseconds: 100));
+        Get.offNamed('/service/order', arguments: service);
+      }
+    }
   }
 }

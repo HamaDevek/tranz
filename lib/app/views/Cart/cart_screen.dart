@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../../app/controllers/cart_controller.dart';
-import '../../../components/cart/cart_empty_state_component.dart';
+import '../../../components/empty_state_component.dart';
 import '../../../components/cart/cart_item_component.dart';
 import '../../../components/cart/cart_total_contract_component.dart';
 import '../../../components/no_glow_component.dart';
@@ -33,7 +33,11 @@ class _CartScreenState extends State<CartScreen> {
           children: [
             Obx(
               () => _cartController.cart.length <= 0
-                  ? CartEmptyStateComponent()
+                  ? EmptyStateComponent(
+                      icon: Iconsax.bag_2,
+                      header: 'cart.empty.head'.tr,
+                      foorter: 'cart.empty.footer'.tr,
+                    )
                   : Column(
                       children: [
                         SizedBox(

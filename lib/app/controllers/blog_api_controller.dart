@@ -63,7 +63,6 @@ Future<Map<String, dynamic>> fetchBlog(Map limit) async {
       };
     }
   } catch (e) {
-    print(e);
     Get.snackbar(
       'error'.tr,
       'error.fetch'.tr,

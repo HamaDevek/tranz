@@ -44,6 +44,7 @@ final Map<String, String> enUs = {
   "cart": "Cart",
   "cart.empty.head": "The cart is empty.",
   "cart.empty.footer": "Search for goods and add them to cart",
+  "blog.empty.head": "There is no blog.",
   "total": "Total",
   "total.all": "Totals",
   "finish.transaction": "Complete transaction",

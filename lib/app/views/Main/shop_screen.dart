@@ -190,30 +190,35 @@ class _ShopScreenState extends State<ShopScreen> {
                           },
                         );
                       } else {
-                        return GridView.builder(
-                          itemCount: _listItem?.length ??
-                              _itemsController.items.length,
-                          shrinkWrap: true,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  childAspectRatio:
-                                      MediaQuery.of(context).size.width /
-                                          (MediaQuery.of(context).size.height /
-                                              1.6),
-                                  crossAxisSpacing: 16,
-                                  mainAxisSpacing: 16,
-                                  mainAxisExtent: 250),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 16),
-                          itemBuilder: (BuildContext context, int index) {
-                            print(MediaQuery.of(context).size.width /
-                                (MediaQuery.of(context).size.height / 1.6));
-                            return ShopCardComponent(
-                              item: _listItem?[index] ??
-                                  _itemsController.items[index],
-                            );
+                        return RefreshIndicator(
+                          onRefresh: () async {
+                            _itemsController.onInit();
+                            _categoryApiControllerController.onInit();
                           },
+                          child: GridView.builder(
+                            itemCount: _listItem?.length ??
+                                _itemsController.items.length,
+                            shrinkWrap: true,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    childAspectRatio: MediaQuery.of(context)
+                                            .size
+                                            .width /
+                                        (MediaQuery.of(context).size.height /
+                                            1.6),
+                                    crossAxisSpacing: 16,
+                                    mainAxisSpacing: 16,
+                                    mainAxisExtent: 250),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 16),
+                            itemBuilder: (BuildContext context, int index) {
+                              return ShopCardComponent(
+                                item: _listItem?[index] ??
+                                    _itemsController.items[index],
+                              );
+                            },
+                          ),
                         );
                       }
                     }),

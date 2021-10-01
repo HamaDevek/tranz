@@ -243,7 +243,6 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
                   //   controller: _phoneController,
                   //   suffixIcon: Icon(Iconsax.gps),
                   //   onTap: () {
-                  //     print("MAP");
                   //   },
                   // ),
                   // SizedBox(height: 16),

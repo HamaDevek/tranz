@@ -238,7 +238,6 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                   //   controller: _phoneController,
                   //   suffixIcon: Icon(Iconsax.gps),
                   //   onTap: () {
-                  //     print("MAP");
                   //   },
                   // ),
                   SizedBox(height: 16),

@@ -21,7 +21,6 @@ class CategoryApiController extends GetxController {
     isLoading(true);
     category.value = await compute(fetchCategory, 'ok');
     isLoading(false);
-
     super.onInit();
   }
 }

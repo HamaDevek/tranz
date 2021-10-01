@@ -6,11 +6,11 @@ class Themes {
     brightness: Brightness.light,
     accentColorBrightness: Brightness.dark,
     colorScheme: const ColorScheme.light().copyWith(
-      primary: Color(0xffFEEC46),
+      primary: Color(0xffFEDA00),
       secondary: Color(0xFFF9F1A3),
     ),
-    primaryColor: Color(0xffFEEC46),
-    buttonColor: Color(0xffFEEC46),
+    primaryColor: Color(0xffFEDA00),
+    buttonColor: Color(0xffFEDA00),
     indicatorColor: Colors.white,
     toggleableActiveColor: Color(0xFFF9F1A3),
     splashColor: Colors.white24,
@@ -22,12 +22,12 @@ class Themes {
     errorColor: const Color(0xFFd63031),
     buttonTheme: ButtonThemeData(
         colorScheme: const ColorScheme.light().copyWith(
-          primary: Color(0xffFEEC46),
+          primary: Color(0xffFEDA00),
           secondary: Color(0xFFF9F1A3),
         ),
         textTheme: ButtonTextTheme.primary,
         splashColor: Colors.grey,
-        buttonColor: Color(0xffFEEC46)),
+        buttonColor: Color(0xffFEDA00)),
     textTheme: TextTheme(
       headline4: TextStyle(
         fontWeight: FontWeight.bold,
@@ -39,14 +39,14 @@ class Themes {
     brightness: Brightness.dark,
     accentColorBrightness: Brightness.dark,
     colorScheme: const ColorScheme.light().copyWith(
-      primary: Color(0xffFEEC46),
+      primary: Color(0xffFEDA00),
       secondary: Color(0xFFF9F1A3),
       onPrimary: Colors.black,
       onSurface: Colors.white,
       surface: Color(0xff222F3E),
     ),
-    primaryColor: Color(0xffFEEC46),
-    buttonColor: Color(0xffFEEC46),
+    primaryColor: Color(0xffFEDA00),
+    buttonColor: Color(0xffFEDA00),
     indicatorColor: Colors.white,
     toggleableActiveColor: Color(0xFFF9F1A3),
     splashColor: Colors.white24,
@@ -58,12 +58,12 @@ class Themes {
     errorColor: const Color(0xFFd63031),
     buttonTheme: ButtonThemeData(
         colorScheme: const ColorScheme.light().copyWith(
-          primary: Color(0xffFEEC46),
+          primary: Color(0xffFEDA00),
           secondary: Color(0xFFF9F1A3),
         ),
         textTheme: ButtonTextTheme.primary,
         splashColor: Colors.grey,
-        buttonColor: Color(0xffFEEC46)),
+        buttonColor: Color(0xffFEDA00)),
     textTheme: TextTheme(
       headline4: TextStyle(
         color: Colors.white,

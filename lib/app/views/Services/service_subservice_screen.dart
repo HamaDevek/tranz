@@ -87,7 +87,7 @@ class _ServiceSubserviceScreenState extends State<ServiceSubserviceScreen> {
                 ),
                 Expanded(
                   child: Text(
-                    '${service?.name}',
+                    '${service?.title?["x-lang".tr]}',
                     style: TextStyle(
                       fontSize: 20,
                     ),

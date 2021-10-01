@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
-import '../../services/theme_service.dart';
-import '../../utils/extentions.dart';
+import '../services/theme_service.dart';
+import '../utils/extentions.dart';
 
-class CartEmptyStateComponent extends StatelessWidget {
-  const CartEmptyStateComponent({Key? key}) : super(key: key);
-
+class EmptyStateComponent extends StatelessWidget {
+  EmptyStateComponent({Key? key, required this.icon, this.header, this.foorter})
+      : super(key: key);
+  final icon, header, foorter;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +28,7 @@ class CartEmptyStateComponent extends StatelessWidget {
                         color: Theme.of(context).accentColor,
                       ),
                       child: Icon(
-                        Iconsax.bag_2,
+                        icon,
                         size: 60,
                       ),
                     ),
@@ -36,7 +36,7 @@ class CartEmptyStateComponent extends StatelessWidget {
                       width: double.infinity,
                       margin: EdgeInsets.all(16),
                       child: Text(
-                        'cart.empty.head'.tr,
+                        header ?? '',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily:
@@ -54,7 +54,7 @@ class CartEmptyStateComponent extends StatelessWidget {
                       width: double.infinity,
                       margin: EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
-                        'cart.empty.footer'.tr,
+                        foorter ?? '',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily:

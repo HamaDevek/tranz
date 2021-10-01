@@ -48,7 +48,6 @@ Future<List<ItemModel>> fetchItem(String _) async {
           .toList();
     }
   } catch (e) {
-    print(e);
     Get.snackbar(
       'error'.tr,
       'error.fetch'.tr,

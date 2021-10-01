@@ -44,6 +44,7 @@ final Map<String, String> arIq = {
   "cart": "سلة",
   "cart.empty.head": "السلة فارغة",
   "cart.empty.footer": "البحث عن السلع وإضافتها إلى سلال",
+  "blog.empty.head": "المدونة فارغة",
   "total": "مجموع",
   "total.all": "المجموع الكلي",
   "finish.transaction": "إتمام الحركة",

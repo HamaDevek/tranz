@@ -23,7 +23,7 @@ class CmsApiController extends GetxController {
           'success'.tr,
           'success.insert'.trParams({'type': 'feedback'.tr}),
           duration: Duration(seconds: 3),
-          backgroundColor: Colors.green.withOpacity(.6),
+          backgroundColor: Color(0xffFEDA00).withOpacity(.6),
           titleText: Container(
             child: Text(
               'success'.tr,

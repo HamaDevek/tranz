@@ -40,7 +40,6 @@ Future<List<CityModel>> fetchCity(String _) async {
           .toList();
     }
   } catch (e) {
-    print(e);
     Get.snackbar(
       'error'.tr,
       'error.fetch'.tr,

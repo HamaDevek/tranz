@@ -341,7 +341,6 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                         child: ButtonCustomComponent(
                           onPress: () async {
                             _cartController.addItem(item!, counter);
-                            // print(_cartController.cart);
                           },
                           child: Text(
                             'cart.add'.tr,
