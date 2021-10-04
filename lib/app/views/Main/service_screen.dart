@@ -62,11 +62,21 @@ class _ServiceScreenState extends State<ServiceScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                IconButton(
+                  onPressed: () {
+                    _serviceApiController.changeVertical();
+                  },
+                  icon: Obx(() {
+                    return Icon(_serviceApiController.isVertical.value
+                        ? Iconsax.row_horizontal
+                        : Iconsax.row_vertical);
+                  }),
+                ),
                 Text(
                   'services'.tr,
                   textAlign: 'language.rtl'.tr.parseBool
-                      ? TextAlign.right
-                      : TextAlign.left,
+                      ? TextAlign.left
+                      : TextAlign.right,
                   style: TextStyle(
                     fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
                     fontSize: 24,
@@ -76,16 +86,6 @@ class _ServiceScreenState extends State<ServiceScreen> {
                         : Colors.white,
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    _serviceApiController.changeVertical();
-                  },
-                  icon: Obx(() {
-                    return Icon(_serviceApiController.isVertical.value
-                        ? Iconsax.row_vertical
-                        : Iconsax.row_horizontal);
-                  }),
-                )
               ],
             ),
           ),

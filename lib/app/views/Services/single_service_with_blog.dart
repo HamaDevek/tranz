@@ -60,13 +60,23 @@ class _SingleServiceWithBlogState extends State<SingleServiceWithBlog> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      IconButton(
+                          onPressed: () {
+                            _serviceApiController.isOnScreenBlogService(false);
+                            Get.back();
+                          },
+                          icon: Icon(
+                            'language.rtl'.tr.parseBool
+                                ? Iconsax.arrow_right_3
+                                : Iconsax.arrow_left_2,
+                          )),
                       Container(
                         margin: EdgeInsets.all(16),
                         child: Text(
                           '${service?.title?["x-lang".tr] ?? ''}',
                           textAlign: 'language.rtl'.tr.parseBool
-                              ? TextAlign.right
-                              : TextAlign.left,
+                              ? TextAlign.left
+                              : TextAlign.right,
                           style: TextStyle(
                             fontFamily:
                                 'language.rtl'.tr.parseBool ? "Rabar" : "",
@@ -78,16 +88,6 @@ class _SingleServiceWithBlogState extends State<SingleServiceWithBlog> {
                           ),
                         ),
                       ),
-                      IconButton(
-                          onPressed: () {
-                            _serviceApiController.isOnScreenBlogService(false);
-                            Get.back();
-                          },
-                          icon: Icon(
-                            'language.rtl'.tr.parseBool
-                                ? Iconsax.arrow_left_2
-                                : Iconsax.arrow_right_3,
-                          ))
                     ],
                   ),
                 ),

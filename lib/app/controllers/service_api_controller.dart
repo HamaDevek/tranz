@@ -145,7 +145,7 @@ Future<bool> sendServiceThread(ServiceApiModel service) async {
         Uri.parse('${ConfigApp.apiUrl}/v1/cms/form'),
         body: jsonEncode(service.toMap()),
         headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
+          'Content-Type': 'application/json',
         },
       ).timeout(Duration(seconds: 5)),
       retryIf: (e) => e is SocketException || e is TimeoutException,

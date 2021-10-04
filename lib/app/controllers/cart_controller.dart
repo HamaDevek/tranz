@@ -19,6 +19,8 @@ class CartController extends GetxController {
   RxDouble total = (0.0).obs;
   RxInt fee = 0.obs;
   List cartId = [];
+  var isLoading = false.obs;
+
   final _getStorage = GetStorage();
   @override
   void onInit() async {
@@ -40,6 +42,16 @@ class CartController extends GetxController {
     cartId.removeWhere((element) => element == item.id);
     cart.removeWhere((element) => element.id == item.id);
     _getStorage.remove((item.id.toString()));
+    _getStorage.write('cart', cartId.toSet().toList());
+    update();
+  }
+
+  void deleteAllCartList() {
+    cartId.forEach((item) {
+      _getStorage.remove(item);
+    });
+    cartId.clear();
+    cart.clear();
     _getStorage.write('cart', cartId.toSet().toList());
     update();
   }
@@ -95,8 +107,42 @@ class CartController extends GetxController {
     update();
   }
 
-  void sendOrderRequest(CartApiModel cart) async {
-    await compute(sendCartThread, cart);
+  Future<bool> sendOrderRequest(CartApiModel cart) async {
+    if (!isLoading()) {
+      isLoading(true);
+      bool isTrue = await compute(sendCartThread, cart);
+      isLoading(false);
+      if (isTrue) {
+        Get.snackbar(
+          'success'.tr,
+          'success.insert'.trParams({'type': 'order'.tr}),
+          duration: Duration(seconds: 3),
+          backgroundColor: Color(0xffFEDA00).withOpacity(.6),
+          titleText: Container(
+            child: Text(
+              'success'.tr,
+              style: TextStyle(
+                fontSize: 24,
+              ),
+              // textAlign:
+            ),
+          ),
+          messageText: Container(
+            child: Text(
+              'success.insert'.trParams({'type': 'order'.tr}),
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          ),
+        );
+        await Future.delayed(const Duration(seconds: 3));
+        Get.offAllNamed('/main');
+        return isTrue;
+      }
+      return isTrue;
+    }
+    return false;
   }
 
   ItemModel getItemFromCart(ItemModel item) {
@@ -117,13 +163,15 @@ Future<bool> sendCartThread(CartApiModel service) async {
   try {
     var response = await RetryOptions(maxAttempts: 5).retry(
       () => client.post(
-        Uri.parse('${ConfigApp.apiUrl}/v1/cms/form'),
-        body: service.toMap(),
-        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        Uri.parse('${ConfigApp.apiUrl}/v1/invoice/createorder'),
+        body: service.toJson(),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
       ).timeout(Duration(seconds: 5)),
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
-    return response.statusCode == 201;
+    return response.statusCode == 200;
   } catch (e) {
     Get.snackbar(
       'error'.tr,

@@ -12,15 +12,13 @@ class CartAllTotalComponent extends StatefulWidget {
       : super(key: key);
 
   @override
-  _CartAllTotalComponentState createState() =>
-      _CartAllTotalComponentState(this.onPress);
+  _CartAllTotalComponentState createState() => _CartAllTotalComponentState();
 }
 
 class _CartAllTotalComponentState extends State<CartAllTotalComponent> {
   final CartController _cartController = Get.put(CartController());
-  final onPress;
 
-  _CartAllTotalComponentState(this.onPress);
+  _CartAllTotalComponentState();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -205,16 +203,18 @@ class _CartAllTotalComponentState extends State<CartAllTotalComponent> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ButtonCustomComponent(
-              onPress: onPress,
-              child: Text(
-                'cart.buy'.tr,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Color(0xFF1E272E),
-                  fontFamily: 'language.rtl'.tr.parseBool ? 'Rabar' : '',
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              onPress: widget.onPress,
+              child: Obx(() => Text(
+                    _cartController.isLoading.value
+                        ? 'sending'.tr
+                        : 'cart.buy'.tr,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Color(0xFF1E272E),
+                      fontFamily: 'language.rtl'.tr.parseBool ? 'Rabar' : '',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  )),
             ),
           ),
         ],

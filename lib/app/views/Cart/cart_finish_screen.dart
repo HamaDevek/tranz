@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:trancehouse/app/models/cart_api_model.dart';
+import 'package:trancehouse/utils/utils.dart';
 import '../../../app/controllers/cart_controller.dart';
 import '../../../app/controllers/city_api_controller.dart';
 import '../../../app/models/city_model.dart';
@@ -340,18 +342,7 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 CartAllTotalComponent(
-                  onPress: () {
-                    if (_nameController!.value.text.length >= 3 &&
-                        _addressController!.value.text.length >= 3 &&
-                        _phoneController!.value.text.isPhoneNumber) {
-                      if (this.mounted) {
-                        _nameController!.text = '';
-                        _addressController!.text = '';
-                        _phoneController!.text = '';
-                        // _cartController.sendOrderRequest();
-                      }
-                    }
-                  },
+                  onPress: _onPressBuy,
                 )
               ],
             )
@@ -359,5 +350,53 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
         ),
       ),
     );
+  }
+
+  _onPressBuy() async {
+    final itemList = _cartController.cart
+        .map((e) => Item(
+            name: e.name,
+            barcode: e.barcode,
+            quantity: e.amount.toString(),
+            price: e.sellingPrice.toString(),
+            totalPrice: (e.amount * e.sellingPrice).toString(),
+            currency: 'iqd'))
+        .toList();
+    itemList.add(Item(
+        name: 'delivery',
+        barcode: 'delivery',
+        quantity: '1',
+        price: '${_cartController.fee}',
+        totalPrice: '${_cartController.fee}',
+        currency: 'iqd'));
+    final totlPrice = (_cartController.total.value.toInt() +
+        _cartController.fee.value.toInt());
+    final totalPriceObject =
+        TotalPrice(amount: totlPrice, totalInvoiceBalance: totlPrice);
+    final versionobject = Version(
+        totalPrice: totalPriceObject,
+        items: itemList,
+        note: '${selectedCity.name}~${_addressController!.value.text}');
+
+    if (_nameController!.value.text.length >= 3 &&
+        _addressController!.value.text.length >= 3 &&
+        _phoneController!.value.text.isPhoneNumber) {
+      if (this.mounted) {
+        var order = CartApiModel(
+            traderName: _nameController!.value.text,
+            quickCustomerName: _nameController!.value.text,
+            quickCustomerPhone: _phoneController!.value.text,
+            versions: [versionobject],
+            createdBy: await getDeviceIdentifier());
+
+        bool isSend = await _cartController.sendOrderRequest(order);
+        if (isSend) {
+          _nameController!.text = '';
+          _addressController!.text = '';
+          _phoneController!.text = '';
+          _cartController.deleteAllCartList();
+        }
+      }
+    }
   }
 }

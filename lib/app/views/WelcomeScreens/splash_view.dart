@@ -61,6 +61,13 @@ class _SplashViewState extends State<SplashView> {
                 borderRadius: BorderRadius.circular(1000),
                 color: Theme.of(context).primaryColor,
               ),
+              child: ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  Colors.black,
+                  BlendMode.modulate,
+                ),
+                child: Image.asset('assets/images/logo-home.png'),
+              ),
             ),
             SizedBox(
               height: 200,

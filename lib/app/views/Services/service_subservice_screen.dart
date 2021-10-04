@@ -45,6 +45,30 @@ class _ServiceSubserviceScreenState extends State<ServiceSubserviceScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Icon(
+                      'language.rtl'.tr.parseBool
+                          ? Iconsax.arrow_right_3
+                          : Iconsax.arrow_left_2,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    '${service?.title?["x-lang".tr]}',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                    textAlign: 'language.rtl'.tr.parseBool
+                        ? TextAlign.left
+                        : TextAlign.right,
+                  ),
+                ),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 16),
                   height: 40,
@@ -85,27 +109,6 @@ class _ServiceSubserviceScreenState extends State<ServiceSubserviceScreen> {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Text(
-                    '${service?.title?["x-lang".tr]}',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: Icon(
-                      'language.rtl'.tr.parseBool
-                          ? Iconsax.arrow_left_2
-                          : Iconsax.arrow_right_3,
-                    ),
-                  ),
-                )
               ],
             ),
             SizedBox(
@@ -117,11 +120,21 @@ class _ServiceSubserviceScreenState extends State<ServiceSubserviceScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    IconButton(
+                      onPressed: () {
+                        _serviceApiController.changeVertical();
+                      },
+                      icon: Obx(() {
+                        return Icon(_serviceApiController.isVertical.value
+                            ? Iconsax.row_horizontal
+                            : Iconsax.row_vertical);
+                      }),
+                    ),
                     Text(
                       'services.types'.tr,
                       textAlign: 'language.rtl'.tr.parseBool
-                          ? TextAlign.right
-                          : TextAlign.left,
+                          ? TextAlign.left
+                          : TextAlign.right,
                       style: TextStyle(
                         fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
                         fontSize: 24,
@@ -131,16 +144,6 @@ class _ServiceSubserviceScreenState extends State<ServiceSubserviceScreen> {
                             : Colors.white,
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        _serviceApiController.changeVertical();
-                      },
-                      icon: Obx(() {
-                        return Icon(_serviceApiController.isVertical.value
-                            ? Iconsax.row_vertical
-                            : Iconsax.row_horizontal);
-                      }),
-                    )
                   ],
                 )),
             Expanded(
