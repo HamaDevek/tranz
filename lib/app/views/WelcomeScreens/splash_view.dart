@@ -55,22 +55,24 @@ class _SplashViewState extends State<SplashView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: 200,
-              width: 200,
+              height: 400,
+              width: 400,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(1000),
-                color: Theme.of(context).primaryColor,
+                // color: Theme.of(context).primaryColor,
               ),
-              child: ColorFiltered(
-                colorFilter: ColorFilter.mode(
-                  Colors.black,
-                  BlendMode.modulate,
-                ),
-                child: Image.asset('assets/images/logo-home.png'),
-              ),
+              child: ThemeService().getThemeMode() == ThemeMode.light
+                  ? ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        Colors.black,
+                        BlendMode.modulate,
+                      ),
+                      child: Image.asset('assets/images/logo-home.png'),
+                    )
+                  : Image.asset('assets/images/logo-home.png'),
             ),
             SizedBox(
-              height: 200,
+              height: 50,
             ),
             Container(
               child: Text(

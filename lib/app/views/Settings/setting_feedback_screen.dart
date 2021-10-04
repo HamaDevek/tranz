@@ -150,13 +150,23 @@ class _SettingFeedbackScreenState extends State<SettingFeedbackScreen> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          IconButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            icon: Icon(
+                              'language.rtl'.tr.parseBool
+                                  ? Iconsax.arrow_right_3
+                                  : Iconsax.arrow_left_2,
+                            ),
+                          ),
                           Expanded(
                             child: Container(
                               child: Text(
                                 'feedback.send'.tr,
                                 textAlign: 'language.rtl'.tr.parseBool
-                                    ? TextAlign.right
-                                    : TextAlign.left,
+                                    ? TextAlign.left
+                                    : TextAlign.right,
                                 style: TextStyle(
                                   fontFamily: 'language.rtl'.tr.parseBool
                                       ? "Rabar"
@@ -169,16 +179,6 @@ class _SettingFeedbackScreenState extends State<SettingFeedbackScreen> {
                                 ),
                                 overflow: TextOverflow.fade,
                               ),
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            icon: Icon(
-                              'language.rtl'.tr.parseBool
-                                  ? Iconsax.arrow_left_2
-                                  : Iconsax.arrow_right_3,
                             ),
                           ),
                         ],

@@ -25,25 +25,27 @@ class _ChooseModeState extends State<ChooseMode> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 120,
+                  height: 50,
                 ),
                 Container(
-                  height: 150,
-                  width: 150,
+                  height: 300,
+                  width: 300,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(1000),
-                    color: Theme.of(context).primaryColor,
+                    // color: Theme.of(context).primaryColor,
                   ),
-                  child: ColorFiltered(
-                    colorFilter: ColorFilter.mode(
-                      Colors.black,
-                      BlendMode.modulate,
-                    ),
-                    child: Image.asset('assets/images/logo-home.png'),
-                  ),
+                  child: ThemeService().getThemeMode() == ThemeMode.light
+                      ? ColorFiltered(
+                          colorFilter: ColorFilter.mode(
+                            Colors.black,
+                            BlendMode.modulate,
+                          ),
+                          child: Image.asset('assets/images/logo-home.png'),
+                        )
+                      : Image.asset('assets/images/logo-home.png'),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 20,
                 ),
                 Container(
                   height: 50,
