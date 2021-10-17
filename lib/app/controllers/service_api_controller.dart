@@ -55,7 +55,7 @@ class ServiceApiController extends GetxController {
           'success'.tr,
           'success.insert'.trParams({'type': 'services'.tr}),
           duration: Duration(seconds: 3),
-          backgroundColor: Color(0xffFEDA00).withOpacity(.6),
+          backgroundColor: Colors.green.withOpacity(.6),
           titleText: Container(
             child: Text(
               'success'.tr,

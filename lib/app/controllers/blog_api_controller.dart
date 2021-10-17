@@ -41,22 +41,30 @@ class BlogApiController extends GetxController {
 Future<Map<String, dynamic>> fetchBlog(Map limit) async {
   print("RUN BLOG");
   try {
-    var response = await RetryOptions(maxAttempts: 5).retry(
-      () => client
-          .post(Uri.parse('${ConfigApp.apiUrl}/v1/cms/blog/section'), body: {
-        'branch': ConfigApp.branchAccess,
-        'skip': '${limit['form']}',
-        'docsLimit': '${limit['to']}',
-      }).timeout(Duration(seconds: 5)),
+    var request = http.Request(
+        'POST', Uri.parse('${ConfigApp.apiUrl}/v1/cms/blog/section'));
+    request.body = json.encode({
+      "branch": ConfigApp.branchAccess,
+      'skip': '${limit['form']}',
+      'docsLimit': '${limit['to']}',
+      "query": {"section": "blog"}
+    });
+    request.headers.addAll(
+        {'Accept': 'application/json', 'Content-Type': 'application/json'});
+
+    http.StreamedResponse responseStream =
+        await RetryOptions(maxAttempts: 5).retry(
+      () => request.send().timeout(Duration(seconds: 5)),
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
 
-    if (response.statusCode == 200) {
+    if (responseStream.statusCode == 200) {
+      var response = await responseStream.stream.bytesToString();
       print("RUN REQUEST");
       return {
-        'total': json.decode(response.body)['total'],
+        'total': json.decode(response)['total'],
         'data': json
-            .decode(json.encode(json.decode(response.body)['sections']))
+            .decode(json.encode(json.decode(response)['sections']))
             .cast<Map<String, dynamic>>()
             .map<BlogModel>((json) => BlogModel.fromJson(json))
             .toList()

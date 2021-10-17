@@ -69,6 +69,22 @@ class SettingContactScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                    Get.arguments['links']['facebook'] == ''
+                        ? SizedBox()
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: SettingComponent(
+                              onPress: () async {
+                                await canLaunch(
+                                        '${Get.arguments['links']['facebook']}')
+                                    ? await launch(
+                                        '${Get.arguments['links']['facebook']}')
+                                    : throw 'Could not launch ${Get.arguments['links']['facebook']}';
+                              },
+                              icon: Icon(Iconsax.call),
+                              text: 'Facebook',
+                            ),
+                          ),
                   ],
                 ),
               ),

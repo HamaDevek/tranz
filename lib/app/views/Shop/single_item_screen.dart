@@ -178,7 +178,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                   ),
                 ),
                 Container(
-                  height: 270,
+                  height: 250,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Theme.of(context).scaffoldBackgroundColor,
@@ -206,7 +206,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                       ),
                       Container(
                         margin:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                         width: double.infinity,
                         child: Text(
                           'ratio'.tr,
