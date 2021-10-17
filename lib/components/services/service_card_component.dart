@@ -33,7 +33,9 @@ class _ServiceCardComponentState extends State<ServiceCardComponent> {
                   .getchiled(widget.service.id!.toString())!
                   .length >
               0) {
-            Get.toNamed('/subservice', arguments: widget.service);
+            // Get.back();
+            Get.toNamed('/subservice?${widget.service.id}',
+                arguments: widget.service);
           } else {
             Get.toNamed('/subservice/blogs', arguments: widget.service);
           }

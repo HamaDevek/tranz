@@ -86,7 +86,8 @@ class ServiceApiController extends GetxController {
   }
 
   List<ServiceModel>? getchiled(String id) {
-    return service.where((el) => id == el.parent!.split("/").last).toList();
+    print(service.where((el) => id == el.parent!.toString()).toList());
+    return service.where((el) => id == el.parent!.toString()).toList();
   }
 }
 
