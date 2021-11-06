@@ -65,7 +65,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       height: 25,
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height / 1.5,
+                      height: MediaQuery.of(context).size.height > 600
+                          ? MediaQuery.of(context).size.height / 1.7
+                          : MediaQuery.of(context).size.height / 2,
                       child: PageView.builder(
                         physics: BouncingScrollPhysics(),
                         reverse: "language.rtl".tr.parseBool,

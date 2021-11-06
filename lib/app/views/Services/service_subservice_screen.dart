@@ -63,6 +63,7 @@ class _ServiceSubserviceScreenState extends State<ServiceSubserviceScreen> {
                     '${service?.title?["x-lang".tr]}',
                     style: TextStyle(
                       fontSize: 20,
+                      fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
                     ),
                     textAlign: 'language.rtl'.tr.parseBool
                         ? TextAlign.left

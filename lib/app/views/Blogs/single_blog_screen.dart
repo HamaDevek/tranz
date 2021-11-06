@@ -131,7 +131,7 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: Html(
-                          data: blog!.html.toString(),
+                          data: blog!.html?["x-lang".tr],
                           onLinkTap: (String? url, RenderContext context,
                               attributes, element) async {
                             await canLaunch(url!)

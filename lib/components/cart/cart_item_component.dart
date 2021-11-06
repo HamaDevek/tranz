@@ -89,7 +89,7 @@ class _CartItemComponentState extends State<CartItemComponent> {
                       children: [
                         Expanded(
                           child: Text(
-                            '${widget.item.name ?? ""}',
+                            '${widget.item.localizeName?["x-lang".tr] ?? ""}',
                             textAlign: 'language.rtl'.tr.parseBool
                                 ? TextAlign.right
                                 : TextAlign.left,

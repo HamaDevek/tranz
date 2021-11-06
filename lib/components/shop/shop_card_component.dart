@@ -88,7 +88,7 @@ class _ShopCardComponentState extends State<ShopCardComponent> {
                 margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 width: double.infinity,
                 child: Text(
-                  '${widget.item.name ?? ""}',
+                  '${widget.item.localizeName?["x-lang".tr] ?? ""}',
                   textAlign: 'language.rtl'.tr.parseBool
                       ? TextAlign.right
                       : TextAlign.left,

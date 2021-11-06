@@ -6,6 +6,7 @@ import '../../../services/theme_service.dart';
 import 'package:get/get.dart';
 import '../../../utils/extentions.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SettingContactScreen extends StatelessWidget {
   const SettingContactScreen({Key? key}) : super(key: key);
@@ -63,9 +64,7 @@ class SettingContactScreen extends StatelessWidget {
                                     : throw 'Could not launch tel:$e';
                               },
                               icon: Icon(Iconsax.call),
-                              text: 'language.rtl'.tr.parseBool
-                                  ? e.split('').reversed.join()
-                                  : e,
+                              text: e,
                             ),
                           ),
                         ),
@@ -81,8 +80,72 @@ class SettingContactScreen extends StatelessWidget {
                                         '${Get.arguments['links']['facebook']}')
                                     : throw 'Could not launch ${Get.arguments['links']['facebook']}';
                               },
-                              icon: Icon(Iconsax.call),
+                              icon: Icon(FontAwesomeIcons.facebook),
                               text: 'Facebook',
+                            ),
+                          ),
+                    Get.arguments['links']['linkedin'] == ''
+                        ? SizedBox()
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: SettingComponent(
+                              onPress: () async {
+                                await canLaunch(
+                                        '${Get.arguments['links']['linkedin']}')
+                                    ? await launch(
+                                        '${Get.arguments['links']['linkedin']}')
+                                    : throw 'Could not launch ${Get.arguments['links']['linkedin']}';
+                              },
+                              icon: Icon(FontAwesomeIcons.snapchatGhost),
+                              text: 'Snapchat',
+                            ),
+                          ),
+                    Get.arguments['links']['instagram'] == ''
+                        ? SizedBox()
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: SettingComponent(
+                              onPress: () async {
+                                await canLaunch(
+                                        '${Get.arguments['links']['instagram']}')
+                                    ? await launch(
+                                        '${Get.arguments['links']['instagram']}')
+                                    : throw 'Could not launch ${Get.arguments['links']['instagram']}';
+                              },
+                              icon: Icon(FontAwesomeIcons.instagram),
+                              text: 'Instagram',
+                            ),
+                          ),
+                    Get.arguments['links']['twitter'] == ''
+                        ? SizedBox()
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: SettingComponent(
+                              onPress: () async {
+                                await canLaunch(
+                                        '${Get.arguments['links']['twitter']}')
+                                    ? await launch(
+                                        '${Get.arguments['links']['twitter']}')
+                                    : throw 'Could not launch ${Get.arguments['links']['twitter']}';
+                              },
+                              icon: Icon(FontAwesomeIcons.twitter),
+                              text: 'Twitter',
+                            ),
+                          ),
+                    Get.arguments['links']['youtube'] == ''
+                        ? SizedBox()
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: SettingComponent(
+                              onPress: () async {
+                                await canLaunch(
+                                        '${Get.arguments['links']['youtube']}')
+                                    ? await launch(
+                                        '${Get.arguments['links']['youtube']}')
+                                    : throw 'Could not launch ${Get.arguments['links']['youtube']}';
+                              },
+                              icon: Icon(FontAwesomeIcons.youtube),
+                              text: 'Youtube',
                             ),
                           ),
                   ],

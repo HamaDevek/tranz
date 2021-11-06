@@ -31,7 +31,7 @@ class BlogModel {
   String? id;
   Map? title;
   Map? description;
-  String? html;
+  Map? html;
   int? priority;
   String? section;
   String? author;
@@ -52,7 +52,7 @@ class BlogModel {
     String? id,
     Map? title,
     Map? description,
-    String? html,
+    Map? html,
     int? priority,
     String? section,
     String? author,

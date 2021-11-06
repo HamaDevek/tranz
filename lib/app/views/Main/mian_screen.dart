@@ -78,7 +78,7 @@ class _MainScreenState extends State<MainScreen> {
                 },
               ),
               IconButton(
-                icon: Icon(Iconsax.broom),
+                icon: Icon(Iconsax.truck),
                 color: _index == 0
                     ? Theme.of(context).textTheme.headline4!.color
                     : _disable,

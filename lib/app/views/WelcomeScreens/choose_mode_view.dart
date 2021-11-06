@@ -16,6 +16,8 @@ class ChooseMode extends StatefulWidget {
 class _ChooseModeState extends State<ChooseMode> {
   @override
   Widget build(BuildContext context) {
+    var y = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: SafeArea(
         child: ScrollConfiguration(
@@ -25,11 +27,11 @@ class _ChooseModeState extends State<ChooseMode> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 50,
+                  height: y > 600 ? 50 : 25,
                 ),
                 Container(
-                  height: 300,
-                  width: 300,
+                  height: y > 600 ? 300 : 150,
+                  width: y > 600 ? 300 : 150,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(1000),
                     // color: Theme.of(context).primaryColor,
@@ -45,7 +47,7 @@ class _ChooseModeState extends State<ChooseMode> {
                       : Image.asset('assets/images/logo-home.png'),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: y > 600 ? 20 : 10,
                 ),
                 Container(
                   height: 50,
@@ -66,15 +68,20 @@ class _ChooseModeState extends State<ChooseMode> {
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: y > 600 ? 10 : 5,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 16),
                     child: ButtonCustomDarkComponent(
-                      isSelected: Get.isDarkMode,
-                      onPress: () => ThemeService().changeThemeToDark(),
+                      isSelected:
+                          ThemeService().getThemeMode() == ThemeMode.dark,
+                      onPress: () {
+                        setState(() {
+                          ThemeService().changeThemeToDark();
+                        });
+                      },
                       text: "mode.dark".tr,
                       fontFamily: 'language.rtl'.tr.parseBool ? 'Rabar' : '',
                     ),
@@ -85,8 +92,13 @@ class _ChooseModeState extends State<ChooseMode> {
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 16),
                     child: ButtonCustomDarkComponent(
-                      isSelected: !Get.isDarkMode,
-                      onPress: () => ThemeService().changeThemeToLight(),
+                      isSelected:
+                          ThemeService().getThemeMode() == ThemeMode.light,
+                      onPress: () {
+                        setState(() {
+                          ThemeService().changeThemeToLight();
+                        });
+                      },
                       text: "mode.light".tr,
                       fontFamily: 'language.rtl'.tr.parseBool ? 'Rabar' : '',
                     ),

@@ -38,7 +38,6 @@ Future<List<ItemModel>> fetchItem(String _) async {
           .timeout(Duration(seconds: 5)),
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
-
     if (response.statusCode == 200) {
       print("RUN REQUEST");
       return json

@@ -19,6 +19,8 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
   bool _isSelectAny = false;
   @override
   Widget build(BuildContext context) {
+    // var x = MediaQuery.of(context).size.width;
+    var y = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SafeArea(
         child: ScrollConfiguration(
@@ -28,11 +30,11 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 50,
+                  height: y > 600 ? 50 : 25,
                 ),
                 Container(
-                  height: 300,
-                  width: 300,
+                  height: y > 600 ? 300 : 150,
+                  width: y > 600 ? 300 : 150,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(1000),
                     // color: Theme.of(context).primaryColor,
@@ -48,11 +50,12 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                       : Image.asset('assets/images/logo-home.png'),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: y > 600 ? 20 : 10,
                 ),
                 Container(
                   height: 50,
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: 16, vertical: y > 600 ? 32 : 16),
                   width: double.infinity,
                   child: Text(
                     'language.choose'.tr,
@@ -69,7 +72,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: y > 600 ? 10 : 5,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),

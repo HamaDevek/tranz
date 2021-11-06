@@ -11,6 +11,8 @@ class ItemModel {
     this.brand,
     this.itemInfo,
     this.amount,
+    this.localizeName,
+    this.description,
   });
 
   List<String>? picture;
@@ -22,6 +24,8 @@ class ItemModel {
   String? category;
   String? brand;
   String? itemInfo;
+  Map? localizeName;
+  Map? description;
   factory ItemModel.fromJson(str) => ItemModel.fromMap(str);
   String toJson() => json.encode(toMap());
   factory ItemModel.fromMap(Map<String, dynamic> json) => ItemModel(
@@ -37,6 +41,9 @@ class ItemModel {
         brand: json["brand"] == null ? null : json["brand"],
         itemInfo: json["itemInfo"] == null ? null : json["itemInfo"],
         amount: json["amount"] == null ? 1 : json["amount"],
+        localizeName:
+            json["localizeName"] == null ? null : json["localizeName"],
+        description: json["description"] == null ? null : json["description"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -50,6 +57,8 @@ class ItemModel {
         "brand": brand == null ? null : brand,
         "itemInfo": itemInfo == null ? null : itemInfo,
         "amount": amount == null ? null : amount,
+        "localizeName": localizeName == null ? null : localizeName,
+        "description": description == null ? null : description,
       };
   ItemModel copyWith({
     List<String>? picture,
@@ -61,6 +70,8 @@ class ItemModel {
     String? category,
     String? brand,
     String? itemInfo,
+    Map? localizeName,
+    Map? description,
   }) =>
       ItemModel(
         picture: picture ?? this.picture,
@@ -72,5 +83,7 @@ class ItemModel {
         brand: brand ?? this.brand,
         itemInfo: itemInfo ?? this.itemInfo,
         amount: amount ?? this.amount,
+        localizeName: localizeName ?? this.localizeName,
+        description: description ?? this.description,
       );
 }

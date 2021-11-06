@@ -89,7 +89,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                       padding: const EdgeInsets.all(16),
                       width: double.infinity,
                       child: Text(
-                        '${item!.itemInfo ?? ""}',
+                        '${item!.description?["x-lang".tr] ?? ""}',
                         textAlign: 'language.rtl'.tr.parseBool
                             ? TextAlign.right
                             : TextAlign.left,
@@ -152,7 +152,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                               Expanded(
                                 child: Container(
                                   child: Text(
-                                    '${item!.name ?? ""} ',
+                                    '${item!.localizeName?["x-lang".tr] ?? ""} ',
                                     textAlign: 'language.rtl'.tr.parseBool
                                         ? TextAlign.left
                                         : TextAlign.right,
