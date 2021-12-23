@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../app/models/blog_model.dart';
-import '../../services/theme_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
+import '../../app/models/blog_model.dart';
+import '../../services/theme_service.dart';
 import '../../utils/config.dart';
 import '../../utils/extentions.dart';
 

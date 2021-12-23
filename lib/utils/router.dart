@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:trancehouse/app/views/Services/service_order_screen.dart';
-import 'package:trancehouse/app/views/Services/service_subservice_screen.dart';
-import 'package:trancehouse/app/views/Services/single_service_with_blog.dart';
+import '../app/views/Services/service_order_screen.dart';
+import '../app/views/Services/service_subservice_screen.dart';
+import '../app/views/Services/single_service_with_blog.dart';
 import '../app/views/Blogs/single_blog_screen.dart';
 import '../app/views/Cart/cart_finish_screen.dart';
 import '../app/views/Cart/cart_screen.dart';

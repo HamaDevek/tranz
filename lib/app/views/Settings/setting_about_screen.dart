@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../../components/no_glow_component.dart';
 import '../../../services/theme_service.dart';
-import 'package:get/get.dart';
 import '../../../utils/extentions.dart';
 
 class SettingAboutScreen extends StatelessWidget {

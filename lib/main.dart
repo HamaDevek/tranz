@@ -5,10 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:trancehouse/app/controllers/language_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../services/theme_service.dart';
+import '../app/controllers/language_controller.dart';
 import '../theme/theme_modes.dart';
 import '../utils/config.dart';
 import '../app/bindings/binding_manager.dart';
@@ -100,7 +100,7 @@ class _MaterialAppWithProviderState extends State<MaterialAppWithProvider> {
       initialBinding: BindingManager(),
       unknownRoute:
           GetPage(name: '/notfound', page: () => const UnknownRoutePage()),
-      // enableLog: false,
+      enableLog: false,
       getPages: RouteName.routes,
       initialRoute: ConfigApp.root,
       title: ConfigApp.appName,

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:trancehouse/app/controllers/service_api_controller.dart';
-import 'package:trancehouse/app/models/service_model.dart';
-import 'package:trancehouse/components/button_custom_component.dart';
-import 'package:trancehouse/components/empty_state_component.dart';
+import '../../../app/controllers/service_api_controller.dart';
+import '../../../app/models/service_model.dart';
+import '../../../components/button_custom_component.dart';
+import '../../../components/empty_state_component.dart';
 import '../../../components/blog/blog_component.dart';
 import '../../../components/blog/blog_loading_component.dart';
 import '../../../components/no_glow_component.dart';
 import '../../../services/theme_service.dart';
-import 'package:get/get.dart';
 import '../../../utils/extentions.dart';
 
 class SingleServiceWithBlog extends StatefulWidget {

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../components/no_glow_component.dart';
 import '../../../components/setting/setting_component.dart';
 import '../../../services/theme_service.dart';
-import 'package:get/get.dart';
 import '../../../utils/extentions.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SettingContactScreen extends StatelessWidget {
   const SettingContactScreen({Key? key}) : super(key: key);

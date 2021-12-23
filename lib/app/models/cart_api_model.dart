@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:trancehouse/utils/config.dart';
+import '../../utils/config.dart';
+
 
 class CartApiModel {
   CartApiModel({

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:trancehouse/services/theme_service.dart';
+import '../../../services/theme_service.dart';
 import '../../../app/controllers/city_api_controller.dart';
 import '../../../app/controllers/language_controller.dart';
 import '../../../app/controllers/webinfo_api_controller.dart';

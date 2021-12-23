@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:get/get.dart';
 import '../../app/controllers/cart_controller.dart';
 import '../../app/models/item_model.dart';
 import '../../services/theme_service.dart';
-import 'package:get/get.dart';
 import '../../utils/config.dart';
 import '../../utils/extentions.dart';
 

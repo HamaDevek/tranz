@@ -4,9 +4,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:retry/retry.dart';
 import 'package:http/http.dart' as http;
 import '../../utils/config.dart';
-import 'package:retry/retry.dart';
 import '../../utils/extentions.dart';
 
 class WebinfoApiController extends GetxController {

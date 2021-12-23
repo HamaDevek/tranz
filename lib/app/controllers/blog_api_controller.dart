@@ -5,9 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:retry/retry.dart';
 import '../../app/models/blog_model.dart';
 import '../../utils/config.dart';
-import 'package:retry/retry.dart';
 import '../../utils/extentions.dart';
 
 final client = http.Client();
@@ -43,6 +43,7 @@ Future<Map<String, dynamic>> fetchBlog(Map limit) async {
   try {
     var request = http.Request(
         'POST', Uri.parse('${ConfigApp.apiUrl}/v1/cms/blog/section'));
+
     request.body = json.encode({
       "branch": ConfigApp.branchAccess,
       'skip': '${limit['form']}',
@@ -60,7 +61,10 @@ Future<Map<String, dynamic>> fetchBlog(Map limit) async {
 
     if (responseStream.statusCode == 200) {
       var response = await responseStream.stream.bytesToString();
+
       print("RUN REQUEST");
+      print(response);
+      // return {'total': 0, 'data': <BlogModel>[]};
       return {
         'total': json.decode(response)['total'],
         'data': json

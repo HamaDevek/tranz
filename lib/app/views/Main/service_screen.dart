@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:trancehouse/app/controllers/service_api_controller.dart';
-import 'package:trancehouse/components/no_glow_component.dart';
-import 'package:trancehouse/components/services/service_card_component.dart';
-import 'package:trancehouse/components/services/service_loading_component.dart';
-import 'package:trancehouse/services/theme_service.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
+import '../../../app/controllers/service_api_controller.dart';
+import '../../../components/no_glow_component.dart';
+import '../../../components/services/service_card_component.dart';
+import '../../../components/services/service_loading_component.dart';
+import '../../../services/theme_service.dart';
 import '../../../utils/extentions.dart';
 
 class ServiceScreen extends StatefulWidget {
@@ -27,36 +27,6 @@ class _ServiceScreenState extends State<ServiceScreen> {
           SizedBox(
             height: 18,
           ),
-
-          // Row(
-          //   children: [
-          //     Material(
-          //       color: Colors.transparent,
-          //       child: InkWell(
-          //         splashColor: Colors.transparent,
-          //         highlightColor: Colors.transparent,
-          //         onTap: () {},
-          //         child: Container(
-          //           margin: EdgeInsets.only(
-          //               left: 'language.rtl'.tr.parseBool ? 0 : 16,
-          //               right: 'language.rtl'.tr.parseBool ? 16 : 0),
-          //           height: 50,
-          //           width: 50,
-          //           decoration: BoxDecoration(
-          //             borderRadius: BorderRadius.circular(10),
-          //             color: ThemeService().isSavedDarkMode()
-          //                 ? Color(0xFF292D32)
-          //                 : Colors.white,
-          //           ),
-          //           child: Icon(Iconsax.notification),
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // SizedBox(
-          //   height: 16,
-          // ),
           Container(
             margin: EdgeInsets.all(16),
             width: double.infinity,
@@ -90,7 +60,6 @@ class _ServiceScreenState extends State<ServiceScreen> {
               ],
             ),
           ),
-
           Expanded(child: Obx(() {
             if (_serviceApiController.isLoading.value) {
               return ScrollConfiguration(
@@ -113,6 +82,25 @@ class _ServiceScreenState extends State<ServiceScreen> {
                     }),
               );
             } else {
+              // return ScrollConfiguration(
+              //   behavior: NoGlowComponent(),
+              //   child: GridView.builder(
+              //       itemCount: 6,
+              //       shrinkWrap: true,
+              //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //           crossAxisCount:
+              //               _serviceApiController.isVertical.value ? 2 : 1,
+              //           childAspectRatio: MediaQuery.of(context).size.width /
+              //               (MediaQuery.of(context).size.height / 1.6),
+              //           crossAxisSpacing: 16,
+              //           mainAxisSpacing: 16,
+              //           mainAxisExtent:
+              //               _serviceApiController.isVertical.value ? 145 : 185),
+              //       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              //       itemBuilder: (context, index) {
+              //         return ServiceLoadingComponent();
+              //       }),
+              // );
               return ScrollConfiguration(
                 behavior: NoGlowComponent(),
                 child: RefreshIndicator(

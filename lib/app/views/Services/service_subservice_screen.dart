@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:trancehouse/app/controllers/service_api_controller.dart';
-import 'package:trancehouse/app/models/service_model.dart';
-import 'package:trancehouse/components/no_glow_component.dart';
-import 'package:trancehouse/components/services/service_card_component.dart';
-import 'package:trancehouse/services/theme_service.dart';
 import 'package:get/get.dart';
-import 'package:trancehouse/utils/config.dart';
+import '../../../app/controllers/service_api_controller.dart';
+import '../../../app/models/service_model.dart';
+import '../../../components/no_glow_component.dart';
+import '../../../components/services/service_card_component.dart';
+import '../../../services/theme_service.dart';
+import '../../../utils/config.dart';
 import '../../../utils/extentions.dart';
 
 class ServiceSubserviceScreen extends StatefulWidget {

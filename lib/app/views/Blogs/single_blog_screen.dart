@@ -131,13 +131,19 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: Html(
-                          data: blog!.html?["x-lang".tr],
-                          onLinkTap: (String? url, RenderContext context,
-                              attributes, element) async {
-                            await canLaunch(url!)
-                                ? await launch(url)
-                                : throw 'Could not launch :$url';
-                          }),
+                        data: blog!.html?["x-lang".tr],
+                        onLinkTap: (String? url, RenderContext context,
+                            attributes, element) async {
+                          await canLaunch(url!)
+                              ? await launch(url)
+                              : throw 'Could not launch :$url';
+                        },
+                        style: {
+                          '*': Style(
+                            color: Theme.of(context).textTheme.headline4!.color,
+                          )
+                        },
+                      ),
                     ),
                     SizedBox(
                       height: 16,

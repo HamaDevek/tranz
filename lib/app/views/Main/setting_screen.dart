@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:get/get.dart';
 import '../../../app/controllers/webinfo_api_controller.dart';
 import '../../../components/no_glow_component.dart';
 import '../../../components/setting/setting_change_language_component.dart';
 import '../../../components/setting/setting_change_mode_component.dart';
 import '../../../components/setting/setting_component.dart';
 import '../../../services/theme_service.dart';
-import 'package:get/get.dart';
 import '../../../utils/extentions.dart';
 
 class SettingScreen extends StatefulWidget {

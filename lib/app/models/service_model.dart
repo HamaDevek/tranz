@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final ServiceModel = ServiceModelFromMap(jsonString);
-
 import 'dart:convert';
 
 class ServiceModel {

@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:trancehouse/app/controllers/service_api_controller.dart';
-import '../../app/models/service_model.dart';
 import 'package:get/get.dart';
+import '../../app/controllers/service_api_controller.dart';
+import '../../app/models/service_model.dart';
 import '../../utils/config.dart';
 import '../../../utils/extentions.dart';
 

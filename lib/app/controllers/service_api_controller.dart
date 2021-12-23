@@ -4,13 +4,13 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:retry/retry.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:trancehouse/app/models/blog_model.dart';
-import 'package:trancehouse/app/models/service_api_model.dart';
+import '../../app/models/blog_model.dart';
+import '../../app/models/service_api_model.dart';
 import '../../app/models/service_model.dart';
 import '../../utils/config.dart';
-import 'package:retry/retry.dart';
 import '../../utils/extentions.dart';
 
 final client = http.Client();
@@ -35,6 +35,7 @@ class ServiceApiController extends GetxController {
   void getBlogByService(String id) async {
     isLoadingBlog(true);
     blogs.value = (await compute(fetchBlogService, id))['data'];
+    print(blogs);
     isLoadingBlog(false);
     update();
   }

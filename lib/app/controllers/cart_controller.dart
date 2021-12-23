@@ -1,16 +1,15 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:trancehouse/app/models/cart_api_model.dart';
-import 'package:trancehouse/utils/config.dart';
-import '../../app/models/item_model.dart';
-import '../../utils/extentions.dart';
 import 'package:http/http.dart' as http;
 import 'package:retry/retry.dart';
+import 'package:get_storage/get_storage.dart';
+import '../../app/models/cart_api_model.dart';
+import '../../utils/config.dart';
+import '../../app/models/item_model.dart';
+import '../../utils/extentions.dart';
 
 final client = http.Client();
 

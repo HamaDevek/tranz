@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../app/controllers/blog_api_controller.dart';
 import '../../../components/blog/blog_component.dart';
 import '../../../components/blog/blog_loading_component.dart';
 import '../../../components/no_glow_component.dart';
 import '../../../services/theme_service.dart';
-import 'package:get/get.dart';
 import '../../../utils/extentions.dart';
 
 class BlogScreen extends StatefulWidget {

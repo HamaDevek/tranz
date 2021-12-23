@@ -3,8 +3,6 @@ import 'dart:io' as io;
 import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// ignore: import_of_legacy_library_into_null_safe
-
 import 'package:intl/intl.dart';
 
 Future<String> getDeviceIdentifier() async {

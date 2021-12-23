@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:trancehouse/app/models/cart_api_model.dart';
-import 'package:trancehouse/utils/utils.dart';
+import '../../../app/models/cart_api_model.dart';
+import '../../../utils/utils.dart';
 import '../../../app/controllers/cart_controller.dart';
 import '../../../app/controllers/city_api_controller.dart';
 import '../../../app/models/city_model.dart';
