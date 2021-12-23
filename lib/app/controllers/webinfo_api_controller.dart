@@ -23,7 +23,6 @@ class WebinfoApiController extends GetxController {
       );
       if (response.statusCode == 200) {
         webInfo(json.decode(response.body)['data']);
-        print(json.decode(response.body)['data']);
         return json.decode(response.body)['data'];
       }
     } catch (e) {

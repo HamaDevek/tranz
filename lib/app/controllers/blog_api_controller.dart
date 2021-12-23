@@ -63,7 +63,6 @@ Future<Map<String, dynamic>> fetchBlog(Map limit) async {
       var response = await responseStream.stream.bytesToString();
 
       print("RUN REQUEST");
-      print(response);
       // return {'total': 0, 'data': <BlogModel>[]};
       return {
         'total': json.decode(response)['total'],

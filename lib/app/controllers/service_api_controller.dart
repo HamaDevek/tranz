@@ -35,7 +35,6 @@ class ServiceApiController extends GetxController {
   void getBlogByService(String id) async {
     isLoadingBlog(true);
     blogs.value = (await compute(fetchBlogService, id))['data'];
-    print(blogs);
     isLoadingBlog(false);
     update();
   }
