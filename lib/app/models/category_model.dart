@@ -4,6 +4,7 @@ class CategoryModel {
   CategoryModel({
     this.parent,
     this.id,
+    this.title,
     this.name,
     this.showInGrid,
     this.createdAt,
@@ -16,6 +17,7 @@ class CategoryModel {
   String? parent;
   String? id;
   String? name;
+  Map? title;
   String? showInGrid;
   DateTime? createdAt;
   String? createdBy;
@@ -31,6 +33,7 @@ class CategoryModel {
         parent: json["parent"] == null ? null : json["parent"],
         id: json["_id"] == null ? null : json["_id"],
         name: json["name"] == null ? null : json["name"],
+        title: json["title"] == null ? null : json["title"],
         showInGrid: json["showInGrid"] == null ? null : json["showInGrid"],
         createdAt: json["createdAt"] == null
             ? null
@@ -47,6 +50,7 @@ class CategoryModel {
         "parent": parent == null ? null : parent,
         "_id": id == null ? null : id,
         "name": name == null ? null : name,
+        "title": title == null ? null : title,
         "showInGrid": showInGrid == null ? null : showInGrid,
         "createdAt": createdAt == null ? null : createdAt!.toIso8601String(),
         "createdBy": createdBy == null ? null : createdBy,

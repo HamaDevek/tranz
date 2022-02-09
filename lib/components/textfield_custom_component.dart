@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../services/theme_service.dart';
+import '../utils/extentions.dart';
 
 class TextfieldCustomComponent extends StatelessWidget {
   const TextfieldCustomComponent(
@@ -48,6 +50,7 @@ class TextfieldCustomComponent extends StatelessWidget {
                     color: !ThemeService().isSavedDarkMode()
                         ? Color(0xFF1E272E)
                         : Colors.white,
+                    fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
                     fontSize: 20),
                 keyboardType: keyboardType ?? TextInputType.text,
                 textInputAction: TextInputAction.done,
@@ -57,7 +60,10 @@ class TextfieldCustomComponent extends StatelessWidget {
                   prefixIcon: prefixIcon,
                   suffixIcon: suffixIcon,
                   hintText: hintText,
-                  hintStyle: TextStyle(fontSize: 20),
+                  hintStyle: TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
+                  ),
                   border: InputBorder.none,
                   counterText: "",
                   contentPadding:

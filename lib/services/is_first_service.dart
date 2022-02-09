@@ -4,7 +4,7 @@ class IsFirstService {
   final _getStorage = GetStorage();
   final storageKey = 'isFirst';
   bool getIsFirst() {
-    return isSavedIsFirst() ;
+    return isSavedIsFirst();
   }
 
   bool isSavedIsFirst() {

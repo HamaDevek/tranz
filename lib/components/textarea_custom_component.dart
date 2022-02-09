@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../services/theme_service.dart';
+import '../utils/extentions.dart';
 
 class TextareaCustomComponent extends StatelessWidget {
   const TextareaCustomComponent(
@@ -28,6 +30,7 @@ class TextareaCustomComponent extends StatelessWidget {
                   color: !ThemeService().isSavedDarkMode()
                       ? Color(0xFF1E272E)
                       : Colors.white,
+                  fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
                   fontSize: 20),
               keyboardType: TextInputType.multiline,
               textInputAction: TextInputAction.done,
@@ -36,7 +39,10 @@ class TextareaCustomComponent extends StatelessWidget {
               maxLines: null,
               decoration: InputDecoration(
                 hintText: hintText,
-                hintStyle: TextStyle(fontSize: 20),
+                hintStyle: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
+                ),
                 border: InputBorder.none,
                 counterText: "",
                 contentPadding: EdgeInsets.all(16),

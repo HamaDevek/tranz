@@ -108,7 +108,8 @@ class _SettingChangeLangaugeComponentState
                           child: Text(
                             item.name,
                             style: TextStyle(
-                              fontFamily: "Rabar",
+                              fontFamily:
+                                  'language.rtl'.tr.parseBool ? "Rabar" : "",
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: !ThemeService().isSavedDarkMode()

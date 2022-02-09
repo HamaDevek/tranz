@@ -88,7 +88,8 @@ class _SettingChangeColorComponentState
                           child: Text(
                             item,
                             style: TextStyle(
-                              fontFamily: "Rabar",
+                              fontFamily:
+                                  'language.rtl'.tr.parseBool ? "Rabar" : "",
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: !ThemeService().isSavedDarkMode()

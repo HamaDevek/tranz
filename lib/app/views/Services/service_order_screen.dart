@@ -207,7 +207,9 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                                     child: Text(
                                       "${city.name ?? ""}",
                                       style: TextStyle(
-                                        fontFamily: "Rabar",
+                                        fontFamily: 'language.rtl'.tr.parseBool
+                                            ? "Rabar"
+                                            : "",
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
                                         color: !ThemeService().isSavedDarkMode()

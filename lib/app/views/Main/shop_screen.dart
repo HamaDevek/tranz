@@ -136,7 +136,9 @@ class _ShopScreenState extends State<ShopScreen> {
                                     ),
                                     ButtonCategoryComponent(
                                       text: _categoryApiControllerController
-                                          .category[index].name,
+                                              .category[index]
+                                              .title?["x-lang".tr] ??
+                                          "",
                                       isSelected: _isSelected ==
                                           '${_categoryApiControllerController.category[index].id}',
                                       onPress: () => _onClickCategory(

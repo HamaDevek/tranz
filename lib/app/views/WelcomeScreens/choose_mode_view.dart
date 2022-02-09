@@ -27,11 +27,11 @@ class _ChooseModeState extends State<ChooseMode> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: y > 600 ? 50 : 25,
+                  height: y > 600 ? 10 : 5,
                 ),
                 Container(
-                  height: y > 600 ? 300 : 150,
-                  width: y > 600 ? 300 : 150,
+                  height: y > 600 ? 200 : 100,
+                  width: y > 600 ? 200 : 100,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(1000),
                     // color: Theme.of(context).primaryColor,
@@ -46,12 +46,9 @@ class _ChooseModeState extends State<ChooseMode> {
                         )
                       : Image.asset('assets/images/logo-home.png'),
                 ),
-                SizedBox(
-                  height: y > 600 ? 20 : 10,
-                ),
                 Container(
                   height: 50,
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   width: double.infinity,
                   child: Text(
                     'mode'.tr,
