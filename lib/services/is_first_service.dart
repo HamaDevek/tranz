@@ -4,6 +4,7 @@ class IsFirstService {
   final _getStorage = GetStorage();
   final storageKey = 'isFirst';
   bool getIsFirst() {
+    // _getStorage.erase();
     return isSavedIsFirst();
   }
 
