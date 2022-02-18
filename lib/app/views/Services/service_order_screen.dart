@@ -285,15 +285,19 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                         ),
                         onPress: () async {
                           if (!_serviceApiController.isLoadingSend.value) {
+                            print(service.id);
                             await _serviceApiController
                                 .sendServiceReuqest(ServiceApiModel(
                                     name: _nameController!.value.text,
                                     phone: _phoneController!.value.text,
                                     address: _addressController!.value.text,
+                                    subType: service.name.toString(),
                                     info: {
                                       'city': selectedCity.name,
                                       'date': _dateController!.value.text,
                                       'time': _timeController!.value.text,
+                                      'serviceId': service.id.toString(),
+                                      'serviceName': service.name.toString(),
                                     },
                                     message: '',
                                     imei: await getDeviceIdentifier(),

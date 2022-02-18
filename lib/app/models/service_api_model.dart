@@ -8,12 +8,14 @@ class ServiceApiModel {
     required this.message,
     required this.branch,
     required this.type,
+    required this.subType,
     required this.address,
     required this.imei,
   });
 
   final String name;
   final String phone;
+  final String subType;
   final Map info;
   final String message;
   final String branch;
@@ -26,6 +28,7 @@ class ServiceApiModel {
         "phone": phone,
         "info": jsonEncode(info),
         "message": message,
+        "subType": subType,
         "branch": branch,
         "type": jsonEncode(type),
         "address": address,
