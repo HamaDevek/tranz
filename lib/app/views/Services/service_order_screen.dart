@@ -99,7 +99,7 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
       },
     );
     if (selectedTime24Hour != null) {
-      print(selectedTime24Hour.format(context));
+      // print(selectedTime24Hour.format(context));
       DateTime parsedTime =
           DateFormat.jm().parse(selectedTime24Hour.format(context).toString());
       String formattedTime = DateFormat('HH:mm a').format(parsedTime);
@@ -285,7 +285,7 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                         ),
                         onPress: () async {
                           if (!_serviceApiController.isLoadingSend.value) {
-                            print(service.id);
+                            // print(service.id);
                             await _serviceApiController
                                 .sendServiceReuqest(ServiceApiModel(
                                     name: _nameController!.value.text,

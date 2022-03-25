@@ -39,7 +39,7 @@ class BlogApiController extends GetxController {
 }
 
 Future<Map<String, dynamic>> fetchBlog(Map limit) async {
-  print("RUN BLOG");
+  // print("RUN BLOG");
   try {
     var request = http.Request(
         'POST', Uri.parse('${ConfigApp.apiUrl}/v1/cms/blog/section'));
@@ -62,7 +62,7 @@ Future<Map<String, dynamic>> fetchBlog(Map limit) async {
     if (responseStream.statusCode == 200) {
       var response = await responseStream.stream.bytesToString();
 
-      print("RUN REQUEST");
+      // print("RUN REQUEST");
       // return {'total': 0, 'data': <BlogModel>[]};
       return {
         'total': json.decode(response)['total'],

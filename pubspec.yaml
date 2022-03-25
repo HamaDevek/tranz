@@ -22,12 +22,12 @@ environment:
 
 dependencies:
   cached_network_image: ^3.1.0
-  connectivity: ^3.0.6
+  connectivity_plus: 
   cupertino_icons: ^1.0.2
   device_info: ^2.0.2
-  # firebase_analytics: 
-  # firebase_core: 
-  # firebase_messaging: 
+  # firebase_analytics: ^8.3.2
+  # firebase_core: ^1.6.0
+  # firebase_messaging: ^10.0.7
   flutter:
     sdk: flutter
 

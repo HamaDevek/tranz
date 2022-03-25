@@ -86,7 +86,7 @@ class ServiceApiController extends GetxController {
   }
 
   List<ServiceModel>? getchiled(String id) {
-    print(service.where((el) => id == el.parent!.toString()).toList());
+    // print(service.where((el) => id == el.parent!.toString()).toList());
     return service.where((el) => id == el.parent!.toString()).toList();
   }
 }
@@ -181,7 +181,7 @@ Future<bool> sendServiceThread(ServiceApiModel service) async {
 }
 
 Future<Map<String, dynamic>> fetchBlogService(String id) async {
-  print("RUN BLOG SERVICE");
+  // print("RUN BLOG SERVICE");
 
   try {
     var response = await RetryOptions(maxAttempts: 5).retry(
@@ -198,7 +198,7 @@ Future<Map<String, dynamic>> fetchBlogService(String id) async {
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
     if (response.statusCode == 200) {
-      print("RUN REQUEST");
+      // print("RUN REQUEST");
       return {
         'total': json.decode(response.body)['total'],
         'data': json

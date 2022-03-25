@@ -33,7 +33,7 @@ Future<List<CategoryModel>> fetchCategory(String _) async {
           .timeout(Duration(seconds: 5)),
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
-    print(response.body);
+    // print(response.body);
     if (response.statusCode == 200) {
       return json
           .decode(response.body)['categories']

@@ -19,7 +19,7 @@ class ItemApiController extends GetxController {
   @override
   void onInit() async {
     if (!isLoading()) {
-      print("RUN FIRST");
+      // print("RUN FIRST");
       isLoading(true);
       items.value = await compute(fetchItem, '');
       isLoading(false);
@@ -39,7 +39,7 @@ Future<List<ItemModel>> fetchItem(String _) async {
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
     if (response.statusCode == 200) {
-      print("RUN REQUEST");
+      // print("RUN REQUEST");
       return json
           .decode(json.encode(json.decode(response.body)['items']))
           .cast<Map<String, dynamic>>()
