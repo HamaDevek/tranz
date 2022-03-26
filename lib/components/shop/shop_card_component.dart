@@ -9,7 +9,7 @@ import '../../utils/config.dart';
 import '../../utils/extentions.dart';
 
 class ShopCardComponent extends StatefulWidget {
-  ShopCardComponent({Key? key, required this.item}) : super(key: key);
+  const ShopCardComponent({Key? key, required this.item}) : super(key: key);
 
   final ItemModel item;
 
@@ -22,7 +22,7 @@ class _ShopCardComponentState extends State<ShopCardComponent> {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(10),
-      color: Theme.of(context).accentColor,
+      color: Theme.of(context).colorScheme.secondary,
       child: InkWell(
         onTap: () {
           Get.toNamed('/single-item', arguments: widget.item);
@@ -47,7 +47,7 @@ class _ShopCardComponentState extends State<ShopCardComponent> {
                 ),
                 child: CachedNetworkImage(
                   imageUrl: widget.item.picture?.isBlank ?? false
-                      ? "${ConfigApp.placeholder}"
+                      ? ConfigApp.placeholder
                       : "${ConfigApp.apiUrl}/public/uploads/item/${widget.item.picture?[0]}",
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
@@ -60,20 +60,20 @@ class _ShopCardComponentState extends State<ShopCardComponent> {
                       ),
                     ),
                   ),
-                  placeholder: (context, url) => Center(
+                  placeholder: (context, url) => const Center(
                     child: Icon(
                       Iconsax.gallery,
                       size: 50,
                     ),
                   ),
-                  errorWidget: (context, url, error) => Icon(
+                  errorWidget: (context, url, error) => const Icon(
                     Iconsax.gallery_slash,
                     size: 50,
                   ),
                   cacheManager: CacheManager(
                     Config(
                       widget.item.picture?.isBlank ?? false
-                          ? "${ConfigApp.placeholder}"
+                          ? ConfigApp.placeholder
                           : "${ConfigApp.apiUrl}/public/uploads/item/${widget.item.picture?[0]}",
                       stalePeriod: const Duration(days: 15),
                       maxNrOfCacheObjects: 100,
@@ -81,11 +81,11 @@ class _ShopCardComponentState extends State<ShopCardComponent> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 width: double.infinity,
                 child: Text(
                   '${widget.item.localizeName?["x-lang".tr] ?? ""}',
@@ -96,14 +96,14 @@ class _ShopCardComponentState extends State<ShopCardComponent> {
                     fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
                     fontSize: 20,
                     color: !ThemeService().isSavedDarkMode()
-                        ? Color(0xFF1E272E)
+                        ? const Color(0xFF1E272E)
                         : Colors.white,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 16),
+                margin: const EdgeInsets.symmetric(horizontal: 16),
                 width: double.infinity,
                 child: Text(
                   '${widget.item.sellingPrice?.parseToCurrency ?? "0"} ' +
@@ -115,13 +115,13 @@ class _ShopCardComponentState extends State<ShopCardComponent> {
                     fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
                     fontSize: 16,
                     color: !ThemeService().isSavedDarkMode()
-                        ? Color(0xFF1E272E)
+                        ? const Color(0xFF1E272E)
                         : Colors.white,
                   ),
                   overflow: TextOverflow.fade,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               )
             ],

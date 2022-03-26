@@ -40,15 +40,15 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 100,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Container(
+                      child: SizedBox(
                         width: double.infinity,
                         child: Text(
-                          '${DateFormat('yyyy-MM-dd').format(blog!.createdAt ?? DateTime.now())}',
+                          DateFormat('yyyy-MM-dd').format(blog!.createdAt ?? DateTime.now()),
                           textAlign: 'language.rtl'.tr.parseBool
                               ? TextAlign.right
                               : TextAlign.left,
@@ -57,8 +57,8 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                                 'language.rtl'.tr.parseBool ? "Rabar" : "",
                             fontSize: 14,
                             color: !ThemeService().isSavedDarkMode()
-                                ? Color(0xFF1E272E)
-                                : Color(0xff9D9D9D),
+                                ? const Color(0xFF1E272E)
+                                : const Color(0xff9D9D9D),
                           ),
                         ),
                       ),
@@ -71,7 +71,7 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                       ),
                       child: InkWell(
                         onTap: () async {
-                          if (blog!.link!.length > 0) {
+                          if (blog!.link!.isNotEmpty) {
                             await canLaunch(blog?.link ?? '')
                                 ? await launch(blog?.link ?? '',
                                     forceSafariVC: false)
@@ -90,13 +90,13 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                               ),
                             ),
                           ),
-                          placeholder: (context, url) => Center(
+                          placeholder: (context, url) => const Center(
                             child: Icon(
                               Iconsax.gallery,
                               size: 50,
                             ),
                           ),
-                          errorWidget: (context, url, error) => Icon(
+                          errorWidget: (context, url, error) => const Icon(
                             Iconsax.gallery_slash,
                             size: 50,
                           ),
@@ -123,7 +123,7 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                               'language.rtl'.tr.parseBool ? "Rabar" : "",
                           fontSize: 20,
                           color: !ThemeService().isSavedDarkMode()
-                              ? Color(0xFF1E272E)
+                              ? const Color(0xFF1E272E)
                               : Colors.white,
                         ),
                         overflow: TextOverflow.fade,
@@ -148,7 +148,7 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                         },
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                   ],
@@ -156,66 +156,62 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
               ),
             ),
             Container(
-              child: Container(
-                height: 90,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Theme.of(context)
-                          .scaffoldBackgroundColor
-                          .withOpacity(0.4),
-                      spreadRadius: 6,
-                      blurRadius: 7,
-                      offset: Offset(0, 2), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 24,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                Get.back();
-                              },
-                              icon: Icon(
-                                'language.rtl'.tr.parseBool
-                                    ? Iconsax.arrow_right_3
-                                    : Iconsax.arrow_left_2,
-                              )),
-                          Expanded(
-                            child: Container(
-                              child: Text(
-                                '${blog!.title?["x-lang".tr] ?? ""} ',
-                                textAlign: 'language.rtl'.tr.parseBool
-                                    ? TextAlign.left
-                                    : TextAlign.right,
-                                style: TextStyle(
-                                  fontFamily: 'language.rtl'.tr.parseBool
-                                      ? "Rabar"
-                                      : "",
-                                  fontSize: 20,
-                                  color: !ThemeService().isSavedDarkMode()
-                                      ? Color(0xFF1E272E)
-                                      : Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                overflow: TextOverflow.fade,
-                              ),
+              height: 90,
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(context)
+                        .scaffoldBackgroundColor
+                        .withOpacity(0.4),
+                    spreadRadius: 6,
+                    blurRadius: 7,
+                    offset: const Offset(0, 2), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            icon: Icon(
+                              'language.rtl'.tr.parseBool
+                                  ? Iconsax.arrow_right_3
+                                  : Iconsax.arrow_left_2,
+                            )),
+                        Expanded(
+                          child: Text(
+                            '${blog!.title?["x-lang".tr] ?? ""} ',
+                            textAlign: 'language.rtl'.tr.parseBool
+                                ? TextAlign.left
+                                : TextAlign.right,
+                            style: TextStyle(
+                              fontFamily: 'language.rtl'.tr.parseBool
+                                  ? "Rabar"
+                                  : "",
+                              fontSize: 20,
+                              color: !ThemeService().isSavedDarkMode()
+                                  ? const Color(0xFF1E272E)
+                                  : Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
+                            overflow: TextOverflow.fade,
                           ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
           ],

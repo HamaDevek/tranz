@@ -1,11 +1,13 @@
-// import 'package:firebase_core/firebase_core.dart';
-// import 'package:firebase_messaging/firebase_messaging.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import '../services/theme_service.dart';
 import '../app/controllers/language_controller.dart';
 import '../theme/theme_modes.dart';
@@ -17,8 +19,8 @@ import '../utils/router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await GetStorage.init();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -26,27 +28,31 @@ Future<void> main() async {
       // systemNavigationBarColor: Color(0xff38424D),
       // statusBarColor: ThemeService().getThemeMode(),
       ));
-  // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-  //   alert: true,
-  //   badge: true,
-  //   sound: true,
-  // );
-  runApp(MyApp());
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+  runApp(const MyApp());
 }
 
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   await Firebase.initializeApp();
-//   print('Handling a background message ${message.messageId}');
-// }
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  log('Handling a background message ${message.messageId}');
+}
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialAppWithProvider();
+    return const MaterialAppWithProvider();
   }
 }
 
 class MaterialAppWithProvider extends StatefulWidget {
+  const MaterialAppWithProvider({Key? key}) : super(key: key);
+
   @override
   _MaterialAppWithProviderState createState() =>
       _MaterialAppWithProviderState();
@@ -59,23 +65,23 @@ class _MaterialAppWithProviderState extends State<MaterialAppWithProvider> {
   void initState() {
     super.initState();
     _loadLanguage();
-    // FirebaseMessaging.instance.getToken().then((value) {
-    //   print(value);
-    // });
-    // FirebaseMessaging.instance
-    //     .getInitialMessage()
-    //     .then((RemoteMessage? message) {});
+    FirebaseMessaging.instance.getToken().then((value) {
+      log(value.toString());
+    });
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {});
 
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    //   print('OnMessage Listen');
-    //   print(message.data);
-    //   openUrlFirebase(message.data['link_url']);
-    // });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      log('OnMessage Listen');
+      log(message.data.toString());
+      openUrlFirebase(message.data['link_url']);
+    });
 
-    // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    //   print('A new onMessageOpenedApp event was published!');
-    //   print(message.data);
-    // });
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      log('A new onMessageOpenedApp event was published!');
+      log(message.data.toString());
+    });
   }
 
   Future<void> _loadLanguage() async {

@@ -41,7 +41,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 100,
                     ),
                     Container(
@@ -53,7 +53,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                       ),
                       child: CachedNetworkImage(
                         imageUrl: item!.picture?.isBlank ?? false
-                            ? "${ConfigApp.placeholder}"
+                            ? ConfigApp.placeholder
                             : "${ConfigApp.apiUrl}/public/uploads/item/${item!.picture?[0]}",
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
@@ -64,20 +64,20 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                             ),
                           ),
                         ),
-                        placeholder: (context, url) => Center(
+                        placeholder: (context, url) => const Center(
                           child: Icon(
                             Iconsax.gallery,
                             size: 50,
                           ),
                         ),
-                        errorWidget: (context, url, error) => Icon(
+                        errorWidget: (context, url, error) => const Icon(
                           Iconsax.gallery_slash,
                           size: 50,
                         ),
                         cacheManager: CacheManager(
                           Config(
                             item!.picture?.isBlank ?? false
-                                ? "${ConfigApp.placeholder}"
+                                ? ConfigApp.placeholder
                                 : "${ConfigApp.apiUrl}/public/uploads/item/${item!.picture?[0]}",
                             stalePeriod: const Duration(days: 15),
                             maxNrOfCacheObjects: 100,
@@ -98,13 +98,13 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                               'language.rtl'.tr.parseBool ? "Rabar" : "",
                           fontSize: 20,
                           color: !ThemeService().isSavedDarkMode()
-                              ? Color(0xFF1E272E)
+                              ? const Color(0xFF1E272E)
                               : Colors.white,
                         ),
                         overflow: TextOverflow.fade,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 286,
                     ),
                   ],
@@ -115,66 +115,62 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  child: Container(
-                    height: 90,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Theme.of(context)
-                              .scaffoldBackgroundColor
-                              .withOpacity(0.4),
-                          spreadRadius: 6,
-                          blurRadius: 7,
-                          offset: Offset(0, 2), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 24,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    Get.back();
-                                  },
-                                  icon: Icon(
-                                    'language.rtl'.tr.parseBool
-                                        ? Iconsax.arrow_right_3
-                                        : Iconsax.arrow_left_2,
-                                  )),
-                              Expanded(
-                                child: Container(
-                                  child: Text(
-                                    '${item!.localizeName?["x-lang".tr] ?? ""} ',
-                                    textAlign: 'language.rtl'.tr.parseBool
-                                        ? TextAlign.left
-                                        : TextAlign.right,
-                                    style: TextStyle(
-                                      fontFamily: 'language.rtl'.tr.parseBool
-                                          ? "Rabar"
-                                          : "",
-                                      fontSize: 20,
-                                      color: !ThemeService().isSavedDarkMode()
-                                          ? Color(0xFF1E272E)
-                                          : Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    overflow: TextOverflow.fade,
-                                  ),
+                  height: 90,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withOpacity(0.4),
+                        spreadRadius: 6,
+                        blurRadius: 7,
+                        offset: const Offset(0, 2), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                icon: Icon(
+                                  'language.rtl'.tr.parseBool
+                                      ? Iconsax.arrow_right_3
+                                      : Iconsax.arrow_left_2,
+                                )),
+                            Expanded(
+                              child: Text(
+                                '${item!.localizeName?["x-lang".tr] ?? ""} ',
+                                textAlign: 'language.rtl'.tr.parseBool
+                                    ? TextAlign.left
+                                    : TextAlign.right,
+                                style: TextStyle(
+                                  fontFamily: 'language.rtl'.tr.parseBool
+                                      ? "Rabar"
+                                      : "",
+                                  fontSize: 20,
+                                  color: !ThemeService().isSavedDarkMode()
+                                      ? const Color(0xFF1E272E)
+                                      : Colors.white,
+                                  fontWeight: FontWeight.bold,
                                 ),
+                                overflow: TextOverflow.fade,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
                 Container(
@@ -189,7 +185,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                             .withOpacity(0.4),
                         spreadRadius: 6,
                         blurRadius: 7,
-                        offset: Offset(0, 2), // changes position of shadow
+                        offset: const Offset(0, 2), // changes position of shadow
                       ),
                     ],
                   ),
@@ -200,13 +196,13 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                         height: 2,
                         width: MediaQuery.of(context).size.width - 32,
                         color: ThemeService().isSavedDarkMode()
-                            ? Color(0xFF222F3E)
-                            : Theme.of(context).accentColor,
-                        margin: EdgeInsets.only(bottom: 8),
+                            ? const Color(0xFF222F3E)
+                            : Theme.of(context).colorScheme.secondary,
+                        margin: const EdgeInsets.only(bottom: 8),
                       ),
                       Container(
                         margin:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                            const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                         width: double.infinity,
                         child: Text(
                           'ratio'.tr,
@@ -218,7 +214,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                                 'language.rtl'.tr.parseBool ? "Rabar" : "",
                             fontSize: 20,
                             color: !ThemeService().isSavedDarkMode()
-                                ? Color(0xFF1E272E)
+                                ? const Color(0xFF1E272E)
                                 : Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
@@ -237,8 +233,8 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                                   children: [
                                     Material(
                                       color: ThemeService().isSavedDarkMode()
-                                          ? Color(0xFF222F3E)
-                                          : Theme.of(context).accentColor,
+                                          ? const Color(0xFF222F3E)
+                                          : Theme.of(context).colorScheme.secondary,
                                       borderRadius: BorderRadius.circular(100),
                                       child: InkWell(
                                         borderRadius:
@@ -255,7 +251,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(100),
                                           ),
-                                          child: Icon(
+                                          child: const Icon(
                                             Icons.add,
                                             size: 18,
                                           ),
@@ -275,7 +271,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                                           fontSize: 24,
                                           color:
                                               !ThemeService().isSavedDarkMode()
-                                                  ? Color(0xFF1E272E)
+                                                  ? const Color(0xFF1E272E)
                                                   : Colors.white,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -283,8 +279,8 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                                     ),
                                     Material(
                                       color: ThemeService().isSavedDarkMode()
-                                          ? Color(0xFF222F3E)
-                                          : Theme.of(context).accentColor,
+                                          ? const Color(0xFF222F3E)
+                                          : Theme.of(context).colorScheme.secondary,
                                       borderRadius: BorderRadius.circular(100),
                                       child: InkWell(
                                         borderRadius:
@@ -303,7 +299,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(100),
                                           ),
-                                          child: Icon(
+                                          child: const Icon(
                                             Icons.remove,
                                             size: 18,
                                           ),
@@ -324,7 +320,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                                         : "",
                                     fontSize: 24,
                                     color: !ThemeService().isSavedDarkMode()
-                                        ? Color(0xFF1E272E)
+                                        ? const Color(0xFF1E272E)
                                         : Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -346,7 +342,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                             'cart.add'.tr,
                             style: TextStyle(
                               fontSize: 20,
-                              color: Color(0xFF1E272E),
+                              color: const Color(0xFF1E272E),
                               fontFamily:
                                   'language.rtl'.tr.parseBool ? 'Rabar' : '',
                               fontWeight: FontWeight.w600,

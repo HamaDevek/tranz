@@ -27,10 +27,10 @@ class CategoryApiController extends GetxController {
 
 Future<List<CategoryModel>> fetchCategory(String _) async {
   try {
-    var response = await RetryOptions(maxAttempts: 5).retry(
+    var response = await const RetryOptions(maxAttempts: 5).retry(
       () => client
           .get(Uri.parse('${ConfigApp.apiUrl}/v1/item/category'))
-          .timeout(Duration(seconds: 5)),
+          .timeout(const Duration(seconds: 5)),
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
     // print(response.body);
@@ -44,29 +44,25 @@ Future<List<CategoryModel>> fetchCategory(String _) async {
     Get.snackbar(
       'error'.tr,
       'error.fetch'.tr,
-      duration: Duration(seconds: 5),
+      duration:const Duration(seconds: 5),
       backgroundColor: Colors.red.withOpacity(.6),
-      titleText: Container(
-        child: Text(
-          'error'.tr,
-          style: TextStyle(
-            fontSize: 24,
-            fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-          ),
-          textAlign:
-              'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
+      titleText: Text(
+        'error'.tr,
+        style: TextStyle(
+          fontSize: 24,
+          fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
         ),
+        textAlign:
+            'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
       ),
-      messageText: Container(
-        child: Text(
-          'error.fetch'.tr,
-          style: TextStyle(
-            fontSize: 16,
-            fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-          ),
-          textAlign:
-              'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
+      messageText: Text(
+        'error.fetch'.tr,
+        style: TextStyle(
+          fontSize: 16,
+          fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
         ),
+        textAlign:
+            'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
       ),
     );
   }

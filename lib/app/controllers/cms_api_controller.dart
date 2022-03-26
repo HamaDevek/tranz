@@ -22,23 +22,19 @@ class CmsApiController extends GetxController {
         Get.snackbar(
           'success'.tr,
           'success.insert'.trParams({'type': 'feedback'.tr}),
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
           backgroundColor: Colors.green.withOpacity(.6),
-          titleText: Container(
-            child: Text(
-              'success'.tr,
-              style: TextStyle(
-                fontSize: 24,
-              ),
-              // textAlign:
+          titleText: Text(
+            'success'.tr,
+            style: const TextStyle(
+              fontSize: 24,
             ),
+            // textAlign:
           ),
-          messageText: Container(
-            child: Text(
-              'success.insert'.trParams({'type': 'feedback'.tr}),
-              style: TextStyle(
-                fontSize: 16,
-              ),
+          messageText: Text(
+            'success.insert'.trParams({'type': 'feedback'.tr}),
+            style: const TextStyle(
+              fontSize: 16,
             ),
           ),
         );
@@ -52,12 +48,12 @@ class CmsApiController extends GetxController {
 
 Future<bool> sendFeedbackThread(FeedbackApiModel feedback) async {
   try {
-    var response = await RetryOptions(maxAttempts: 5).retry(
+    var response = await const RetryOptions(maxAttempts: 5).retry(
       () => client.post(
         Uri.parse('${ConfigApp.apiUrl}/v1/cms/form'),
         body: feedback.toMap(),
         headers: {"Content-Type": "application/x-www-form-urlencoded"},
-      ).timeout(Duration(seconds: 5)),
+      ).timeout(const Duration(seconds: 5)),
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
     return response.statusCode == 201;
@@ -65,23 +61,19 @@ Future<bool> sendFeedbackThread(FeedbackApiModel feedback) async {
     Get.snackbar(
       'error'.tr,
       'error.fetch'.tr,
-      duration: Duration(seconds: 5),
+      duration: const Duration(seconds: 5),
       backgroundColor: Colors.red.withOpacity(.6),
-      titleText: Container(
-        child: Text(
-          'error'.tr,
-          style: TextStyle(
-            fontSize: 24,
-            fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-          ),
+      titleText: Text(
+        'error'.tr,
+        style: TextStyle(
+          fontSize: 24,
+          fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
         ),
       ),
-      messageText: Container(
-        child: Text(
-          'error.fetch'.tr,
-          style: TextStyle(
-            fontSize: 16,
-          ),
+      messageText: Text(
+        'error.fetch'.tr,
+        style: const TextStyle(
+          fontSize: 16,
         ),
       ),
     );

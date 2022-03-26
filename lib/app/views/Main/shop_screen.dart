@@ -43,11 +43,11 @@ class _ShopScreenState extends State<ShopScreen> {
               behavior: NoGlowComponent(),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 32,
                   ),
                   Container(
-                    margin: EdgeInsets.all(16),
+                    margin: const EdgeInsets.all(16),
                     width: double.infinity,
                     child: Text(
                       'items'.tr,
@@ -59,12 +59,12 @@ class _ShopScreenState extends State<ShopScreen> {
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: !ThemeService().isSavedDarkMode()
-                            ? Color(0xFF1E272E)
+                            ? const Color(0xFF1E272E)
                             : Colors.white,
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 18,
                   ),
                   Obx(() {
@@ -78,7 +78,7 @@ class _ShopScreenState extends State<ShopScreen> {
                                   const EdgeInsets.symmetric(horizontal: 4),
                               child: Shimmer.fromColors(
                                 baseColor: Theme.of(context)
-                                    .accentColor
+                                    .colorScheme.secondary
                                     .withOpacity(.5),
                                 highlightColor: Colors.grey.withOpacity(.5),
                                 child: Container(
@@ -86,7 +86,7 @@ class _ShopScreenState extends State<ShopScreen> {
                                   width: 100,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(100),
-                                    color: Theme.of(context).accentColor,
+                                    color: Theme.of(context).colorScheme.secondary,
                                   ),
                                 ),
                               ),
@@ -96,7 +96,7 @@ class _ShopScreenState extends State<ShopScreen> {
                                   const EdgeInsets.symmetric(horizontal: 4),
                               child: Shimmer.fromColors(
                                 baseColor: Theme.of(context)
-                                    .accentColor
+                                    .colorScheme.secondary
                                     .withOpacity(.5),
                                 highlightColor: Colors.grey.withOpacity(.5),
                                 child: Container(
@@ -104,7 +104,7 @@ class _ShopScreenState extends State<ShopScreen> {
                                   width: 100,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(100),
-                                    color: Theme.of(context).accentColor,
+                                    color: Theme.of(context).colorScheme.secondary,
                                   ),
                                 ),
                               ),
@@ -113,7 +113,7 @@ class _ShopScreenState extends State<ShopScreen> {
                         ),
                       );
                     } else {
-                      return Container(
+                      return SizedBox(
                         height: 40,
                         child: ScrollConfiguration(
                           behavior: NoGlowComponent(),
@@ -162,13 +162,13 @@ class _ShopScreenState extends State<ShopScreen> {
                             itemCount: _categoryApiControllerController
                                 .category.length,
                             scrollDirection: Axis.horizontal,
-                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
                           ),
                         ),
                       );
                     }
                   }),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Expanded(
                     child: Obx(() {
                       if (_itemsController.isLoading.value) {
@@ -185,10 +185,10 @@ class _ShopScreenState extends State<ShopScreen> {
                                   crossAxisSpacing: 16,
                                   mainAxisSpacing: 16,
                                   mainAxisExtent: 230),
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 16),
                           itemBuilder: (BuildContext context, int index) {
-                            return ShopLoadingComponent();
+                            return const ShopLoadingComponent();
                           },
                         );
                       } else {
@@ -212,7 +212,7 @@ class _ShopScreenState extends State<ShopScreen> {
                                     crossAxisSpacing: 16,
                                     mainAxisSpacing: 16,
                                     mainAxisExtent: 250),
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 16),
                             itemBuilder: (BuildContext context, int index) {
                               return ShopCardComponent(
@@ -231,14 +231,14 @@ class _ShopScreenState extends State<ShopScreen> {
           ],
         ),
       ),
-      floatingActionButton: Container(
+      floatingActionButton: SizedBox(
         width: 60,
         height: 60,
         child: RawMaterialButton(
-          shape: CircleBorder(),
+          shape: const CircleBorder(),
           fillColor: Theme.of(context).primaryColor,
           // elevation: 0.0,
-          child: Container(
+          child: SizedBox(
             height: 50,
             width: 50,
             child: Stack(
@@ -246,7 +246,7 @@ class _ShopScreenState extends State<ShopScreen> {
                 Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       Icon(
                         Iconsax.bag_2,
                         color: Colors.black,
@@ -255,7 +255,7 @@ class _ShopScreenState extends State<ShopScreen> {
                   ),
                 ),
                 Obx(() {
-                  return _cartController.cart.length <= 0
+                  return _cartController.cart.isEmpty
                       ? Container()
                       : Positioned(
                           top: 8,
@@ -273,7 +273,7 @@ class _ShopScreenState extends State<ShopScreen> {
                                 _cartController.cart.length >= 10
                                     ? '9+'
                                     : '${_cartController.cart.length}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 12,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,

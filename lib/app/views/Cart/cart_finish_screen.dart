@@ -123,7 +123,7 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 80,
                   ),
                   // Row(
@@ -154,7 +154,7 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
                     children: [
                       Container(
                         margin:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                            const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                         child: Text(
                           'cart.info'.tr,
                           textAlign: 'language.rtl'.tr.parseBool
@@ -165,7 +165,7 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
                                 'language.rtl'.tr.parseBool ? "Rabar" : "",
                             fontSize: 24,
                             color: !ThemeService().isSavedDarkMode()
-                                ? Color(0xFF1E272E)
+                                ? const Color(0xFF1E272E)
                                 : Colors.white,
                           ),
                           overflow: TextOverflow.fade,
@@ -175,26 +175,26 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
                   ),
                   TextfieldCustomComponent(
                       hintText: 'name'.tr, controller: _nameController),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   TextfieldCustomComponent(
                       hintText: 'phone'.tr,
                       controller: _phoneController,
                       keyboardType: TextInputType.phone),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Container(
-                      margin: EdgeInsets.symmetric(horizontal: 16),
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
                       height: 60,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: ThemeService().isSavedDarkMode()
-                            ? Color(0xFF292D32)
+                            ? const Color(0xFF292D32)
                             : Colors.grey.shade300,
                       ),
                       child: Obx(() {
                         if (_cityApiController.isLoading.value ||
-                            _cityApiController.cities.length == 0) {
-                          return Text('Empty');
+                            _cityApiController.cities.isEmpty) {
+                          return const Text('Empty');
                         } else {
                           return DropdownButtonHideUnderline(
                             child: DropdownButton<CityModel>(
@@ -209,14 +209,14 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 16),
                                     child: Text(
-                                      "${city.name ?? ""}",
+                                      city.name ?? "",
                                       style: TextStyle(
                                         fontFamily: "Rabar",
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
                                         color: !ThemeService().isSavedDarkMode()
-                                            ? Color(0xFF1E272E)
-                                            : Color(0xff818181),
+                                            ? const Color(0xFF1E272E)
+                                            : const Color(0xff818181),
                                       ),
                                     ),
                                   ),
@@ -234,11 +234,11 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
                           );
                         }
                       })),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   TextfieldCustomComponent(
                       hintText: 'address'.tr, controller: _addressController),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   // TextfieldCustomComponent(
                   //   readOnly: true,
                   //   hintText: 'address.onmap'.tr,
@@ -288,13 +288,13 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
                         .withOpacity(0.4),
                     spreadRadius: 6,
                     blurRadius: 7,
-                    offset: Offset(0, 2), // changes position of shadow
+                    offset: const Offset(0, 2), // changes position of shadow
                   ),
                 ],
               ),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 24,
                   ),
                   Padding(
@@ -303,23 +303,21 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded(
-                          child: Container(
-                            child: Text(
-                              'finish.transaction'.tr,
-                              textAlign: 'language.rtl'.tr.parseBool
-                                  ? TextAlign.right
-                                  : TextAlign.left,
-                              style: TextStyle(
-                                fontFamily:
-                                    'language.rtl'.tr.parseBool ? "Rabar" : "",
-                                fontSize: 24,
-                                color: !ThemeService().isSavedDarkMode()
-                                    ? Color(0xFF1E272E)
-                                    : Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              overflow: TextOverflow.fade,
+                          child: Text(
+                            'finish.transaction'.tr,
+                            textAlign: 'language.rtl'.tr.parseBool
+                                ? TextAlign.right
+                                : TextAlign.left,
+                            style: TextStyle(
+                              fontFamily:
+                                  'language.rtl'.tr.parseBool ? "Rabar" : "",
+                              fontSize: 24,
+                              color: !ThemeService().isSavedDarkMode()
+                                  ? const Color(0xFF1E272E)
+                                  : Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
+                            overflow: TextOverflow.fade,
                           ),
                         ),
                         IconButton(
@@ -381,7 +379,7 @@ class _CartFinishScreenState extends State<CartFinishScreen> {
     if (_nameController!.value.text.length >= 3 &&
         _addressController!.value.text.length >= 3 &&
         _phoneController!.value.text.isPhoneNumber) {
-      if (this.mounted) {
+      if (mounted) {
         var order = CartApiModel(
             traderName: _nameController!.value.text,
             quickCustomerName: _nameController!.value.text,

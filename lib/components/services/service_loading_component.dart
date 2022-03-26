@@ -8,13 +8,13 @@ class ServiceLoadingComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Theme.of(context).accentColor.withOpacity(.5),
+      baseColor: Theme.of(context).colorScheme.secondary.withOpacity(.5),
       highlightColor: Colors.grey.withOpacity(.5),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Theme.of(context).accentColor,
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
     );

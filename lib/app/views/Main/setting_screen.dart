@@ -28,11 +28,11 @@ class _SettingScreenState extends State<SettingScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 32,
               ),
               Container(
-                margin: EdgeInsets.only(top: 16, left: 16, right: 16),
+                margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
                 width: double.infinity,
                 child: Text(
                   'settings'.tr,
@@ -44,7 +44,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: !ThemeService().isSavedDarkMode()
-                        ? Color(0xFF1E272E)
+                        ? const Color(0xFF1E272E)
                         : Colors.white,
                   ),
                 ),
@@ -88,7 +88,7 @@ class _SettingScreenState extends State<SettingScreen> {
               //   ),
               // ),
               Container(
-                margin: EdgeInsets.all(16),
+                margin: const EdgeInsets.all(16),
                 width: double.infinity,
                 child: Text(
                   'application'.tr,
@@ -100,8 +100,8 @@ class _SettingScreenState extends State<SettingScreen> {
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: !ThemeService().isSavedDarkMode()
-                        ? Color(0xFF1E272E)
-                        : Color(0xff818181),
+                        ? const Color(0xFF1E272E)
+                        : const Color(0xff818181),
                   ),
                 ),
               ),
@@ -110,7 +110,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 height: 160,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -119,25 +119,25 @@ class _SettingScreenState extends State<SettingScreen> {
                       onPress: () {
                         showDialog(
                             context: context,
-                            builder: (_) => SettingChangeLangaugeComponent());
+                            builder: (_) => const SettingChangeLangaugeComponent());
                       },
-                      icon: Icon(Iconsax.global),
+                      icon: const Icon(Iconsax.global),
                       text: 'lang'.tr,
                     ),
                     SettingComponent(
                       onPress: () {
                         showDialog(
                             context: context,
-                            builder: (_) => SettingChangeColorComponent());
+                            builder: (_) => const SettingChangeColorComponent());
                       },
-                      icon: Icon(Iconsax.brush),
+                      icon: const Icon(Iconsax.brush),
                       text: 'color'.tr,
                     ),
                   ],
                 ),
               ),
               Container(
-                margin: EdgeInsets.all(16),
+                margin: const EdgeInsets.all(16),
                 width: double.infinity,
                 child: Text(
                   'our'.tr,
@@ -149,8 +149,8 @@ class _SettingScreenState extends State<SettingScreen> {
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: !ThemeService().isSavedDarkMode()
-                        ? Color(0xFF1E272E)
-                        : Color(0xff818181),
+                        ? const Color(0xFF1E272E)
+                        : const Color(0xff818181),
                   ),
                 ),
               ),
@@ -159,7 +159,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 height: 160,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -169,7 +169,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         Get.toNamed('/about',
                             arguments: _webinfoApiController.webInfo);
                       },
-                      icon: Icon(Iconsax.warning_2),
+                      icon: const Icon(Iconsax.warning_2),
                       text: 'about'.tr,
                     ),
                     SettingComponent(
@@ -177,13 +177,13 @@ class _SettingScreenState extends State<SettingScreen> {
                         Get.toNamed('/contact',
                             arguments: _webinfoApiController.webInfo);
                       },
-                      icon: Icon(Iconsax.call),
+                      icon: const Icon(Iconsax.call),
                       text: 'contact'.tr,
                     ),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 32,
               ),
               Container(
@@ -191,7 +191,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 height: 80,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -200,13 +200,13 @@ class _SettingScreenState extends State<SettingScreen> {
                       onPress: () {
                         Get.toNamed('/feedback');
                       },
-                      icon: Icon(Iconsax.edit_2),
+                      icon: const Icon(Iconsax.edit_2),
                       text: 'feedback.send'.tr,
                     ),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
             ],

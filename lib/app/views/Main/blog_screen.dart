@@ -27,11 +27,11 @@ class _BlogScreenState extends State<BlogScreen> {
     return SafeArea(
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 32,
           ),
           Container(
-            margin: EdgeInsets.all(16),
+            margin: const EdgeInsets.all(16),
             width: double.infinity,
             child: Text(
               'blog'.tr,
@@ -43,7 +43,7 @@ class _BlogScreenState extends State<BlogScreen> {
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: !ThemeService().isSavedDarkMode()
-                    ? Color(0xFF1E272E)
+                    ? const Color(0xFF1E272E)
                     : Colors.white,
               ),
             ),
@@ -54,7 +54,7 @@ class _BlogScreenState extends State<BlogScreen> {
                 behavior: NoGlowComponent(),
                 child: ListView.builder(
                   itemBuilder: (_, __) {
-                    return BlogLoadingComponent();
+                    return const BlogLoadingComponent();
                   },
                   itemCount: 3,
                 ),
@@ -100,7 +100,7 @@ class _BlogScreenState extends State<BlogScreen> {
                         ? Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
+                              children: const [
                                 CircularProgressIndicator(),
                                 SizedBox(
                                   height: 16,

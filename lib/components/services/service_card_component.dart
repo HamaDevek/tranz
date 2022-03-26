@@ -26,13 +26,11 @@ class _ServiceCardComponentState extends State<ServiceCardComponent> {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(10),
-      color: Theme.of(context).accentColor,
+      color: Theme.of(context).colorScheme.secondary,
       child: InkWell(
         onTap: () {
           if (_serviceApiController
-                  .getchiled(widget.service.id!.toString())!
-                  .length >
-              0) {
+                  .getchiled(widget.service.id!.toString())!.isNotEmpty) {
             // Get.back();
             Get.toNamed('/subservice?${widget.service.id}',
                 arguments: widget.service);
@@ -49,7 +47,7 @@ class _ServiceCardComponentState extends State<ServiceCardComponent> {
             children: [
               CachedNetworkImage(
                 imageUrl:
-                    '${widget.service.picture.isBlank ?? false ? ConfigApp.placeholder : "${ConfigApp.apiUrl}/public/uploads/category/${widget.service.picture}"}',
+                    widget.service.picture.isBlank ?? false ? ConfigApp.placeholder : "${ConfigApp.apiUrl}/public/uploads/category/${widget.service.picture}",
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -61,19 +59,19 @@ class _ServiceCardComponentState extends State<ServiceCardComponent> {
                     ),
                   ),
                 ),
-                placeholder: (context, url) => Center(
+                placeholder: (context, url) => const Center(
                   child: Icon(
                     Iconsax.gallery,
                     size: 50,
                   ),
                 ),
-                errorWidget: (context, url, error) => Icon(
+                errorWidget: (context, url, error) => const Icon(
                   Iconsax.gallery_slash,
                   size: 50,
                 ),
                 cacheManager: CacheManager(
                   Config(
-                    '${widget.service.picture.isBlank ?? false ? ConfigApp.placeholder : "${ConfigApp.apiUrl}/public/uploads/category/${widget.service.picture}"}',
+                    widget.service.picture.isBlank ?? false ? ConfigApp.placeholder : "${ConfigApp.apiUrl}/public/uploads/category/${widget.service.picture}",
                     stalePeriod: const Duration(days: 15),
                     maxNrOfCacheObjects: 100,
                   ),

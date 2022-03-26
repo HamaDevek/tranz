@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
 class ButtonCustomComponent extends StatelessWidget {
-  final child;
-  final color;
-  final onPress;
-  final height;
+  final Widget? child;
+  final Color? color;
+  final GestureTapCallback? onPress;
+  final double? height;
 
   const ButtonCustomComponent({
     Key? key,
-    required Widget? this.child,
-    required GestureTapCallback? this.onPress,
-    double? this.height,
-    Color? this.color,
+    required this.child,
+    required this.onPress,
+    this.height,
+    this.color,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(10),
-      color: color == null ? Theme.of(context).primaryColor : color,
+      color: color ?? Theme.of(context).primaryColor,
       child: InkWell(
         onTap: onPress,
         borderRadius: BorderRadius.circular(10),

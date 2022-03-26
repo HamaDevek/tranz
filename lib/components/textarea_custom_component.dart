@@ -7,7 +7,8 @@ class TextareaCustomComponent extends StatelessWidget {
   const TextareaCustomComponent(
       {Key? key, required this.hintText, this.controller})
       : super(key: key);
-  final hintText, controller;
+  final String hintText;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -17,8 +18,8 @@ class TextareaCustomComponent extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: ThemeService().isSavedDarkMode()
-              ? Color(0xFF292D32)
-              : Theme.of(context).accentColor,
+              ? const Color(0xFF292D32)
+              : Theme.of(context).colorScheme.secondary,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -28,7 +29,7 @@ class TextareaCustomComponent extends StatelessWidget {
               maxLength: 2000,
               style: TextStyle(
                   color: !ThemeService().isSavedDarkMode()
-                      ? Color(0xFF1E272E)
+                      ? const Color(0xFF1E272E)
                       : Colors.white,
                   fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
                   fontSize: 20),
@@ -45,7 +46,7 @@ class TextareaCustomComponent extends StatelessWidget {
                 ),
                 border: InputBorder.none,
                 counterText: "",
-                contentPadding: EdgeInsets.all(16),
+                contentPadding: const EdgeInsets.all(16),
               ),
             )
           ],

@@ -54,23 +54,19 @@ class ServiceApiController extends GetxController {
         Get.snackbar(
           'success'.tr,
           'success.insert'.trParams({'type': 'services'.tr}),
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
           backgroundColor: Colors.green.withOpacity(.6),
-          titleText: Container(
-            child: Text(
-              'success'.tr,
-              style: TextStyle(
-                fontSize: 24,
-              ),
-              // textAlign:
+          titleText: Text(
+            'success'.tr,
+            style: const TextStyle(
+              fontSize: 24,
             ),
+            // textAlign:
           ),
-          messageText: Container(
-            child: Text(
-              'success.insert'.trParams({'type': 'services'.tr}),
-              style: TextStyle(
-                fontSize: 16,
-              ),
+          messageText: Text(
+            'success.insert'.trParams({'type': 'services'.tr}),
+            style: const TextStyle(
+              fontSize: 16,
             ),
           ),
         );
@@ -93,11 +89,11 @@ class ServiceApiController extends GetxController {
 
 Future<List<ServiceModel>> fetchService(String _) async {
   try {
-    var response = await RetryOptions(maxAttempts: 5).retry(
+    var response = await const RetryOptions(maxAttempts: 5).retry(
       () => client
           .get(Uri.parse(
               '${ConfigApp.apiUrl}/v1/cms/category/${ConfigApp.branchAccess}'))
-          .timeout(Duration(seconds: 5)),
+          .timeout(const Duration(seconds: 5)),
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
     if (response.statusCode == 200) {
@@ -110,29 +106,25 @@ Future<List<ServiceModel>> fetchService(String _) async {
     Get.snackbar(
       'error'.tr,
       'error.fetch'.tr,
-      duration: Duration(seconds: 5),
+      duration: const Duration(seconds: 5),
       backgroundColor: Colors.red.withOpacity(.6),
-      titleText: Container(
-        child: Text(
-          'error'.tr,
-          style: TextStyle(
-            fontSize: 24,
-            fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-          ),
-          textAlign:
-              'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
+      titleText: Text(
+        'error'.tr,
+        style: TextStyle(
+          fontSize: 24,
+          fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
         ),
+        textAlign:
+            'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
       ),
-      messageText: Container(
-        child: Text(
-          'error.fetch'.tr,
-          style: TextStyle(
-            fontSize: 16,
-            fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-          ),
-          textAlign:
-              'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
+      messageText: Text(
+        'error.fetch'.tr,
+        style: TextStyle(
+          fontSize: 16,
+          fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
         ),
+        textAlign:
+            'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
       ),
     );
   }
@@ -141,14 +133,14 @@ Future<List<ServiceModel>> fetchService(String _) async {
 
 Future<bool> sendServiceThread(ServiceApiModel service) async {
   try {
-    var response = await RetryOptions(maxAttempts: 5).retry(
+    var response = await const RetryOptions(maxAttempts: 5).retry(
       () => client.post(
         Uri.parse('${ConfigApp.apiUrl}/v1/cms/form'),
         body: jsonEncode(service.toMap()),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
-      ).timeout(Duration(seconds: 5)),
+      ).timeout(const Duration(seconds: 5)),
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
     return response.statusCode == 201;
@@ -156,23 +148,19 @@ Future<bool> sendServiceThread(ServiceApiModel service) async {
     Get.snackbar(
       'error'.tr,
       'error.fetch'.tr,
-      duration: Duration(seconds: 5),
+      duration: const Duration(seconds: 5),
       backgroundColor: Colors.red.withOpacity(.6),
-      titleText: Container(
-        child: Text(
-          'error'.tr,
-          style: TextStyle(
-            fontSize: 24,
-            fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-          ),
+      titleText: Text(
+        'error'.tr,
+        style: TextStyle(
+          fontSize: 24,
+          fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
         ),
       ),
-      messageText: Container(
-        child: Text(
-          'error.fetch'.tr,
-          style: TextStyle(
-            fontSize: 16,
-          ),
+      messageText: Text(
+        'error.fetch'.tr,
+        style: const TextStyle(
+          fontSize: 16,
         ),
       ),
     );
@@ -184,17 +172,17 @@ Future<Map<String, dynamic>> fetchBlogService(String id) async {
   // print("RUN BLOG SERVICE");
 
   try {
-    var response = await RetryOptions(maxAttempts: 5).retry(
+    var response = await const RetryOptions(maxAttempts: 5).retry(
       () => client.post(Uri.parse('${ConfigApp.apiUrl}/v1/cms/blog/section'),
           body: jsonEncode({
             'branch': ConfigApp.branchAccess,
             'query': {
-              "category": "$id",
+              "category": id,
             },
           }),
           headers: <String, String>{
             'Content-Type': 'application/json',
-          }).timeout(Duration(seconds: 5)),
+          }).timeout(const Duration(seconds: 5)),
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
     if (response.statusCode == 200) {
@@ -212,29 +200,25 @@ Future<Map<String, dynamic>> fetchBlogService(String id) async {
     Get.snackbar(
       'error'.tr,
       'error.fetch'.tr,
-      duration: Duration(seconds: 5),
+      duration: const Duration(seconds: 5),
       backgroundColor: Colors.red.withOpacity(.6),
-      titleText: Container(
-        child: Text(
-          'error'.tr,
-          style: TextStyle(
-            fontSize: 24,
-            fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-          ),
-          textAlign:
-              'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
+      titleText: Text(
+        'error'.tr,
+        style: TextStyle(
+          fontSize: 24,
+          fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
         ),
+        textAlign:
+            'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
       ),
-      messageText: Container(
-        child: Text(
-          'error.fetch'.tr,
-          style: TextStyle(
-            fontSize: 16,
-            fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-          ),
-          textAlign:
-              'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
+      messageText: Text(
+        'error.fetch'.tr,
+        style: TextStyle(
+          fontSize: 16,
+          fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
         ),
+        textAlign:
+            'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
       ),
     );
   }

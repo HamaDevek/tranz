@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../services/theme_service.dart';
 import '../utils/extentions.dart';
@@ -15,14 +16,14 @@ class TextfieldCustomComponent extends StatelessWidget {
       this.keyboardType,
       this.readOnly})
       : super(key: key);
-  final hintText,
-      inputFormatters,
-      controller,
-      prefixIcon,
-      suffixIcon,
-      keyboardType,
-      readOnly,
-      onTap;
+  final String hintText;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextEditingController? controller;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final TextInputType? keyboardType;
+  final bool? readOnly;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +34,8 @@ class TextfieldCustomComponent extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: ThemeService().isSavedDarkMode()
-              ? Color(0xFF292D32)
-              : Theme.of(context).accentColor,
+              ? const Color(0xFF292D32)
+              : Theme.of(context).colorScheme.secondary,
         ),
         child: Center(
           child: Column(
@@ -48,7 +49,7 @@ class TextfieldCustomComponent extends StatelessWidget {
                 inputFormatters: inputFormatters,
                 style: TextStyle(
                     color: !ThemeService().isSavedDarkMode()
-                        ? Color(0xFF1E272E)
+                        ? const Color(0xFF1E272E)
                         : Colors.white,
                     fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
                     fontSize: 20),
@@ -67,7 +68,7 @@ class TextfieldCustomComponent extends StatelessWidget {
                   border: InputBorder.none,
                   counterText: "",
                   contentPadding:
-                      EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 ),
               )
             ],

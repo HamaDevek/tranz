@@ -39,7 +39,7 @@ class _ServiceSubserviceScreenState extends State<ServiceSubserviceScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 18,
             ),
             Row(
@@ -71,7 +71,7 @@ class _ServiceSubserviceScreenState extends State<ServiceSubserviceScreen> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16),
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
                   height: 40,
                   width: 40,
                   decoration: BoxDecoration(
@@ -79,7 +79,7 @@ class _ServiceSubserviceScreenState extends State<ServiceSubserviceScreen> {
                   ),
                   child: CachedNetworkImage(
                     imageUrl:
-                        "${service?.picture.isBlank ?? false ? ConfigApp.placeholder : "${ConfigApp.apiUrl}/public/uploads/category/${service?.picture}"}",
+                        service?.picture.isBlank ?? false ? ConfigApp.placeholder : "${ConfigApp.apiUrl}/public/uploads/category/${service?.picture}",
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
@@ -91,19 +91,19 @@ class _ServiceSubserviceScreenState extends State<ServiceSubserviceScreen> {
                         ),
                       ),
                     ),
-                    placeholder: (context, url) => Center(
+                    placeholder: (context, url) => const Center(
                       child: Icon(
                         Iconsax.gallery,
                         size: 50,
                       ),
                     ),
-                    errorWidget: (context, url, error) => Icon(
+                    errorWidget: (context, url, error) => const Icon(
                       Iconsax.gallery_slash,
                       size: 50,
                     ),
                     cacheManager: CacheManager(
                       Config(
-                        '${service?.picture.isBlank ?? false ? ConfigApp.placeholder : "${ConfigApp.apiUrl}/public/uploads/category/${service?.picture}"}',
+                        service?.picture.isBlank ?? false ? ConfigApp.placeholder : "${ConfigApp.apiUrl}/public/uploads/category/${service?.picture}",
                         stalePeriod: const Duration(days: 15),
                         maxNrOfCacheObjects: 100,
                       ),
@@ -112,11 +112,11 @@ class _ServiceSubserviceScreenState extends State<ServiceSubserviceScreen> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Container(
-                margin: EdgeInsets.all(16),
+                margin: const EdgeInsets.all(16),
                 width: double.infinity,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -141,14 +141,14 @@ class _ServiceSubserviceScreenState extends State<ServiceSubserviceScreen> {
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: !ThemeService().isSavedDarkMode()
-                            ? Color(0xFF1E272E)
+                            ? const Color(0xFF1E272E)
                             : Colors.white,
                       ),
                     ),
                   ],
                 )),
             Expanded(
-              child: subservice!.length == 0
+              child: subservice!.isEmpty
                   ? Container()
                   : Obx(
                       () => ScrollConfiguration(
@@ -178,7 +178,7 @@ class _ServiceSubserviceScreenState extends State<ServiceSubserviceScreen> {
                                             .isVertical.value
                                         ? 145
                                         : 185),
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 16),
                             itemBuilder: (context, index) {
                               return ServiceCardComponent(

@@ -15,9 +15,9 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  final _pageViewcontroller = new PageController();
+  final _pageViewcontroller = PageController();
 
-  List<PageviewModel> _pageView = [
+  final List<PageviewModel> _pageView = [
     PageviewModel(
       desc: 'welcome.1'.tr,
       image: 'assets/images/welcome/1.png',
@@ -61,15 +61,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
-                    Container(
+                    SizedBox(
                       height: MediaQuery.of(context).size.height > 600
                           ? MediaQuery.of(context).size.height / 1.7
                           : MediaQuery.of(context).size.height / 2,
                       child: PageView.builder(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         reverse: "language.rtl".tr.parseBool,
                         onPageChanged: (page) {
                           setState(() {
@@ -80,7 +80,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           return Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage('${_pageView[index].image}'),
+                                image: AssetImage(_pageView[index].image),
                                 fit: BoxFit.contain,
                               ),
                             ),
@@ -90,11 +90,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         controller: _pageViewcontroller,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 45,
                     ),
                     Center(
-                      child: Container(
+                      child: SizedBox(
                         width: MediaQuery.of(context).size.width / 2,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -106,22 +106,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 45,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Container(
+                      child: SizedBox(
                         width: MediaQuery.of(context).size.width - 32,
                         child: Text(
-                          "${_selectedPage!.desc}",
+                          _selectedPage!.desc,
                           textAlign: 'language.rtl'.tr.parseBool
                               ? TextAlign.right
                               : TextAlign.left,
                           style: TextStyle(
                             fontSize: 25,
                             color: !ThemeService().isSavedDarkMode()
-                                ? Color(0xFF1E272E)
+                                ? const Color(0xFF1E272E)
                                 : Colors.white,
                             fontFamily:
                                 'language.rtl'.tr.parseBool ? 'Rabar' : '',
@@ -130,7 +130,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 110,
                     ),
                   ],
@@ -143,7 +143,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
                     child: ButtonCustomComponent(
                       onPress: () async {
                         IsFirstService().saveIsFirst(false);
@@ -154,7 +154,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         style: TextStyle(
                           fontSize: 20,
                           color: ThemeService().isSavedDarkMode()
-                              ? Color(0xFF1E272E)
+                              ? const Color(0xFF1E272E)
                               : Colors.white,
                           fontFamily:
                               'language.rtl'.tr.parseBool ? 'Rabar' : '',
@@ -176,7 +176,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return _pageView
         .map(
           (e) => Container(
-            margin: EdgeInsets.symmetric(horizontal: 4),
+            margin: const EdgeInsets.symmetric(horizontal: 4),
             height: 5,
             width: 15,
             decoration: BoxDecoration(
@@ -184,8 +184,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               color: _selectedPage == e
                   ? Theme.of(context).primaryColor
                   : ThemeService().isSavedDarkMode()
-                      ? Color(0xff222F3E)
-                      : Theme.of(context).accentColor,
+                      ? const Color(0xff222F3E)
+                      : Theme.of(context).colorScheme.secondary,
             ),
           ),
         )

@@ -23,11 +23,11 @@ class _CartItemComponentState extends State<CartItemComponent> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 16),
       height: 130,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Theme.of(context).accentColor,
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -42,7 +42,7 @@ class _CartItemComponentState extends State<CartItemComponent> {
             ),
             child: CachedNetworkImage(
               imageUrl: widget.item.picture?.isBlank ?? false
-                  ? "${ConfigApp.placeholder}"
+                  ? ConfigApp.placeholder
                   : "${ConfigApp.apiUrl}/public/uploads/item/${widget.item.picture?[0]}",
               imageBuilder: (context, imageProvider) => Container(
                 decoration: BoxDecoration(
@@ -55,20 +55,20 @@ class _CartItemComponentState extends State<CartItemComponent> {
                   ),
                 ),
               ),
-              placeholder: (context, url) => Center(
+              placeholder: (context, url) => const Center(
                 child: Icon(
                   Iconsax.gallery,
                   size: 50,
                 ),
               ),
-              errorWidget: (context, url, error) => Icon(
+              errorWidget: (context, url, error) => const Icon(
                 Iconsax.gallery_slash,
                 size: 50,
               ),
               cacheManager: CacheManager(
                 Config(
                   widget.item.picture?.isBlank ?? false
-                      ? "${ConfigApp.placeholder}"
+                      ? ConfigApp.placeholder
                       : "${ConfigApp.apiUrl}/public/uploads/item/${widget.item.picture?[0]}",
                   stalePeriod: const Duration(days: 15),
                   maxNrOfCacheObjects: 100,
@@ -82,46 +82,13 @@ class _CartItemComponentState extends State<CartItemComponent> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            '${widget.item.localizeName?["x-lang".tr] ?? ""}',
-                            textAlign: 'language.rtl'.tr.parseBool
-                                ? TextAlign.right
-                                : TextAlign.left,
-                            style: TextStyle(
-                              fontFamily:
-                                  'language.rtl'.tr.parseBool ? "Rabar" : "",
-                              fontSize: 16,
-                              color: !ThemeService().isSavedDarkMode()
-                                  ? Color(0xFF1E272E)
-                                  : Colors.white,
-                            ),
-                            overflow: TextOverflow.fade,
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            _cartController.deleteCartList(widget.item);
-                          },
-                          child: Icon(
-                            Iconsax.trash,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          '${((widget.item.sellingPrice ?? 0) * (widget.item.amount ?? 0)).parseToCurrency}',
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          '${widget.item.localizeName?["x-lang".tr] ?? ""}',
                           textAlign: 'language.rtl'.tr.parseBool
                               ? TextAlign.right
                               : TextAlign.left,
@@ -130,79 +97,108 @@ class _CartItemComponentState extends State<CartItemComponent> {
                                 'language.rtl'.tr.parseBool ? "Rabar" : "",
                             fontSize: 16,
                             color: !ThemeService().isSavedDarkMode()
-                                ? Color(0xFF1E272E)
+                                ? const Color(0xFF1E272E)
                                 : Colors.white,
                           ),
-                          overflow: TextOverflow.ellipsis,
+                          overflow: TextOverflow.fade,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Material(
-                              color: Theme.of(context).backgroundColor,
-                              borderRadius: BorderRadius.circular(100),
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(100),
-                                onTap: () {
-                                  _cartController.incrementAmount(widget.item);
-                                  setState(() {});
-                                },
-                                child: Container(
-                                  height: 30,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                  ),
-                                  child: Icon(
-                                    Icons.add,
-                                    size: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: Text(
-                                '${widget.item.amount}',
-                                style: TextStyle(
-                                  fontFamily: 'language.rtl'.tr.parseBool
-                                      ? "Rabar"
-                                      : "",
-                                  fontSize: 16,
-                                  color: !ThemeService().isSavedDarkMode()
-                                      ? Color(0xFF1E272E)
-                                      : Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Material(
-                              color: Theme.of(context).backgroundColor,
-                              borderRadius: BorderRadius.circular(100),
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(100),
-                                onTap: () {
-                                  _cartController.decrementAmount(widget.item);
-                                  setState(() {});
-                                },
-                                child: Container(
-                                  height: 30,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                  ),
-                                  child: Icon(
-                                    Icons.remove,
-                                    size: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                      ),
+                      InkWell(
+                        onTap: () {
+                          _cartController.deleteCartList(widget.item);
+                        },
+                        child: const Icon(
+                          Iconsax.trash,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        ((widget.item.sellingPrice ?? 0) * (widget.item.amount ?? 0)).parseToCurrency,
+                        textAlign: 'language.rtl'.tr.parseBool
+                            ? TextAlign.right
+                            : TextAlign.left,
+                        style: TextStyle(
+                          fontFamily:
+                              'language.rtl'.tr.parseBool ? "Rabar" : "",
+                          fontSize: 16,
+                          color: !ThemeService().isSavedDarkMode()
+                              ? const Color(0xFF1E272E)
+                              : Colors.white,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Material(
+                            color: Theme.of(context).backgroundColor,
+                            borderRadius: BorderRadius.circular(100),
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(100),
+                              onTap: () {
+                                _cartController.incrementAmount(widget.item);
+                                setState(() {});
+                              },
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                child: const Icon(
+                                  Icons.add,
+                                  size: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              '${widget.item.amount}',
+                              style: TextStyle(
+                                fontFamily: 'language.rtl'.tr.parseBool
+                                    ? "Rabar"
+                                    : "",
+                                fontSize: 16,
+                                color: !ThemeService().isSavedDarkMode()
+                                    ? const Color(0xFF1E272E)
+                                    : Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Material(
+                            color: Theme.of(context).backgroundColor,
+                            borderRadius: BorderRadius.circular(100),
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(100),
+                              onTap: () {
+                                _cartController.decrementAmount(widget.item);
+                                setState(() {});
+                              },
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                child: const Icon(
+                                  Icons.remove,
+                                  size: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),

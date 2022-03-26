@@ -24,10 +24,10 @@ class CartController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    cartId = [...(_getStorage.read('cart') ?? [])].toSet().toList();
-    cartId.forEach((element) {
+    cartId = <dynamic>{...(_getStorage.read('cart') ?? [])}.toList();
+    for (var element in cartId) {
       cart.add(ItemModel.fromJson(_getStorage.read(element)));
-    });
+    }
     update();
   }
 
@@ -46,9 +46,9 @@ class CartController extends GetxController {
   }
 
   void deleteAllCartList() {
-    cartId.forEach((item) {
+    for (var item in cartId) {
       _getStorage.remove(item);
-    });
+    }
     cartId.clear();
     cart.clear();
     _getStorage.write('cart', cartId.toSet().toList());
@@ -83,23 +83,19 @@ class CartController extends GetxController {
     Get.snackbar(
       'success'.tr,
       'success.insert'.trParams({'type': 'cart.added'.tr}),
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
       backgroundColor: Colors.green.withOpacity(.6),
-      titleText: Container(
-        child: Text(
-          'success'.tr,
-          style: TextStyle(
-            fontSize: 24,
-          ),
-          // textAlign:
+      titleText: Text(
+        'success'.tr,
+        style: const TextStyle(
+          fontSize: 24,
         ),
+        // textAlign:
       ),
-      messageText: Container(
-        child: Text(
-          'success.insert'.trParams({'type': 'cart.added'.tr}),
-          style: TextStyle(
-            fontSize: 16,
-          ),
+      messageText: Text(
+        'success.insert'.trParams({'type': 'cart.added'.tr}),
+        style: const TextStyle(
+          fontSize: 16,
         ),
       ),
     );
@@ -115,23 +111,19 @@ class CartController extends GetxController {
         Get.snackbar(
           'success'.tr,
           'success.insert'.trParams({'type': 'order'.tr}),
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
           backgroundColor: Colors.green.withOpacity(.6),
-          titleText: Container(
-            child: Text(
-              'success'.tr,
-              style: TextStyle(
-                fontSize: 24,
-              ),
-              // textAlign:
+          titleText: Text(
+            'success'.tr,
+            style: const TextStyle(
+              fontSize: 24,
             ),
+            // textAlign:
           ),
-          messageText: Container(
-            child: Text(
-              'success.insert'.trParams({'type': 'order'.tr}),
-              style: TextStyle(
-                fontSize: 16,
-              ),
+          messageText: Text(
+            'success.insert'.trParams({'type': 'order'.tr}),
+            style: const TextStyle(
+              fontSize: 16,
             ),
           ),
         );
@@ -151,23 +143,23 @@ class CartController extends GetxController {
 
   void getCartInfo() {
     total(0);
-    cart.forEach((element) {
+    for (var element in cart) {
       total(total.value + (element.sellingPrice * element.amount));
-    });
+    }
     update();
   }
 }
 
 Future<bool> sendCartThread(CartApiModel service) async {
   try {
-    var response = await RetryOptions(maxAttempts: 5).retry(
+    var response = await const RetryOptions(maxAttempts: 5).retry(
       () => client.post(
         Uri.parse('${ConfigApp.apiUrl}/v1/invoice/createorder'),
         body: service.toJson(),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
-      ).timeout(Duration(seconds: 5)),
+      ).timeout(const Duration(seconds: 5)),
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
     return response.statusCode == 200;
@@ -175,23 +167,19 @@ Future<bool> sendCartThread(CartApiModel service) async {
     Get.snackbar(
       'error'.tr,
       'error.fetch'.tr,
-      duration: Duration(seconds: 5),
+      duration:const Duration(seconds: 5),
       backgroundColor: Colors.red.withOpacity(.6),
-      titleText: Container(
-        child: Text(
-          'error'.tr,
-          style: TextStyle(
-            fontSize: 24,
-            fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-          ),
+      titleText: Text(
+        'error'.tr,
+        style: TextStyle(
+          fontSize: 24,
+          fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
         ),
       ),
-      messageText: Container(
-        child: Text(
-          'error.fetch'.tr,
-          style: TextStyle(
-            fontSize: 16,
-          ),
+      messageText: Text(
+        'error.fetch'.tr,
+        style:const TextStyle(
+          fontSize: 16,
         ),
       ),
     );

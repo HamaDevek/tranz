@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io' as io;
 
 import 'package:device_info_plus/device_info_plus.dart';
@@ -18,7 +19,7 @@ Future<String> getDeviceIdentifier() async {
       identifier = iosInfo.identifierForVendor ?? "Unknowen";
     }
   } on PlatformException {
-    print('Failed to get platform version');
+    log('Failed to get platform version');
   }
   return identifier;
 }

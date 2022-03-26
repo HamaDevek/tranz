@@ -1,8 +1,6 @@
-# Tranz
+# tranzhouse
 
 A new Flutter project.
-
-![Logo](https://github.com/HamaDevek/tranz/blob/main/assets/images/icon.jpg?raw=true)
 
 ## Getting Started
 

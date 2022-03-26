@@ -27,16 +27,16 @@ class _SettingChangeColorComponentState
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: EdgeInsets.symmetric(horizontal: 16),
-      backgroundColor: Theme.of(context).accentColor,
-      shape: RoundedRectangleBorder(
+      insetPadding: const EdgeInsets.symmetric(horizontal: 16),
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10))),
       content: StatefulBuilder(
         builder: (context, setState) => Container(
           width: 1000,
           height: 213,
           decoration: BoxDecoration(
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).colorScheme.secondary,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -44,8 +44,8 @@ class _SettingChangeColorComponentState
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Material(
-                  color: Theme.of(context).accentColor,
-                  child: Container(
+                  color: Theme.of(context).colorScheme.secondary,
+                  child: SizedBox(
                     width: double.infinity,
                     child: Text(
                       'language.choose'.tr,
@@ -57,14 +57,14 @@ class _SettingChangeColorComponentState
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: !ThemeService().isSavedDarkMode()
-                            ? Color(0xFF1E272E)
+                            ? const Color(0xFF1E272E)
                             : Colors.white,
                       ),
                     ),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Container(
@@ -73,7 +73,7 @@ class _SettingChangeColorComponentState
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: ThemeService().isSavedDarkMode()
-                      ? Color(0xFF292D32)
+                      ? const Color(0xFF292D32)
                       : Colors.grey.shade300,
                 ),
                 child: DropdownButtonHideUnderline(
@@ -93,8 +93,8 @@ class _SettingChangeColorComponentState
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: !ThemeService().isSavedDarkMode()
-                                  ? Color(0xFF1E272E)
-                                  : Color(0xff818181),
+                                  ? const Color(0xFF1E272E)
+                                  : const Color(0xff818181),
                             ),
                           ),
                         ),
@@ -110,24 +110,22 @@ class _SettingChangeColorComponentState
                   ),
                 ),
               ),
-              Expanded(child: SizedBox()),
-              Container(
-                child: ButtonCustomComponent(
-                  onPress: () {
-                    "mode.light".tr == _selectedColor
-                        ? ThemeService().changeThemeToLight()
-                        : ThemeService().changeThemeToDark();
+              const Expanded(child: SizedBox()),
+              ButtonCustomComponent(
+                onPress: () {
+                  "mode.light".tr == _selectedColor
+                      ? ThemeService().changeThemeToLight()
+                      : ThemeService().changeThemeToDark();
 
-                    Get.back();
-                  },
-                  child: Text(
-                    'choose'.tr.firstUpperCase,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Color(0xFF1E272E),
-                      fontFamily: 'language.rtl'.tr.parseBool ? 'Rabar' : '',
-                      fontWeight: FontWeight.w600,
-                    ),
+                  Get.back();
+                },
+                child: Text(
+                  'choose'.tr.firstUpperCase,
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: const Color(0xFF1E272E),
+                    fontFamily: 'language.rtl'.tr.parseBool ? 'Rabar' : '',
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),

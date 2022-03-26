@@ -19,7 +19,7 @@ class SettingAboutScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 100,
                     ),
                     Container(
@@ -35,7 +35,7 @@ class SettingAboutScreen extends StatelessWidget {
                               'language.rtl'.tr.parseBool ? "Rabar" : "",
                           fontSize: 20,
                           color: !ThemeService().isSavedDarkMode()
-                              ? Color(0xFF1E272E)
+                              ? const Color(0xFF1E272E)
                               : Colors.white,
                         ),
                         overflow: TextOverflow.fade,
@@ -46,67 +46,63 @@ class SettingAboutScreen extends StatelessWidget {
               ),
             ),
             Container(
-              child: Container(
-                height: 90,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Theme.of(context)
-                          .scaffoldBackgroundColor
-                          .withOpacity(0.4),
-                      spreadRadius: 6,
-                      blurRadius: 7,
-                      offset: Offset(0, 2), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 24,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            icon: Icon(
-                              'language.rtl'.tr.parseBool
-                                  ? Iconsax.arrow_right_3
-                                  : Iconsax.arrow_left_2,
-                            ),
+              height: 90,
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(context)
+                        .scaffoldBackgroundColor
+                        .withOpacity(0.4),
+                    spreadRadius: 6,
+                    blurRadius: 7,
+                    offset: const Offset(0, 2), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(
+                            'language.rtl'.tr.parseBool
+                                ? Iconsax.arrow_right_3
+                                : Iconsax.arrow_left_2,
                           ),
-                          Expanded(
-                            child: Container(
-                              child: Text(
-                                'about'.tr,
-                                textAlign: 'language.rtl'.tr.parseBool
-                                    ? TextAlign.left
-                                    : TextAlign.right,
-                                style: TextStyle(
-                                  fontFamily: 'language.rtl'.tr.parseBool
-                                      ? "Rabar"
-                                      : "",
-                                  fontSize: 24,
-                                  color: !ThemeService().isSavedDarkMode()
-                                      ? Color(0xFF1E272E)
-                                      : Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                overflow: TextOverflow.fade,
-                              ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            'about'.tr,
+                            textAlign: 'language.rtl'.tr.parseBool
+                                ? TextAlign.left
+                                : TextAlign.right,
+                            style: TextStyle(
+                              fontFamily: 'language.rtl'.tr.parseBool
+                                  ? "Rabar"
+                                  : "",
+                              fontSize: 24,
+                              color: !ThemeService().isSavedDarkMode()
+                                  ? const Color(0xFF1E272E)
+                                  : Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
+                            overflow: TextOverflow.fade,
                           ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
           ],

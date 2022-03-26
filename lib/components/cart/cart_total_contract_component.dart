@@ -26,7 +26,7 @@ class _CartTotalComponentState extends State<CartTotalComponent> {
             color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.4),
             spreadRadius: 6,
             blurRadius: 7,
-            offset: Offset(0, 2), // changes position of shadow
+            offset: const Offset(0, 2), // changes position of shadow
           ),
         ],
       ),
@@ -37,22 +37,41 @@ class _CartTotalComponentState extends State<CartTotalComponent> {
             height: 2,
             width: MediaQuery.of(context).size.width - 32,
             color: ThemeService().isSavedDarkMode()
-                ? Color(0xFF222F3E)
-                : Theme.of(context).accentColor,
-            margin: EdgeInsets.only(bottom: 8),
+                ? const Color(0xFF222F3E)
+                : Theme.of(context).colorScheme.secondary,
+            margin: const EdgeInsets.only(bottom: 8),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    child: Container(
+                    child: Text(
+                      'total'.tr,
+                      textAlign: 'language.rtl'.tr.parseBool
+                          ? TextAlign.right
+                          : TextAlign.left,
+                      style: TextStyle(
+                        fontFamily:
+                            'language.rtl'.tr.parseBool ? "Rabar" : "",
+                        fontSize: 20,
+                        color: !ThemeService().isSavedDarkMode()
+                            ? const Color(0xFF1E272E)
+                            : Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
+                  Obx(
+                    () => Expanded(
                       child: Text(
-                        'total'.tr,
-                        textAlign: 'language.rtl'.tr.parseBool
+                        '${_cartController.total.value.toInt().parseToCurrency} ' +
+                            'IQD'.tr,
+                        textAlign: !'language.rtl'.tr.parseBool
                             ? TextAlign.right
                             : TextAlign.left,
                         style: TextStyle(
@@ -60,34 +79,11 @@ class _CartTotalComponentState extends State<CartTotalComponent> {
                               'language.rtl'.tr.parseBool ? "Rabar" : "",
                           fontSize: 20,
                           color: !ThemeService().isSavedDarkMode()
-                              ? Color(0xFF1E272E)
+                              ? const Color(0xFF1E272E)
                               : Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                         overflow: TextOverflow.fade,
-                      ),
-                    ),
-                  ),
-                  Obx(
-                    () => Expanded(
-                      child: Container(
-                        child: Text(
-                          '${_cartController.total.value.toInt().parseToCurrency} ' +
-                              'IQD'.tr,
-                          textAlign: !'language.rtl'.tr.parseBool
-                              ? TextAlign.right
-                              : TextAlign.left,
-                          style: TextStyle(
-                            fontFamily:
-                                'language.rtl'.tr.parseBool ? "Rabar" : "",
-                            fontSize: 20,
-                            color: !ThemeService().isSavedDarkMode()
-                                ? Color(0xFF1E272E)
-                                : Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          overflow: TextOverflow.fade,
-                        ),
                       ),
                     ),
                   )
@@ -105,7 +101,7 @@ class _CartTotalComponentState extends State<CartTotalComponent> {
                 'finish.transaction'.tr,
                 style: TextStyle(
                   fontSize: 20,
-                  color: Color(0xFF1E272E),
+                  color: const Color(0xFF1E272E),
                   fontFamily: 'language.rtl'.tr.parseBool ? 'Rabar' : '',
                   fontWeight: FontWeight.w600,
                 ),

@@ -36,7 +36,7 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(Duration(days: 30)),
+      lastDate: DateTime.now().add(const Duration(days: 30)),
       cancelText: 'cancel'.tr,
       confirmText: 'ok'.tr,
       helpText: "select.date".tr,
@@ -61,12 +61,13 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
       },
     );
 
-    if (picked != null && picked != selectedDate)
+    if (picked != null && picked != selectedDate) {
       setState(() {
-        var formatter = new DateFormat('yyyy-MM-dd');
+        var formatter = DateFormat('yyyy-MM-dd');
         selectedDate = picked;
         _dateController?.text = formatter.format(selectedDate);
       });
+    }
   }
 
   Future<void> _selectTime(BuildContext context) async {
@@ -143,14 +144,14 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 80,
                   ),
                   Row(
                     children: [
                       Container(
                         margin:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                            const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                         child: Text(
                           'cart.info'.tr,
                           textAlign: 'language.rtl'.tr.parseBool
@@ -161,7 +162,7 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                                 'language.rtl'.tr.parseBool ? "Rabar" : "",
                             fontSize: 24,
                             color: !ThemeService().isSavedDarkMode()
-                                ? Color(0xFF1E272E)
+                                ? const Color(0xFF1E272E)
                                 : Colors.white,
                           ),
                           overflow: TextOverflow.fade,
@@ -171,26 +172,26 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                   ),
                   TextfieldCustomComponent(
                       hintText: 'name'.tr, controller: _nameController),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   TextfieldCustomComponent(
                       hintText: 'phone'.tr,
                       controller: _phoneController,
                       keyboardType: TextInputType.phone),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Container(
-                      margin: EdgeInsets.symmetric(horizontal: 16),
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
                       height: 60,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: ThemeService().isSavedDarkMode()
-                            ? Color(0xFF292D32)
+                            ? const Color(0xFF292D32)
                             : Colors.grey.shade300,
                       ),
                       child: Obx(() {
                         if (_cityApiController.isLoading.value ||
-                            _cityApiController.cities.length == 0) {
-                          return Text('Empty');
+                            _cityApiController.cities.isEmpty) {
+                          return const Text('Empty');
                         } else {
                           return DropdownButtonHideUnderline(
                             child: DropdownButton<CityModel>(
@@ -205,7 +206,7 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 16),
                                     child: Text(
-                                      "${city.name ?? ""}",
+                                      city.name ?? "",
                                       style: TextStyle(
                                         fontFamily: 'language.rtl'.tr.parseBool
                                             ? "Rabar"
@@ -213,8 +214,8 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
                                         color: !ThemeService().isSavedDarkMode()
-                                            ? Color(0xFF1E272E)
-                                            : Color(0xff818181),
+                                            ? const Color(0xFF1E272E)
+                                            : const Color(0xff818181),
                                       ),
                                     ),
                                   ),
@@ -230,7 +231,7 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                           );
                         }
                       })),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   TextfieldCustomComponent(
                       hintText: 'address'.tr, controller: _addressController),
                   // SizedBox(height: 16),
@@ -242,7 +243,7 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                   //   onTap: () {
                   //   },
                   // ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Row(
                     children: [
                       Expanded(
@@ -266,7 +267,7 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   Padding(
@@ -277,7 +278,7 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                           'services.order'.tr,
                           style: TextStyle(
                             fontSize: 20,
-                            color: Color(0xFF1E272E),
+                            color: const Color(0xFF1E272E),
                             fontFamily:
                                 'language.rtl'.tr.parseBool ? 'Rabar' : '',
                             fontWeight: FontWeight.w600,
@@ -320,13 +321,13 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                         .withOpacity(0.4),
                     spreadRadius: 6,
                     blurRadius: 7,
-                    offset: Offset(0, 2), // changes position of shadow
+                    offset: const Offset(0, 2), // changes position of shadow
                   ),
                 ],
               ),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 24,
                   ),
                   Padding(
@@ -345,23 +346,21 @@ class _ServiceOrderScreenState extends State<ServiceOrderScreen> {
                           ),
                         ),
                         Expanded(
-                          child: Container(
-                            child: Text(
-                              'services.order'.tr,
-                              textAlign: 'language.rtl'.tr.parseBool
-                                  ? TextAlign.left
-                                  : TextAlign.right,
-                              style: TextStyle(
-                                fontFamily:
-                                    'language.rtl'.tr.parseBool ? "Rabar" : "",
-                                fontSize: 24,
-                                color: !ThemeService().isSavedDarkMode()
-                                    ? Color(0xFF1E272E)
-                                    : Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              overflow: TextOverflow.fade,
+                          child: Text(
+                            'services.order'.tr,
+                            textAlign: 'language.rtl'.tr.parseBool
+                                ? TextAlign.left
+                                : TextAlign.right,
+                            style: TextStyle(
+                              fontFamily:
+                                  'language.rtl'.tr.parseBool ? "Rabar" : "",
+                              fontSize: 24,
+                              color: !ThemeService().isSavedDarkMode()
+                                  ? const Color(0xFF1E272E)
+                                  : Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
+                            overflow: TextOverflow.fade,
                           ),
                         ),
                       ],

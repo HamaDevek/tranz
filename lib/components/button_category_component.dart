@@ -5,17 +5,17 @@ import '../utils/extentions.dart';
 
 // ignore: must_be_immutable
 class ButtonCategoryComponent extends StatefulWidget {
-  final text;
-  final onPress;
-  final height;
-  var isSelected;
+  final String? text;
+  final GestureTapCallback? onPress;
+  final double? height;
+  final bool? isSelected;
 
-  ButtonCategoryComponent({
+  const ButtonCategoryComponent({
     Key? key,
-    required String? this.text,
-    required bool? this.isSelected,
-    required GestureTapCallback? this.onPress,
-    double? this.height,
+    required this.text,
+    required this.isSelected,
+    required this.onPress,
+    this.height,
   }) : super(key: key);
 
   @override
@@ -30,11 +30,11 @@ class _ButtonCategoryComponentState extends State<ButtonCategoryComponent> {
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Material(
         borderRadius: BorderRadius.circular(100),
-        color: widget.isSelected
+        color: widget.isSelected ?? false
             ? Theme.of(context).primaryColor
             : ThemeService().isSavedDarkMode()
                 ? Colors.white
-                : Theme.of(context).accentColor,
+                : Theme.of(context).colorScheme.secondary,
         child: InkWell(
           onTap: widget.onPress,
           borderRadius: BorderRadius.circular(100),

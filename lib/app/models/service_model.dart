@@ -30,30 +30,30 @@ class ServiceModel {
   String toJson() => json.encode(toMap());
 
   factory ServiceModel.fromMap(Map<String, dynamic> json) => ServiceModel(
-        parent: json["parent"] == null ? null : json["parent"],
-        id: json["_id"] == null ? null : json["_id"],
-        name: json["name"] == null ? null : json["name"],
-        title: json["title"] == null ? null : json["title"],
-        type: json["type"] == null ? null : json["type"],
-        picture: json["picture"] == null ? null : json["picture"],
+        parent: json["parent"],
+        id: json["_id"],
+        name: json["name"],
+        title: json["title"],
+        type: json["type"],
+        picture: json["picture"],
         createdAt: json["createdAt"] == null
             ? null
             : DateTime.parse(json["createdAt"]),
-        branch: json["branch"] == null ? null : json["branch"],
-        createdBy: json["createdBy"] == null ? null : json["createdBy"],
-        v: json["__v"] == null ? null : json["__v"],
+        branch: json["branch"],
+        createdBy: json["createdBy"],
+        v: json["__v"],
       );
 
   Map<String, dynamic> toMap() => {
-        "parent": parent == null ? null : parent,
-        "_id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "title": title == null ? null : title,
-        "type": type == null ? null : type,
-        "picture": picture == null ? null : picture,
+        "parent": parent,
+        "_id": id,
+        "name": name,
+        "title": title,
+        "type": type,
+        "picture": picture,
         "createdAt": createdAt == null ? null : createdAt!.toIso8601String(),
-        "branch": branch == null ? null : branch,
-        "createdBy": createdBy == null ? null : createdBy,
-        "__v": v == null ? null : v,
+        "branch": branch,
+        "createdBy": createdBy,
+        "__v": v,
       };
 }

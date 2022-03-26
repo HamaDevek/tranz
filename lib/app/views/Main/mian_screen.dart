@@ -13,17 +13,17 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  Color _disable = Color(0xff818181);
+  final Color _disable = const Color(0xff818181);
   int _index = 0;
   List<Widget>? _screen;
   @override
   void initState() {
     super.initState();
     _screen = [
-      ServiceScreen(),
-      ShopScreen(),
-      BlogScreen(),
-      SettingScreen(),
+      const ServiceScreen(),
+      const ShopScreen(),
+      const BlogScreen(),
+      const SettingScreen(),
     ];
   }
 
@@ -37,15 +37,15 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: _screen![_index],
       bottomNavigationBar: BottomAppBar(
-        color: Theme.of(context).accentColor,
-        shape: CircularNotchedRectangle(),
-        child: Container(
+        color: Theme.of(context).colorScheme.secondary,
+        shape: const CircularNotchedRectangle(),
+        child: SizedBox(
           height: 60,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
-                icon: Icon(Iconsax.setting_2),
+                icon: const Icon(Iconsax.setting_2),
                 color: _index == 3
                     ? Theme.of(context).textTheme.headline4!.color
                     : _disable,
@@ -56,7 +56,7 @@ class _MainScreenState extends State<MainScreen> {
                 },
               ),
               IconButton(
-                icon: Icon(Iconsax.book_saved),
+                icon: const Icon(Iconsax.book_saved),
                 color: _index == 2
                     ? Theme.of(context).textTheme.headline4!.color
                     : _disable,
@@ -67,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
                 },
               ),
               IconButton(
-                icon: Icon(Iconsax.shop),
+                icon: const Icon(Iconsax.shop),
                 color: _index == 1
                     ? Theme.of(context).textTheme.headline4!.color
                     : _disable,
@@ -78,7 +78,7 @@ class _MainScreenState extends State<MainScreen> {
                 },
               ),
               IconButton(
-                icon: Icon(Iconsax.truck),
+                icon: const Icon(Iconsax.truck),
                 color: _index == 0
                     ? Theme.of(context).textTheme.headline4!.color
                     : _disable,

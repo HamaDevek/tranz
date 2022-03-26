@@ -32,7 +32,7 @@ class _CartScreenState extends State<CartScreen> {
         child: Stack(
           children: [
             Obx(
-              () => _cartController.cart.length <= 0
+              () => _cartController.cart.isEmpty
                   ? EmptyStateComponent(
                       icon: Iconsax.bag_2,
                       header: 'cart.empty.head'.tr,
@@ -40,7 +40,7 @@ class _CartScreenState extends State<CartScreen> {
                     )
                   : Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 100,
                         ),
                         Expanded(
@@ -60,7 +60,7 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 210,
                         ),
                       ],
@@ -77,13 +77,13 @@ class _CartScreenState extends State<CartScreen> {
                         .withOpacity(0.4),
                     spreadRadius: 6,
                     blurRadius: 7,
-                    offset: Offset(0, 2), // changes position of shadow
+                    offset: const Offset(0, 2), // changes position of shadow
                   ),
                 ],
               ),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 24,
                   ),
                   Padding(
@@ -101,23 +101,21 @@ class _CartScreenState extends State<CartScreen> {
                                   : Iconsax.arrow_left_2,
                             )),
                         Expanded(
-                          child: Container(
-                            child: Text(
-                              'cart'.tr,
-                              textAlign: 'language.rtl'.tr.parseBool
-                                  ? TextAlign.left
-                                  : TextAlign.right,
-                              style: TextStyle(
-                                fontFamily:
-                                    'language.rtl'.tr.parseBool ? "Rabar" : "",
-                                fontSize: 24,
-                                color: !ThemeService().isSavedDarkMode()
-                                    ? Color(0xFF1E272E)
-                                    : Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              overflow: TextOverflow.fade,
+                          child: Text(
+                            'cart'.tr,
+                            textAlign: 'language.rtl'.tr.parseBool
+                                ? TextAlign.left
+                                : TextAlign.right,
+                            style: TextStyle(
+                              fontFamily:
+                                  'language.rtl'.tr.parseBool ? "Rabar" : "",
+                              fontSize: 24,
+                              color: !ThemeService().isSavedDarkMode()
+                                  ? const Color(0xFF1E272E)
+                                  : Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
+                            overflow: TextOverflow.fade,
                           ),
                         ),
                       ],
@@ -127,11 +125,11 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ),
             Obx(
-              () => _cartController.cart.length <= 0
+              () => _cartController.cart.isEmpty
                   ? Container()
                   : Column(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: [CartTotalComponent()],
+                      children: const [CartTotalComponent()],
                     ),
             ),
           ],

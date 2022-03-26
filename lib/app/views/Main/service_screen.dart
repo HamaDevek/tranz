@@ -24,11 +24,11 @@ class _ServiceScreenState extends State<ServiceScreen> {
     return SafeArea(
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 18,
           ),
           Container(
-            margin: EdgeInsets.all(16),
+            margin: const EdgeInsets.all(16),
             width: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,7 +53,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: !ThemeService().isSavedDarkMode()
-                        ? Color(0xFF1E272E)
+                        ? const Color(0xFF1E272E)
                         : Colors.white,
                   ),
                 ),
@@ -76,9 +76,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
                         mainAxisSpacing: 16,
                         mainAxisExtent:
                             _serviceApiController.isVertical.value ? 145 : 185),
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                     itemBuilder: (context, index) {
-                      return ServiceLoadingComponent();
+                      return const ServiceLoadingComponent();
                     }),
               );
             } else {
@@ -119,7 +119,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                               ? 145
                               : 185),
                       padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                          const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       itemBuilder: (context, index) {
                         return ServiceCardComponent(
                           service: _serviceApiController.getParent()![index],

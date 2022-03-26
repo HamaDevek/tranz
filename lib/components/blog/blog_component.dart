@@ -18,7 +18,7 @@ class BlogComponent extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Material(
         borderRadius: BorderRadius.circular(10),
-        color: Theme.of(context).accentColor,
+        color: Theme.of(context).colorScheme.secondary,
         child: InkWell(
           splashColor: Theme.of(context).primaryColor.withOpacity(.1),
           borderRadius: BorderRadius.circular(10),
@@ -54,13 +54,13 @@ class BlogComponent extends StatelessWidget {
                         ),
                       ),
                     ),
-                    placeholder: (context, url) => Center(
+                    placeholder: (context, url) => const Center(
                       child: Icon(
                         Iconsax.gallery,
                         size: 50,
                       ),
                     ),
-                    errorWidget: (context, url, error) => Icon(
+                    errorWidget: (context, url, error) => const Icon(
                       Iconsax.gallery_slash,
                       size: 50,
                     ),
@@ -96,7 +96,7 @@ class BlogComponent extends StatelessWidget {
                         fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
                         fontSize: 16,
                         color: !ThemeService().isSavedDarkMode()
-                            ? Color(0xFF1E272E)
+                            ? const Color(0xFF1E272E)
                             : Colors.white,
                       ),
                       overflow: TextOverflow.fade,
@@ -114,30 +114,28 @@ class BlogComponent extends StatelessWidget {
   List<Widget> get _listTitle {
     return [
       Expanded(
-        child: Container(
-          child: Text(
-            '${blog.title?["x-lang".tr] ?? ""}',
-            textAlign:
-                'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
-            style: TextStyle(
-              fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-              fontSize: 20,
-              color: !ThemeService().isSavedDarkMode()
-                  ? Color(0xFF1E272E)
-                  : Colors.white,
-            ),
-            overflow: TextOverflow.ellipsis,
+        child: Text(
+          '${blog.title?["x-lang".tr] ?? ""}',
+          textAlign:
+              'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
+          style: TextStyle(
+            fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
+            fontSize: 20,
+            color: !ThemeService().isSavedDarkMode()
+                ? const Color(0xFF1E272E)
+                : Colors.white,
           ),
+          overflow: TextOverflow.ellipsis,
         ),
       ),
       Text(
-        '${DateFormat('yyyy-MM-dd').format(blog.createdAt ?? DateTime.now())}',
+        DateFormat('yyyy-MM-dd').format(blog.createdAt ?? DateTime.now()),
         style: TextStyle(
           fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
           fontSize: 14,
           color: !ThemeService().isSavedDarkMode()
-              ? Color(0xFF1E272E)
-              : Color(0xff9D9D9D),
+              ? const Color(0xFF1E272E)
+              : const Color(0xff9D9D9D),
         ),
       )
     ];

@@ -41,7 +41,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                   ),
                   child: ThemeService().getThemeMode() == ThemeMode.light
                       ? ColorFiltered(
-                          colorFilter: ColorFilter.mode(
+                          colorFilter: const ColorFilter.mode(
                             Colors.black,
                             BlendMode.modulate,
                           ),
@@ -63,7 +63,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                       fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
                       fontSize: 24,
                       color: !ThemeService().isSavedDarkMode()
-                          ? Color(0xFF1E272E)
+                          ? const Color(0xFF1E272E)
                           : Colors.white,
                     ),
                   ),
@@ -71,7 +71,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
                     child: ButtonCustomDarkComponent(
                       onPress: () => _changeLanguage(
                         LanguageModel(
@@ -89,7 +89,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
                     child: ButtonCustomDarkComponent(
                       onPress: () => _changeLanguage(
                         LanguageModel(
@@ -107,7 +107,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
                     child: ButtonCustomDarkComponent(
                       isSelected: 'x-lang'.tr == 'en',
                       onPress: () => _changeLanguage(
@@ -124,15 +124,16 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 32),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
                     child: ButtonCustomComponent(
                       onPress: () {
-                        if (!_isSelectAny)
+                        if (!_isSelectAny) {
                           _changeLanguage(LanguageModel(
                             name: 'کوردی',
                             value: 'ku',
                             code: 'ar_SO',
                           ));
+                        }
 
                         Get.toNamed('/choose-mode');
                       },
@@ -140,7 +141,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                         'next'.tr.firstUpperCase,
                         style: TextStyle(
                           fontSize: 20,
-                          color: Color(0xFF1E272E),
+                          color: const Color(0xFF1E272E),
                           fontFamily:
                               'language.rtl'.tr.parseBool ? 'Rabar' : '',
                           fontWeight: FontWeight.w600,
@@ -149,7 +150,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
               ],

@@ -52,7 +52,7 @@ class _SingleServiceWithBlogState extends State<SingleServiceWithBlog> {
           children: [
             Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 Padding(
@@ -71,7 +71,7 @@ class _SingleServiceWithBlogState extends State<SingleServiceWithBlog> {
                                 : Iconsax.arrow_left_2,
                           )),
                       Container(
-                        margin: EdgeInsets.all(16),
+                        margin: const EdgeInsets.all(16),
                         child: Text(
                           '${service?.title?["x-lang".tr] ?? ''}',
                           textAlign: 'language.rtl'.tr.parseBool
@@ -83,7 +83,7 @@ class _SingleServiceWithBlogState extends State<SingleServiceWithBlog> {
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: !ThemeService().isSavedDarkMode()
-                                ? Color(0xFF1E272E)
+                                ? const Color(0xFF1E272E)
                                 : Colors.white,
                           ),
                         ),
@@ -97,19 +97,19 @@ class _SingleServiceWithBlogState extends State<SingleServiceWithBlog> {
                       behavior: NoGlowComponent(),
                       child: ListView.builder(
                         itemBuilder: (_, __) {
-                          return BlogLoadingComponent();
+                          return const BlogLoadingComponent();
                         },
                         itemCount: 3,
                       ),
                     );
                   } else {
-                    if (_serviceApiController.blogs.length > 0) {
+                    if (_serviceApiController.blogs.isNotEmpty) {
                       return Stack(
                         children: [
                           ScrollConfiguration(
                             behavior: NoGlowComponent(),
                             child: ListView.builder(
-                              padding: EdgeInsets.only(bottom: 16),
+                              padding: const EdgeInsets.only(bottom: 16),
                               itemBuilder: (context, index) {
                                 return BlogComponent(
                                   blog: _serviceApiController.blogs[index],
@@ -139,7 +139,7 @@ class _SingleServiceWithBlogState extends State<SingleServiceWithBlog> {
               ],
             ),
             service!.type == 'noorder'
-                ? SizedBox()
+                ? const SizedBox()
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -151,14 +151,14 @@ class _SingleServiceWithBlogState extends State<SingleServiceWithBlog> {
                               'services.order'.tr,
                               style: TextStyle(
                                 fontSize: 20,
-                                color: Color(0xFF1E272E),
+                                color: const Color(0xFF1E272E),
                                 fontFamily:
                                     'language.rtl'.tr.parseBool ? 'Rabar' : '',
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             onPress: () {
-                              if (_serviceApiController.blogs.length > 0) {
+                              if (_serviceApiController.blogs.isNotEmpty) {
                                 Get.toNamed('/service/order',
                                     arguments: service);
                               } else {

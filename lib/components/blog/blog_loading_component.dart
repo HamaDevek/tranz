@@ -10,14 +10,14 @@ class BlogLoadingComponent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Shimmer.fromColors(
-        baseColor: Theme.of(context).accentColor.withOpacity(.5),
+        baseColor: Theme.of(context).colorScheme.secondary.withOpacity(.5),
         highlightColor: Colors.grey.withOpacity(.5),
         child: Container(
           height: 365,
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -29,7 +29,7 @@ class BlogLoadingComponent extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Text('test'),
+                  child: const Text('test'),
                 ),
                 Expanded(
                   child: Container(

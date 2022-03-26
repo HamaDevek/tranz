@@ -22,7 +22,7 @@ class SettingContactScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 100,
                     ),
                     Padding(
@@ -35,7 +35,7 @@ class SettingContactScreen extends StatelessWidget {
                               ? await launch(_url, forceSafariVC: false)
                               : throw 'Could not launch :$_url';
                         },
-                        icon: Icon(Iconsax.location),
+                        icon: const Icon(Iconsax.location),
                         text: Get.arguments['address'],
                       ),
                     ),
@@ -50,7 +50,7 @@ class SettingContactScreen extends StatelessWidget {
                                       ? await launch('mailto:$e')
                                       : throw 'Could not launch mailto:$e';
                                 },
-                                icon: Icon(Iconsax.global),
+                                icon: const Icon(Iconsax.global),
                                 text: e,
                               ),
                             )),
@@ -63,13 +63,13 @@ class SettingContactScreen extends StatelessWidget {
                                     ? await launch('tel:$e')
                                     : throw 'Could not launch tel:$e';
                               },
-                              icon: Icon(Iconsax.call),
+                              icon: const Icon(Iconsax.call),
                               text: e,
                             ),
                           ),
                         ),
                     Get.arguments['links']['facebook'] == ''
-                        ? SizedBox()
+                        ? const SizedBox()
                         : Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: SettingComponent(
@@ -81,12 +81,12 @@ class SettingContactScreen extends StatelessWidget {
                                         forceSafariVC: false)
                                     : throw 'Could not launch ${Get.arguments['links']['facebook']}';
                               },
-                              icon: Icon(FontAwesomeIcons.facebook),
+                              icon: const Icon(FontAwesomeIcons.facebook),
                               text: 'Facebook',
                             ),
                           ),
                     Get.arguments['links']['linkedin'] == ''
-                        ? SizedBox()
+                        ? const SizedBox()
                         : Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: SettingComponent(
@@ -99,12 +99,12 @@ class SettingContactScreen extends StatelessWidget {
                                         forceSafariVC: false)
                                     : throw 'Could not launch ${Get.arguments['links']['linkedin']}';
                               },
-                              icon: Icon(FontAwesomeIcons.snapchatGhost),
+                              icon: const Icon(FontAwesomeIcons.snapchatGhost),
                               text: 'Snapchat',
                             ),
                           ),
                     Get.arguments['links']['instagram'] == ''
-                        ? SizedBox()
+                        ? const SizedBox()
                         : Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: SettingComponent(
@@ -116,12 +116,12 @@ class SettingContactScreen extends StatelessWidget {
                                         forceSafariVC: false)
                                     : throw 'Could not launch ${Get.arguments['links']['instagram']}';
                               },
-                              icon: Icon(FontAwesomeIcons.instagram),
+                              icon: const Icon(FontAwesomeIcons.instagram),
                               text: 'Instagram',
                             ),
                           ),
                     Get.arguments['links']['twitter'] == ''
-                        ? SizedBox()
+                        ? const SizedBox()
                         : Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: SettingComponent(
@@ -133,12 +133,12 @@ class SettingContactScreen extends StatelessWidget {
                                         forceSafariVC: false)
                                     : throw 'Could not launch ${Get.arguments['links']['twitter']}';
                               },
-                              icon: Icon(FontAwesomeIcons.twitter),
+                              icon: const Icon(FontAwesomeIcons.twitter),
                               text: 'Twitter',
                             ),
                           ),
                     Get.arguments['links']['youtube'] == ''
-                        ? SizedBox()
+                        ? const SizedBox()
                         : Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: SettingComponent(
@@ -150,7 +150,7 @@ class SettingContactScreen extends StatelessWidget {
                                         forceSafariVC: false)
                                     : throw 'Could not launch ${Get.arguments['links']['youtube']}';
                               },
-                              icon: Icon(FontAwesomeIcons.youtube),
+                              icon: const Icon(FontAwesomeIcons.youtube),
                               text: 'Youtube',
                             ),
                           ),
@@ -159,67 +159,63 @@ class SettingContactScreen extends StatelessWidget {
               ),
             ),
             Container(
-              child: Container(
-                height: 90,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Theme.of(context)
-                          .scaffoldBackgroundColor
-                          .withOpacity(0.4),
-                      spreadRadius: 6,
-                      blurRadius: 7,
-                      offset: Offset(0, 2), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 24,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            icon: Icon(
-                              'language.rtl'.tr.parseBool
-                                  ? Iconsax.arrow_right_3
-                                  : Iconsax.arrow_left_2,
-                            ),
+              height: 90,
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(context)
+                        .scaffoldBackgroundColor
+                        .withOpacity(0.4),
+                    spreadRadius: 6,
+                    blurRadius: 7,
+                    offset: const Offset(0, 2), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(
+                            'language.rtl'.tr.parseBool
+                                ? Iconsax.arrow_right_3
+                                : Iconsax.arrow_left_2,
                           ),
-                          Expanded(
-                            child: Container(
-                              child: Text(
-                                'contact'.tr,
-                                textAlign: 'language.rtl'.tr.parseBool
-                                    ? TextAlign.left
-                                    : TextAlign.right,
-                                style: TextStyle(
-                                  fontFamily: 'language.rtl'.tr.parseBool
-                                      ? "Rabar"
-                                      : "",
-                                  fontSize: 24,
-                                  color: !ThemeService().isSavedDarkMode()
-                                      ? Color(0xFF1E272E)
-                                      : Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                overflow: TextOverflow.fade,
-                              ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            'contact'.tr,
+                            textAlign: 'language.rtl'.tr.parseBool
+                                ? TextAlign.left
+                                : TextAlign.right,
+                            style: TextStyle(
+                              fontFamily: 'language.rtl'.tr.parseBool
+                                  ? "Rabar"
+                                  : "",
+                              fontSize: 24,
+                              color: !ThemeService().isSavedDarkMode()
+                                  ? const Color(0xFF1E272E)
+                                  : Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
+                            overflow: TextOverflow.fade,
                           ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
           ],

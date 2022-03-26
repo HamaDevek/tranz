@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import '../services/theme_service.dart';
 
 class ButtonCustomDarkComponent extends StatelessWidget {
-  final text;
-  final isSelected;
-  final onPress;
-  final fontFamily;
+  final String? text;
+  final bool? isSelected;
+  final GestureTapCallback? onPress;
+  final String? fontFamily;
   const ButtonCustomDarkComponent({
     Key? key,
-    required String? this.text,
-    required GestureTapCallback? this.onPress,
-    bool? this.isSelected = false,
+    required this.text,
+    required this.onPress,
+    this.isSelected = false,
     this.fontFamily,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(10),
-      color: Theme.of(context).accentColor,
+      color: Theme.of(context).colorScheme.secondary,
       child: InkWell(
         borderRadius: BorderRadius.circular(10),
         onTap: onPress,
@@ -26,7 +26,7 @@ class ButtonCustomDarkComponent extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            border: isSelected
+            border: isSelected ?? false
                 ? Border.all(
                     color: Theme.of(context).primaryColor,
                   )
@@ -41,7 +41,7 @@ class ButtonCustomDarkComponent extends StatelessWidget {
                   '$text',
                   style: TextStyle(
                     color: !ThemeService().isSavedDarkMode()
-                        ? Color(0xFF1E272E)
+                        ? const Color(0xFF1E272E)
                         : Colors.white,
                     fontFamily: fontFamily,
                     fontSize: 20,

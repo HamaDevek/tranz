@@ -17,15 +17,15 @@ class CityModel {
   String toJson() => json.encode(toMap());
 
   factory CityModel.fromMap(Map<String, dynamic> json) => CityModel(
-        id: json["_id"] == null ? null : json["_id"],
-        name: json["name"] == null ? null : json["name"],
+        id: json["_id"],
+        name: json["name"],
         deliveryPrice:
-            json["deliveryPrice"] == null ? 0 : json["deliveryPrice"],
+            json["deliveryPrice"] ?? 0,
       );
 
   Map<String, dynamic> toMap() => {
-        "_id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "deliveryPrice": deliveryPrice == null ? 0 : deliveryPrice,
+        "_id": id,
+        "name": name,
+        "deliveryPrice": deliveryPrice ?? 0,
       };
 }

@@ -54,8 +54,8 @@ Future<Map<String, dynamic>> fetchBlog(Map limit) async {
         {'Accept': 'application/json', 'Content-Type': 'application/json'});
 
     http.StreamedResponse responseStream =
-        await RetryOptions(maxAttempts: 5).retry(
-      () => request.send().timeout(Duration(seconds: 5)),
+        await const RetryOptions(maxAttempts: 5).retry(
+      () => request.send().timeout(const Duration(seconds: 5)),
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
 
@@ -77,29 +77,25 @@ Future<Map<String, dynamic>> fetchBlog(Map limit) async {
     Get.snackbar(
       'error'.tr,
       'error.fetch'.tr,
-      duration: Duration(seconds: 5),
+      duration: const Duration(seconds: 5),
       backgroundColor: Colors.red.withOpacity(.6),
-      titleText: Container(
-        child: Text(
-          'error'.tr,
-          style: TextStyle(
-            fontSize: 24,
-            fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-          ),
-          textAlign:
-              'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
+      titleText: Text(
+        'error'.tr,
+        style: TextStyle(
+          fontSize: 24,
+          fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
         ),
+        textAlign:
+            'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
       ),
-      messageText: Container(
-        child: Text(
-          'error.fetch'.tr,
-          style: TextStyle(
-            fontSize: 16,
-            fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-          ),
-          textAlign:
-              'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
+      messageText: Text(
+        'error.fetch'.tr,
+        style: TextStyle(
+          fontSize: 16,
+          fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
         ),
+        textAlign:
+            'language.rtl'.tr.parseBool ? TextAlign.right : TextAlign.left,
       ),
     );
   }

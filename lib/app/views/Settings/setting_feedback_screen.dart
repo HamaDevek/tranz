@@ -54,28 +54,28 @@ class _SettingFeedbackScreenState extends State<SettingFeedbackScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 100,
                     ),
                     TextfieldCustomComponent(
                         hintText: 'name'.tr, controller: _nameController),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     TextfieldCustomComponent(
                         hintText: 'service'.tr, controller: _infoController),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     TextfieldCustomComponent(
                         hintText: 'phone'.tr,
                         controller: _phoneController,
                         keyboardType: TextInputType.phone),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     TextareaCustomComponent(
                         hintText: 'info'.tr, controller: _messageController),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Obx(
                       () => Padding(
                         padding: const EdgeInsets.only(top: 32),
                         child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 16),
+                          margin: const EdgeInsets.symmetric(horizontal: 16),
                           child: ButtonCustomComponent(
                             onPress: () async {
                               if (_infoController!.value.text.length > 3 &&
@@ -95,7 +95,7 @@ class _SettingFeedbackScreenState extends State<SettingFeedbackScreen> {
                                       branch: ConfigApp.branchAccess,
                                       type: 'feedback'),
                                 );
-                                if (this.mounted) {
+                                if (mounted) {
                                   _infoController!.text = '';
                                   _nameController!.text = '';
                                   _messageController!.text = '';
@@ -109,7 +109,7 @@ class _SettingFeedbackScreenState extends State<SettingFeedbackScreen> {
                                   : 'send'.tr.firstUpperCase,
                               style: TextStyle(
                                 fontSize: 20,
-                                color: Color(0xFF1E272E),
+                                color: const Color(0xFF1E272E),
                                 fontFamily:
                                     'language.rtl'.tr.parseBool ? 'Rabar' : '',
                                 fontWeight: FontWeight.w600,
@@ -119,73 +119,69 @@ class _SettingFeedbackScreenState extends State<SettingFeedbackScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                   ],
                 ),
               ),
             ),
             Container(
-              child: Container(
-                height: 90,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Theme.of(context)
-                          .scaffoldBackgroundColor
-                          .withOpacity(0.4),
-                      spreadRadius: 6,
-                      blurRadius: 7,
-                      offset: Offset(0, 2), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 24,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            icon: Icon(
-                              'language.rtl'.tr.parseBool
-                                  ? Iconsax.arrow_right_3
-                                  : Iconsax.arrow_left_2,
-                            ),
+              height: 90,
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(context)
+                        .scaffoldBackgroundColor
+                        .withOpacity(0.4),
+                    spreadRadius: 6,
+                    blurRadius: 7,
+                    offset: const Offset(0, 2), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(
+                            'language.rtl'.tr.parseBool
+                                ? Iconsax.arrow_right_3
+                                : Iconsax.arrow_left_2,
                           ),
-                          Expanded(
-                            child: Container(
-                              child: Text(
-                                'feedback.send'.tr,
-                                textAlign: 'language.rtl'.tr.parseBool
-                                    ? TextAlign.left
-                                    : TextAlign.right,
-                                style: TextStyle(
-                                  fontFamily: 'language.rtl'.tr.parseBool
-                                      ? "Rabar"
-                                      : "",
-                                  fontSize: 24,
-                                  color: !ThemeService().isSavedDarkMode()
-                                      ? Color(0xFF1E272E)
-                                      : Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                overflow: TextOverflow.fade,
-                              ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            'feedback.send'.tr,
+                            textAlign: 'language.rtl'.tr.parseBool
+                                ? TextAlign.left
+                                : TextAlign.right,
+                            style: TextStyle(
+                              fontFamily: 'language.rtl'.tr.parseBool
+                                  ? "Rabar"
+                                  : "",
+                              fontSize: 24,
+                              color: !ThemeService().isSavedDarkMode()
+                                  ? const Color(0xFF1E272E)
+                                  : Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
+                            overflow: TextOverflow.fade,
                           ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
           ],

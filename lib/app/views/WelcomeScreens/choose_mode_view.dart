@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trancehouse/services/is_first_service.dart';
+import '../../../services/is_first_service.dart';
 import '../../../components/button_custom_component.dart';
 import '../../../components/button_custom_dark_component.dart';
 import '../../../components/no_glow_component.dart';
@@ -39,7 +39,7 @@ class _ChooseModeState extends State<ChooseMode> {
                   ),
                   child: ThemeService().getThemeMode() == ThemeMode.light
                       ? ColorFiltered(
-                          colorFilter: ColorFilter.mode(
+                          colorFilter: const ColorFilter.mode(
                             Colors.black,
                             BlendMode.modulate,
                           ),
@@ -49,7 +49,7 @@ class _ChooseModeState extends State<ChooseMode> {
                 ),
                 Container(
                   height: 50,
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   width: double.infinity,
                   child: Text(
                     'mode'.tr,
@@ -60,7 +60,7 @@ class _ChooseModeState extends State<ChooseMode> {
                       fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
                       fontSize: 24,
                       color: !ThemeService().isSavedDarkMode()
-                          ? Color(0xFF1E272E)
+                          ? const Color(0xFF1E272E)
                           : Colors.white,
                     ),
                   ),
@@ -71,7 +71,7 @@ class _ChooseModeState extends State<ChooseMode> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
                     child: ButtonCustomDarkComponent(
                       isSelected:
                           ThemeService().getThemeMode() == ThemeMode.dark,
@@ -88,7 +88,7 @@ class _ChooseModeState extends State<ChooseMode> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
                     child: ButtonCustomDarkComponent(
                       isSelected:
                           ThemeService().getThemeMode() == ThemeMode.light,
@@ -105,7 +105,7 @@ class _ChooseModeState extends State<ChooseMode> {
                 Padding(
                   padding: const EdgeInsets.only(top: 32),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
                     child: ButtonCustomComponent(
                       onPress: () {
                         // Get.toNamed('/welcome');
@@ -118,14 +118,14 @@ class _ChooseModeState extends State<ChooseMode> {
                           fontFamily:
                               'language.rtl'.tr.parseBool ? 'Rabar' : '',
                           fontSize: 20,
-                          color: Color(0xFF1E272E),
+                          color: const Color(0xFF1E272E),
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
               ],

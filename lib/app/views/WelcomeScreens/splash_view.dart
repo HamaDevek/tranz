@@ -63,7 +63,7 @@ class _SplashViewState extends State<SplashView> {
               ),
               child: ThemeService().getThemeMode() == ThemeMode.light
                   ? ColorFiltered(
-                      colorFilter: ColorFilter.mode(
+                      colorFilter: const ColorFilter.mode(
                         Colors.black,
                         BlendMode.modulate,
                       ),
@@ -71,25 +71,23 @@ class _SplashViewState extends State<SplashView> {
                     )
                   : Image.asset('assets/images/logo-home.png'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
-            Container(
-              child: Text(
-                'welcome.to'.tr,
-                textAlign: 'language.rtl'.tr.parseBool
-                    ? TextAlign.right
-                    : TextAlign.left,
-                style: TextStyle(
-                  fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
-                  fontSize: 24,
-                  color: !ThemeService().isSavedDarkMode()
-                      ? Color(0xFF1E272E)
-                      : Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-                overflow: TextOverflow.fade,
+            Text(
+              'welcome.to'.tr,
+              textAlign: 'language.rtl'.tr.parseBool
+                  ? TextAlign.right
+                  : TextAlign.left,
+              style: TextStyle(
+                fontFamily: 'language.rtl'.tr.parseBool ? "Rabar" : "",
+                fontSize: 24,
+                color: !ThemeService().isSavedDarkMode()
+                    ? const Color(0xFF1E272E)
+                    : Colors.white,
+                fontWeight: FontWeight.bold,
               ),
+              overflow: TextOverflow.fade,
             ),
           ],
         ),

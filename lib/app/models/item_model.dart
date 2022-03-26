@@ -33,32 +33,32 @@ class ItemModel {
             ? null
             : List<String>.from(json["picture"].map((x) => x)),
         sellingPrice:
-            json["sellingPrice"] == null ? null : json["sellingPrice"],
-        id: json["_id"] == null ? null : json["_id"],
-        barcode: json["barcode"] == null ? null : json["barcode"],
-        name: json["name"] == null ? null : json["name"],
-        category: json["category"] == null ? null : json["category"],
-        brand: json["brand"] == null ? null : json["brand"],
-        itemInfo: json["itemInfo"] == null ? null : json["itemInfo"],
-        amount: json["amount"] == null ? 1 : json["amount"],
+            json["sellingPrice"],
+        id: json["_id"],
+        barcode: json["barcode"],
+        name: json["name"],
+        category: json["category"],
+        brand: json["brand"],
+        itemInfo: json["itemInfo"],
+        amount: json["amount"] ?? 1,
         localizeName:
-            json["localizeName"] == null ? null : json["localizeName"],
-        description: json["description"] == null ? null : json["description"],
+            json["localizeName"],
+        description: json["description"],
       );
 
   Map<String, dynamic> toMap() => {
         "picture":
             picture == null ? null : List<String>.from(picture!.map((x) => x)),
-        "sellingPrice": sellingPrice == null ? null : sellingPrice,
-        "_id": id == null ? null : id,
-        "barcode": barcode == null ? null : barcode,
-        "name": name == null ? null : name,
-        "category": category == null ? null : category,
-        "brand": brand == null ? null : brand,
-        "itemInfo": itemInfo == null ? null : itemInfo,
-        "amount": amount == null ? null : amount,
-        "localizeName": localizeName == null ? null : localizeName,
-        "description": description == null ? null : description,
+        "sellingPrice": sellingPrice,
+        "_id": id,
+        "barcode": barcode,
+        "name": name,
+        "category": category,
+        "brand": brand,
+        "itemInfo": itemInfo,
+        "amount": amount,
+        "localizeName": localizeName,
+        "description": description,
       };
   ItemModel copyWith({
     List<String>? picture,
