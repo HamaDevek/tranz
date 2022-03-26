@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trancehouse/services/is_first_service.dart';
 import '../../../components/button_custom_component.dart';
 import '../../../components/button_custom_dark_component.dart';
 import '../../../components/no_glow_component.dart';
@@ -107,7 +108,9 @@ class _ChooseModeState extends State<ChooseMode> {
                     margin: EdgeInsets.symmetric(horizontal: 16),
                     child: ButtonCustomComponent(
                       onPress: () {
-                        Get.toNamed('/welcome');
+                        // Get.toNamed('/welcome');
+                        Get.toNamed('/main');
+                        IsFirstService().saveIsFirst(false);
                       },
                       child: Text(
                         'next'.tr.firstUpperCase,

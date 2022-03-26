@@ -86,7 +86,9 @@ class _MaterialAppWithProviderState extends State<MaterialAppWithProvider> {
   }
 
   void openUrlFirebase(url) async {
-    await canLaunch(url!) ? await launch(url) : throw 'Could not launch :$url';
+    await canLaunch(url!)
+        ? await launch(url, forceSafariVC: false)
+        : throw 'Could not launch :$url';
   }
 
   @override

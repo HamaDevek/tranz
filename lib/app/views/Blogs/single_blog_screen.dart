@@ -73,7 +73,8 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                         onTap: () async {
                           if (blog!.link!.length > 0) {
                             await canLaunch(blog?.link ?? '')
-                                ? await launch(blog?.link ?? '')
+                                ? await launch(blog?.link ?? '',
+                                    forceSafariVC: false)
                                 : throw 'Could not launch :$blog!.link';
                           }
                         },
@@ -135,12 +136,14 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                         onLinkTap: (String? url, RenderContext context,
                             attributes, element) async {
                           await canLaunch(url!)
-                              ? await launch(url)
+                              ? await launch(url, forceSafariVC: false)
                               : throw 'Could not launch :$url';
                         },
                         style: {
                           '*': Style(
                             color: Theme.of(context).textTheme.headline4!.color,
+                            fontFamily:
+                                'language.rtl'.tr.parseBool ? "Rabar" : "",
                           )
                         },
                       ),

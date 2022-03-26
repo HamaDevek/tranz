@@ -2,7 +2,7 @@
 
 A new Flutter project.
 
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+![Logo](https://github.com/HamaDevek/tranz/blob/main/assets/images/icon.jpg?raw=true)
 
 ## Getting Started
 

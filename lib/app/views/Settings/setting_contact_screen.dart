@@ -32,7 +32,7 @@ class SettingContactScreen extends StatelessWidget {
                           String _url =
                               'https://www.google.com/maps/search/?api=1&query=${Get.arguments["location"]["lat"]},${Get.arguments["location"]["long"]}';
                           await canLaunch(_url)
-                              ? await launch(_url)
+                              ? await launch(_url, forceSafariVC: false)
                               : throw 'Could not launch :$_url';
                         },
                         icon: Icon(Iconsax.location),
@@ -77,7 +77,8 @@ class SettingContactScreen extends StatelessWidget {
                                 await canLaunch(
                                         '${Get.arguments['links']['facebook']}')
                                     ? await launch(
-                                        '${Get.arguments['links']['facebook']}')
+                                        'https://www.facebook.com/${Get.arguments['links']['facebook']}',
+                                        forceSafariVC: false)
                                     : throw 'Could not launch ${Get.arguments['links']['facebook']}';
                               },
                               icon: Icon(FontAwesomeIcons.facebook),
@@ -91,9 +92,11 @@ class SettingContactScreen extends StatelessWidget {
                             child: SettingComponent(
                               onPress: () async {
                                 await canLaunch(
-                                        '${Get.arguments['links']['linkedin']}')
+                                  '${Get.arguments['links']['linkedin']}',
+                                )
                                     ? await launch(
-                                        '${Get.arguments['links']['linkedin']}')
+                                        'https://www.snapchat.com/add/${Get.arguments['links']['linkedin']}',
+                                        forceSafariVC: false)
                                     : throw 'Could not launch ${Get.arguments['links']['linkedin']}';
                               },
                               icon: Icon(FontAwesomeIcons.snapchatGhost),
@@ -109,7 +112,8 @@ class SettingContactScreen extends StatelessWidget {
                                 await canLaunch(
                                         '${Get.arguments['links']['instagram']}')
                                     ? await launch(
-                                        '${Get.arguments['links']['instagram']}')
+                                        'https://www.instagram.com/${Get.arguments['links']['instagram']}',
+                                        forceSafariVC: false)
                                     : throw 'Could not launch ${Get.arguments['links']['instagram']}';
                               },
                               icon: Icon(FontAwesomeIcons.instagram),
@@ -125,7 +129,8 @@ class SettingContactScreen extends StatelessWidget {
                                 await canLaunch(
                                         '${Get.arguments['links']['twitter']}')
                                     ? await launch(
-                                        '${Get.arguments['links']['twitter']}')
+                                        'https://twitter.com/${Get.arguments['links']['twitter']}',
+                                        forceSafariVC: false)
                                     : throw 'Could not launch ${Get.arguments['links']['twitter']}';
                               },
                               icon: Icon(FontAwesomeIcons.twitter),
@@ -141,7 +146,8 @@ class SettingContactScreen extends StatelessWidget {
                                 await canLaunch(
                                         '${Get.arguments['links']['youtube']}')
                                     ? await launch(
-                                        '${Get.arguments['links']['youtube']}')
+                                        'https://www.youtube.com/${Get.arguments['links']['youtube']}',
+                                        forceSafariVC: false)
                                     : throw 'Could not launch ${Get.arguments['links']['youtube']}';
                               },
                               icon: Icon(FontAwesomeIcons.youtube),
