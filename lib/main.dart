@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,12 +34,22 @@ Future<void> main() async {
     badge: true,
     sound: true,
   );
+  if (Platform.isIOS) {
+    await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+  }
   runApp(const MyApp());
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  log('Handling a background message ${message.messageId}');
 }
 
 class MyApp extends StatelessWidget {
@@ -66,7 +77,7 @@ class _MaterialAppWithProviderState extends State<MaterialAppWithProvider> {
     super.initState();
     _loadLanguage();
     FirebaseMessaging.instance.getToken().then((value) {
-      log(value.toString());
+      print(value.toString());
     });
     FirebaseMessaging.instance
         .getInitialMessage()
@@ -75,7 +86,7 @@ class _MaterialAppWithProviderState extends State<MaterialAppWithProvider> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       log('OnMessage Listen');
       log(message.data.toString());
-      openUrlFirebase(message.data['link_url']);
+      // openUrlFirebase(message.data['link_url']);
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
