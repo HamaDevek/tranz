@@ -48,7 +48,8 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                       child: SizedBox(
                         width: double.infinity,
                         child: Text(
-                          DateFormat('yyyy-MM-dd').format(blog!.createdAt ?? DateTime.now()),
+                          DateFormat('yyyy-MM-dd')
+                              .format(blog!.createdAt ?? DateTime.now()),
                           textAlign: 'language.rtl'.tr.parseBool
                               ? TextAlign.right
                               : TextAlign.left,
@@ -196,9 +197,8 @@ class _SingleBlogScreenState extends State<SingleBlogScreen> {
                                 ? TextAlign.left
                                 : TextAlign.right,
                             style: TextStyle(
-                              fontFamily: 'language.rtl'.tr.parseBool
-                                  ? "Rabar"
-                                  : "",
+                              fontFamily:
+                                  'language.rtl'.tr.parseBool ? "Rabar" : "",
                               fontSize: 20,
                               color: !ThemeService().isSavedDarkMode()
                                   ? const Color(0xFF1E272E)
