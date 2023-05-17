@@ -1,55 +1,22 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import '../services/theme_service.dart';
-import '../app/controllers/language_controller.dart';
-import '../theme/theme_modes.dart';
-import '../utils/config.dart';
-import '../app/bindings/binding_manager.dart';
-import '../app/views/PageNotFound/unknowen_route_page.dart';
-import '../utils/messages.dart';
-import '../utils/router.dart';
+import 'Getx/Binding/binding.dart';
+import 'Languages/languages.dart';
+import 'Pages/Splash/splash_page.dart';
+import 'Routes/routes.dart';
+import 'Theme/theme.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
-Future<void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  await GetStorage.init();
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      // systemNavigationBarColor: Color(0xff38424D),
-      // statusBarColor: ThemeService().getThemeMode(),
-      ));
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ),
   );
-  if (Platform.isIOS) {
-    await FirebaseMessaging.instance.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-  }
-  runApp(const MyApp());
-}
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -65,66 +32,50 @@ class MaterialAppWithProvider extends StatefulWidget {
   const MaterialAppWithProvider({Key? key}) : super(key: key);
 
   @override
-  _MaterialAppWithProviderState createState() =>
-      _MaterialAppWithProviderState();
+  MaterialAppWithProviderState createState() => MaterialAppWithProviderState();
 }
 
-class _MaterialAppWithProviderState extends State<MaterialAppWithProvider> {
-  final LanguageController _languageController = Get.put(LanguageController());
-
+class MaterialAppWithProviderState extends State<MaterialAppWithProvider> {
+  late Locale lang = const Locale("en_US");
   @override
   void initState() {
     super.initState();
-    _loadLanguage();
-    FirebaseMessaging.instance.getToken().then((value) {
-      print(value.toString());
-    });
-    FirebaseMessaging.instance
-        .getInitialMessage()
-        .then((RemoteMessage? message) {});
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      log('OnMessage Listen');
-      log(message.data.toString());
-      // openUrlFirebase(message.data['link_url']);
-    });
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      log('A new onMessageOpenedApp event was published!');
-      log(message.data.toString());
-    });
-  }
-
-  Future<void> _loadLanguage() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    _languageController.changeLanguage(
-        dialect: prefs.getString('dialect').toString(),
-        language: prefs.getString('language').toString());
-  }
-
-  void openUrlFirebase(url) async {
-    await canLaunch(url!)
-        ? await launch(url, forceSafariVC: false)
-        : throw 'Could not launch :$url';
   }
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      builder: (context, child) => ResponsiveWrapper.builder(
+        child,
+        maxWidth: 1200,
+        minWidth: 480,
+        defaultScale: context.isTablet,
+        breakpoints: context.isTablet
+            ? const [
+                ResponsiveBreakpoint.autoScale(480,
+                    name: MOBILE, scaleFactor: 0.8),
+                ResponsiveBreakpoint.autoScale(800,
+                    name: TABLET, scaleFactor: 1.2),
+                ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+                ResponsiveBreakpoint.autoScale(1024,
+                    name: TABLET, scaleFactor: 1.7),
+                ResponsiveBreakpoint.autoScale(2460,
+                    name: '4K', scaleFactor: 1.4),
+              ]
+            : [],
+        background: Container(
+          color: const Color(0xFFF5F5F5),
+        ),
+      ),
       debugShowCheckedModeBanner: false,
-      translations: Messages(),
-      locale: const Locale('ar', 'SO'),
-      fallbackLocale: const Locale('ar', 'SO'),
+      translations: Languages(),
+      locale: lang,
+      fallbackLocale: lang,
       initialBinding: BindingManager(),
-      unknownRoute:
-          GetPage(name: '/notfound', page: () => const UnknownRoutePage()),
-      enableLog: false,
-      getPages: RouteName.routes,
-      initialRoute: ConfigApp.root,
-      title: ConfigApp.appName,
-      theme: Themes().lightMode,
-      darkTheme: Themes().darkMode,
-      themeMode: ThemeService().getThemeMode(),
+      getPages: RouteNames.routes,
+      initialRoute: SplashPage.routeName,
+      title: "Tranz House",
+      theme: theme,
     );
   }
 }
