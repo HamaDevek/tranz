@@ -146,7 +146,7 @@ class SinglePruductWidget extends StatelessWidget {
                               selectedUrl = imageUrl[index];
                               scrollToSelectedContent(
                                 expansionTileKey: keys[index],
-                                alignment: .4,
+                                alignment: .8,
                               );
                             });
                           },

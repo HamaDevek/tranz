@@ -1,9 +1,11 @@
-import '../Api/api_endpoints.dart';
+import 'package:tranzhouse/Utility/prints.dart';
+
 import '../Models/url_param.dart';
 
 Uri getUrl({required String key, List<UrlParam>? param}) {
-  String apiUrl = 'https://redpack.kurdishmail.com/api/';
-  String endPoint = '$apiUrl${api[key]}';
+  String apiUrl = 'https://tranz.kurdishmail.com/api/v1/';
+  String endPoint = '$apiUrl$key';
+  prints(endPoint, tag: "success");
   if (param?.isNotEmpty ?? false) {
     endPoint = '$endPoint?';
     for (var e in param!) {
@@ -11,6 +13,5 @@ Uri getUrl({required String key, List<UrlParam>? param}) {
           '$endPoint${e.key}=${e.value}${param[param.length - 1].key != e.key ? '&' : ''}';
     }
   }
-  // localStorage.
   return Uri.parse(endPoint);
 }

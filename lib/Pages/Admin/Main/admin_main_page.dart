@@ -11,6 +11,8 @@ import '../../../Utility/utility.dart';
 import '../../../Widgets/Containers/horizantaltile_widget.dart';
 import '../../../Widgets/Other/image_widget.dart';
 import '../../../Widgets/Text/text_widget.dart';
+import '../Notifications/admin_notifications_page.dart';
+import '../Settings/admin_settings.dart';
 
 class AdminMainPage extends StatefulWidget {
   const AdminMainPage({super.key});
@@ -76,7 +78,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
                           onTap: () {
                             Get.toNamed(AmdinOrderDetailPage.routeName);
                           },
-                          status: orderStatus.values[index % 3],
+                          status: OrderStatus.values[index % 3],
                           title: "Order #${index + 1}",
                           subtitle: "Category Name",
                           date: DateTime.parse("2022-10-17T09:29:12.000000Z")
@@ -241,19 +243,45 @@ class ProfileCardWidget extends StatelessWidget {
       title: TextWidget(
         name,
       ),
-      trailing: TextButton(
-        style: TextButton.styleFrom(
-          backgroundColor: ColorPalette.whiteColor,
-          foregroundColor: ColorPalette.primary,
-          shape: const CircleBorder(),
-          minimumSize: const Size(35, 35),
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        ),
-        onPressed: () {},
-        child: const Icon(
-          CupertinoIcons.bell,
-          size: 18,
-        ),
+      trailing: Wrap(
+        children: [
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: ColorPalette.whiteColor,
+              foregroundColor: ColorPalette.primary,
+              shape: const CircleBorder(),
+              minimumSize: const Size(35, 35),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            onPressed: () {
+              Get.toNamed(AdminNotificationsPAge.routeName);
+            },
+            child: const Icon(
+              CupertinoIcons.bell,
+              size: 18,
+            ),
+          ),
+          AppSpacer.p4(),
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: ColorPalette.whiteColor,
+              foregroundColor: ColorPalette.primary,
+              shape: const CircleBorder(),
+              minimumSize: const Size(35, 35),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            onPressed: () {
+              Get.toNamed(AdminSettingsPage.routeName);
+            },
+            child: SvgPicture.asset(
+              "assets/icons/settings.svg",
+              colorFilter: const ColorFilter.mode(
+                ColorPalette.primary,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

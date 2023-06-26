@@ -12,6 +12,7 @@ import 'package:tranzhouse/Widgets/Text/text_widget.dart';
 
 import '../../../Utility/utility.dart';
 import '../../../Widgets/Containers/profile_card_Widget.dart';
+import '../../Admin/Settings/Feedback/admin_feedback_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -52,7 +53,7 @@ class _SettingsPageState extends State<SettingsPage> {
           Wrap(
             spacing: 16,
             runSpacing: 16,
-            children: List.generate(5, (index) {
+            children: List.generate(6, (index) {
               return SettingsButtonWidget(
                 name: getButtonNames(index),
                 onPressed: getCallBacks(index),
@@ -77,6 +78,8 @@ class _SettingsPageState extends State<SettingsPage> {
         return "Contact";
       case 4:
         return "About";
+      case 5:
+        return "Feedback";
       default:
         return "Language";
     }
@@ -94,6 +97,8 @@ class _SettingsPageState extends State<SettingsPage> {
         return CupertinoIcons.phone;
       case 4:
         return CupertinoIcons.info;
+      case 5:
+        return CupertinoIcons.exclamationmark_bubble;
       default:
         return CupertinoIcons.globe;
     }
@@ -120,6 +125,10 @@ class _SettingsPageState extends State<SettingsPage> {
       case 4:
         return () {
           Get.toNamed(AboutPage.routeName);
+        };
+      case 5:
+        return () {
+          Get.toNamed(FeedbackPage.routeName);
         };
       default:
         return () {};

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tranzhouse/Pages/Client/Articles/articles_page.dart';
 import 'package:tranzhouse/Pages/Client/Products/products_page.dart';
-import 'package:tranzhouse/Pages/Client/Services/services_page.dart';
+import 'package:tranzhouse/Pages/Client/Services/services_category_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/settings_page.dart';
 import 'package:tranzhouse/Widgets/Other/keep_alive_page.dart';
 import 'package:tranzhouse/Widgets/Other/widget_size.dart';
@@ -47,7 +47,7 @@ class _ClientMainPageState extends State<ClientMainPage> {
               },
               children: const [
                 KeepAlivePage(
-                  child: ServicesPage(),
+                  child: ServicesCategoriesPage(),
                 ),
                 KeepAlivePage(child: ProductsPage()),
                 KeepAlivePage(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tranzhouse/Pages/Client/Main%20Page/main_page.dart';
 import 'package:tranzhouse/Theme/theme.dart';
 import 'package:tranzhouse/Utility/utility.dart';
 import 'package:tranzhouse/Widgets/Buttons/request_button.dart';
@@ -8,6 +7,7 @@ import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
 import 'package:tranzhouse/Widgets/TextField/textfield_widget.dart';
 
+import '../Client/Main Page/main_page.dart';
 import 'sign_up.dart';
 
 class LoginPage extends StatefulWidget {
@@ -107,6 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                         width: double.infinity,
                         onPressed: () async {
                           Get.toNamed(ClientMainPage.routeName);
+                          // Get.toNamed(AdminMainPage.routeName);
                         },
                         text: "Sign In",
                       ),

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
 import 'package:tranzhouse/Widgets/Other/appbar_widget.dart';
 import 'package:tranzhouse/Widgets/Other/image_widget.dart';
+import '../../../Models/services_model.dart';
 import '../../../Theme/theme.dart';
+import '../../../Utility/utility.dart';
 import '../../../Widgets/Buttons/order_now_button.dart';
 import '../../../Widgets/Text/text_widget.dart';
 
@@ -17,11 +20,18 @@ class SingleServicePage extends StatefulWidget {
 
 class _SingleServicePageState extends State<SingleServicePage> {
   bool _isLiked = false;
+  Service service = Service();
+  @override
+  void initState() {
+    super.initState();
+    service = Get.arguments;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-        pageTitle: "Title Name",
+        pageTitle: "Service Details",
         actions: [
           TextButton(
             style: TextButton.styleFrom(
@@ -43,11 +53,10 @@ class _SingleServicePageState extends State<SingleServicePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppSpacer.p8(),
-            const SingleArticleWidget(
-              imageUrl: "https://picsum.photos/400/200",
-              title: "New product unlocked: Blush",
-              description:
-                  "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+            SingleArticleWidget(
+              imageUrl: service.images?[0] ?? "https://picsum.photos/400/200",
+              title: getText(service.title ?? LanguagesModel()),
+              description: getText(service.description ?? LanguagesModel()),
             ),
             AppSpacer.p20(),
             Padding(

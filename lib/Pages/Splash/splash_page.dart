@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tranzhouse/Pages/Admin/Main/admin_main_page.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
 
 import '../../Getx/Controllers/language_controller.dart';
+import '../Client/Main Page/main_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -25,7 +25,9 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(const Duration(seconds: 2), () {
       LanguageController.to.load();
       // Get.offNamed(LoginPage.routeName);
-      Get.offNamed(AdminMainPage.routeName);
+      Get.toNamed(ClientMainPage.routeName);
+
+      // Get.offNamed(AdminMainPage.routeName);
     });
   }
 

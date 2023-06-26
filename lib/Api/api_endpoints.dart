@@ -1,22 +1,23 @@
-Map api = {
-  /////LOGIN AND LOGOUT
-  'auth': 'auth',
+class ApiEndpoint {
+  ClientEndpoints client = ClientEndpoints();
+  AdminEndpoints admin = AdminEndpoints();
 
-  /////ORDERS DRIVER
+  /////////AUTHENTICATION/////////
+  String get auth => "login";
+  String get cities => "cities";
+  String get blogs => "blogs";
+}
+/////////CLIENT/////////
 
-  'not.picked.orders': 'drivers/orders/not-picked',
-  'picked.orders': 'drivers/orders/picked',
-  'update.order': 'drivers/orders',
-  "driver.statistics":"drivers/orders/statistics",
-  "filter.orders":"drivers/orders/filter",
+class ClientEndpoints {
+  ClientEndpoints();
 
-  /////////CHAT AND MESSAGES//////////
-  "chat.contactlist": "chat/list",
-  "messages": "chat/messages",
-  "send.message": "chat",
+  String get services => "services";
+  String get products => "products";
+  String get productCategories => "products/category";
+}
 
-
-  /////////CLIENT//////////
-  "client.statistics": "clients/orders/statistics",
-  "client.filter.orders": "clients/orders/filter",
-};
+/////////ADMIN/////////
+class AdminEndpoints {
+  AdminEndpoints();
+}

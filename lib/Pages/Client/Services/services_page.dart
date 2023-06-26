@@ -2,40 +2,82 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:tranzhouse/Models/services_model.dart';
 import 'package:tranzhouse/Theme/theme.dart';
+import 'package:tranzhouse/Utility/utility.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
-import 'package:tranzhouse/Widgets/Text/text_widget.dart';
+import 'package:tranzhouse/Widgets/Other/appbar_widget.dart';
 
 import '../../../Widgets/Containers/services_tile_widget.dart';
 import 'single_service_page.dart';
 
 class ServicesPage extends StatefulWidget {
   const ServicesPage({super.key});
+  static const String routeName = "/services";
+  static List<Service> services = [];
 
   @override
   State<ServicesPage> createState() => _ServicesPageState();
 }
 
 class _ServicesPageState extends State<ServicesPage> {
-  final ValueNotifier<bool> _isGrid = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> isGrid = ValueNotifier<bool>(false);
+
+  @override
+  void initState() {
+    super.initState();
+    ServicesPage.services = Get.arguments;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          AppSpacer.appBarHeight(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ServicesTopWidget(
-              onGridChanged: (isGrid) {
-                _isGrid.value = isGrid;
-              },
+      appBar: AppBarWidget(
+        pageTitle: "Services",
+        actions: [
+          TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: ColorPalette.whiteColor,
+                foregroundColor: ColorPalette.primary,
+                shape: const CircleBorder(),
+                minimumSize: const Size(35, 35),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              onPressed: () {},
+              child: SvgPicture.asset("assets/icons/cart.svg")),
+          AppSpacer.p8(),
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: ColorPalette.whiteColor,
+              foregroundColor: ColorPalette.primary,
+              shape: const CircleBorder(),
+              minimumSize: const Size(35, 35),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
+            onPressed: () {
+              isGrid.value = !isGrid.value;
+            },
+            child: ValueListenableBuilder(
+                valueListenable: isGrid,
+                builder: (context, value, child) {
+                  return Icon(
+                    !value
+                        ? CupertinoIcons.rectangle_grid_2x2
+                        : CupertinoIcons.rectangle_grid_1x2,
+                    size: 20,
+                  );
+                }),
           ),
+          AppSpacer.p16(),
+        ],
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           AppSpacer.p20(),
           Expanded(
             child: ValueListenableBuilder(
-              valueListenable: _isGrid,
+              valueListenable: isGrid,
               builder: (BuildContext context, dynamic value, Widget? child) {
                 return _gridState();
               },
@@ -47,7 +89,7 @@ class _ServicesPageState extends State<ServicesPage> {
   }
 
   Widget _gridState() {
-    switch (_isGrid.value) {
+    switch (isGrid.value) {
       case true:
         return const GridsWidget();
       case false:
@@ -68,18 +110,18 @@ class ListWidget extends StatelessWidget {
     return ListView.separated(
       shrinkWrap: true,
       padding: const EdgeInsets.only(bottom: 100, left: 16, right: 16),
-      itemCount: 7,
+      itemCount: ServicesPage.services.length,
       separatorBuilder: (context, index) => AppSpacer.p16(),
       itemBuilder: (context, index) {
+        final service = ServicesPage.services[index];
         return ServicesTileWidget(
-          imageUrl: "https://picsum.photos/300/300",
-          title: "Title Name",
-          description:
-              "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint...",
+          imageUrl: service.images?[0] ?? "https://picsum.photos/300/300",
+          title: getText(service.title ?? LanguagesModel()),
+          description: getText(service.description ?? LanguagesModel()),
           isGrid: false,
           onTap: () {
-            print("object");
-            Get.toNamed(SingleServicePage.routeName);
+            // print("object");
+            Get.toNamed(SingleServicePage.routeName, arguments: service);
           },
         );
       },
@@ -104,83 +146,21 @@ class GridsWidget extends StatelessWidget {
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       padding: const EdgeInsets.only(bottom: 64, left: 16, right: 16),
-      itemCount: 7,
+      itemCount: ServicesPage.services.length,
       itemBuilder: (context, index) {
+        final service = ServicesPage.services[index];
+
         return ServicesTileWidget(
-          imageUrl: "https://picsum.photos/300/300",
-          title: "Title Name",
-          description:
-              "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint...",
+          imageUrl: service.images?[0] ?? "https://picsum.photos/300/300",
+          title: getText(service.title ?? LanguagesModel()),
+          description: getText(service.description ?? LanguagesModel()),
           isGrid: true,
           onTap: () {
-            Get.toNamed(SingleServicePage.routeName);
+            // print("object");
+            Get.toNamed(SingleServicePage.routeName, arguments: service);
           },
         );
       },
-    );
-  }
-}
-
-class ServicesTopWidget extends StatefulWidget {
-  const ServicesTopWidget({
-    super.key,
-    required this.onGridChanged,
-  });
-  final Function(bool isGrid) onGridChanged;
-
-  @override
-  State<ServicesTopWidget> createState() => _ServicesTopWidgetState();
-}
-
-class _ServicesTopWidgetState extends State<ServicesTopWidget> {
-  ValueNotifier<bool> isGrid = ValueNotifier<bool>(false);
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TextWidget(
-          "Services",
-          style: TextWidget.textStyleCurrent.copyWith(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const Spacer(),
-        TextButton(
-            style: TextButton.styleFrom(
-              backgroundColor: ColorPalette.whiteColor,
-              foregroundColor: ColorPalette.primary,
-              shape: const CircleBorder(),
-              minimumSize: const Size(35, 35),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            onPressed: () {},
-            child: SvgPicture.asset("assets/icons/cart.svg")),
-        AppSpacer.p8(),
-        TextButton(
-          style: TextButton.styleFrom(
-            backgroundColor: ColorPalette.whiteColor,
-            foregroundColor: ColorPalette.primary,
-            shape: const CircleBorder(),
-            minimumSize: const Size(35, 35),
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          ),
-          onPressed: () {
-            isGrid.value = !isGrid.value;
-            widget.onGridChanged(isGrid.value);
-          },
-          child: ValueListenableBuilder(
-              valueListenable: isGrid,
-              builder: (context, value, child) {
-                return Icon(
-                  !value
-                      ? CupertinoIcons.rectangle_grid_2x2
-                      : CupertinoIcons.rectangle_grid_1x2,
-                  size: 20,
-                );
-              }),
-        ),
-      ],
     );
   }
 }

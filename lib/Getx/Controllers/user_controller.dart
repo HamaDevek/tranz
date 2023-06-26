@@ -1,10 +1,8 @@
 // import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-
+import 'package:tranzhouse/Api/api_endpoints.dart';
 import '../../Models/response_model.dart';
-import '../../Models/url_param.dart';
 import '../../Models/user_model.dart';
 import '../../Utility/dio_plugin.dart';
 import '../../Utility/endpoint.dart';
@@ -60,7 +58,7 @@ class UserController extends GetxController {
       "target": userType,
     });
     final res = await DioPlugin().requestWithDio(
-        url: getUrl(key: 'auth'),
+        url: getUrl(key:ApiEndpoint().auth),
         data: mapToFormMap(
           {
             "identifier": identifier,

@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
 import 'package:tranzhouse/Pages/Admin/Detail/admin_detail_page.dart';
 import 'package:tranzhouse/Pages/Admin/Main/admin_main_page.dart';
+import 'package:tranzhouse/Pages/Admin/Notifications/admin_notifications_page.dart';
+import 'package:tranzhouse/Pages/Admin/Settings/Feedback/admin_feedback_page.dart';
+import 'package:tranzhouse/Pages/Admin/Settings/admin_settings.dart';
 import 'package:tranzhouse/Pages/Auth/add_phone_page.dart';
 import 'package:tranzhouse/Pages/Auth/login_page.dart';
 import 'package:tranzhouse/Pages/Auth/sign_up.dart';
@@ -8,6 +11,7 @@ import 'package:tranzhouse/Pages/Auth/verify_phone.dart';
 import 'package:tranzhouse/Pages/Client/Articles/single_article_page.dart';
 import 'package:tranzhouse/Pages/Client/Main%20Page/main_page.dart';
 import 'package:tranzhouse/Pages/Client/Products/single_productPage.dart';
+import 'package:tranzhouse/Pages/Client/Services/services_page.dart';
 import 'package:tranzhouse/Pages/Client/Services/single_service_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/About/about_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/Bookmarks/bookmarks_page.dart';
@@ -54,6 +58,11 @@ class RouteNames {
     GetPage(
       name: ClientMainPage.routeName,
       page: () => const ClientMainPage(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: ServicesPage.routeName,
+      page: () => const ServicesPage(),
       transition: Transition.fadeIn,
     ),
     //////////////SETTINS ROUTES////////////
@@ -106,6 +115,21 @@ class RouteNames {
     GetPage(
       name: AmdinOrderDetailPage.routeName,
       page: () => const AmdinOrderDetailPage(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: AdminSettingsPage.routeName,
+      page: () => const AdminSettingsPage(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: AdminNotificationsPAge.routeName,
+      page: () => const AdminNotificationsPAge(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: FeedbackPage.routeName,
+      page: () => const FeedbackPage(),
       transition: Transition.fadeIn,
     ),
   ];

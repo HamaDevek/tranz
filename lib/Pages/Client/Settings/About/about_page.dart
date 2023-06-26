@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tranzhouse/Widgets/Other/appbar_widget.dart';
+import 'package:tranzhouse/Widgets/Other/statecycle_widget.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
 
 import '../../../../Widgets/Other/app_spacer.dart';
 
-class AboutPage extends StatefulWidget {
+class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
   static const String routeName = "/about";
 
-  @override
-  State<AboutPage> createState() => _AboutPageState();
-}
-
-class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +33,15 @@ class _AboutPageState extends State<AboutPage> {
           ],
         ),
       ),
-    );
+    ).onInit(() {
+      print(DateTime.now().millisecondsSinceEpoch.toString());
+      print("onInit");
+    }).onDispose(() {
+      print("onDispose");
+    }).afterInit(() {
+      print(DateTime.now().millisecondsSinceEpoch.toString());
+
+      print("afterInit");
+    });
   }
 }

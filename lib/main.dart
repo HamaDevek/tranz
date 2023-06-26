@@ -7,6 +7,9 @@ import 'Pages/Splash/splash_page.dart';
 import 'Routes/routes.dart';
 import 'Theme/theme.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:timeago/timeago.dart' as timeago;
+
+import 'Utility/utility.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,10 +39,14 @@ class MaterialAppWithProvider extends StatefulWidget {
 }
 
 class MaterialAppWithProviderState extends State<MaterialAppWithProvider> {
-  late Locale lang = const Locale("en_US");
+  late Locale lang = const Locale("en", "US");
   @override
   void initState() {
     super.initState();
+    timeago.setLocaleMessages(
+      lang.languageCode.toString(),
+      MyCustomMessages(),
+    );
   }
 
   @override

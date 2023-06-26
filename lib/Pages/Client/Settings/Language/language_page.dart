@@ -19,6 +19,12 @@ class LanguagePage extends StatefulWidget {
 
 class _LanguagePageState extends State<LanguagePage> {
   var lang = LanguageController.to.getSelectedLanguage().split("_");
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(LanguageController.to.getSelectedLanguage());
+  }
 
   @override
   Widget build(BuildContext context) {

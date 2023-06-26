@@ -26,7 +26,6 @@ class _AmdinOrderDetailPageState extends State<AmdinOrderDetailPage> {
         pageTitle: "Order Details",
       ),
       body: SingleChildScrollView(
-        primary: false,
         child: Column(
           children: [
             AppSpacer.p20(),
@@ -42,7 +41,8 @@ class _AmdinOrderDetailPageState extends State<AmdinOrderDetailPage> {
               ],
               title: "Order Name",
               description:
-                  "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+                  // "ggggggggggggggggggggghbhbvbjhbhjbhjbhbhbhbhbhbhbhhbhvhvvvhvv",
+                  "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
               category: "Category",
               date: DateTime.parse(DateTime.now()
                       .subtract(const Duration(days: 10))
@@ -163,6 +163,7 @@ class AdminOrderDetailWidget extends StatelessWidget {
                   ),
                 ),
                 SingleChildScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: Column(
@@ -177,7 +178,7 @@ class AdminOrderDetailWidget extends StatelessWidget {
                               selectedUrl = imageUrl[index];
                               scrollToSelectedContent(
                                 expansionTileKey: keys[index],
-                                alignment: .4,
+                                alignment: .8,
                               );
                             });
                           },

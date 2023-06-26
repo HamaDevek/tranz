@@ -6,7 +6,7 @@ import '../../Utility/utility.dart';
 import '../Other/app_spacer.dart';
 import '../Text/text_widget.dart';
 
-enum orderStatus {
+enum OrderStatus {
   pending,
   completed,
   declined,
@@ -24,7 +24,7 @@ class HorizantalTileWidget extends StatelessWidget {
   final String title;
   final String subtitle;
   final String date;
-  final orderStatus status;
+  final OrderStatus status;
   final Function() onTap;
 
   @override
@@ -53,7 +53,7 @@ class HorizantalTileWidget extends StatelessWidget {
                 ),
                 AppSpacer.p4(),
                 TextWidget(
-                  title,
+                  title,  
                   style: TextWidget.textStyleCurrent.copyWith(
                     fontWeight: FontWeight.w600,
                     color: ColorPalette.primary,
@@ -100,11 +100,11 @@ class HorizantalTileWidget extends StatelessWidget {
 
   Color _getOrderStatus() {
     switch (status) {
-      case orderStatus.pending:
+      case OrderStatus.pending:
         return ColorPalette.yellow;
-      case orderStatus.completed:
+      case OrderStatus.completed:
         return ColorPalette.green;
-      case orderStatus.declined:
+      case OrderStatus.declined:
         return ColorPalette.red;
       default:
         return ColorPalette.primary;
