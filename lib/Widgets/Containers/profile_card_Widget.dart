@@ -11,14 +11,19 @@ class ProfileCardWidget extends StatelessWidget {
     required this.profileUrl,
     required this.name,
     required this.phoneNumber,
+    required this.onTap,
+    this.isLoggedIn = false,
   });
   final String profileUrl;
   final String name;
   final int phoneNumber;
+  final VoidCallback onTap;
+  final bool isLoggedIn;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: onTap,
       tileColor: ColorPalette.black,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18),
@@ -31,27 +36,37 @@ class ProfileCardWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ImageWidget(
-              isCircle: true,
-              height: screenWidth(context) * 0.18,
-              width: screenWidth(context) * 0.18,
-              imageUrl: profileUrl,
-            ),
+            isLoggedIn
+                ? ImageWidget(
+                    isCircle: true,
+                    height: screenWidth(context) * 0.18,
+                    width: screenWidth(context) * 0.18,
+                    imageUrl: profileUrl,
+                  )
+                : const Icon(
+                    CupertinoIcons.person_circle_fill,
+                    size: 80,
+                    color: ColorPalette.whiteColor,
+                  )
           ],
         ),
       ),
       title: TextWidget(
-        name,
+        isLoggedIn ? name : "Login",
         style: TextWidget.textStyleCurrent.copyWith(),
       ),
-      subtitle: TextWidget(
-        formatPhoneNumber(phoneNumber),
-        style: TextWidget.textStyleCurrent.copyWith(
-          fontSize: 14,
-          color: ColorPalette.greyText,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
+      subtitle: isLoggedIn
+          ? TextWidget(
+              formatPhoneNumber(
+                phoneNumber,
+              ),
+              style: TextWidget.textStyleCurrent.copyWith(
+                fontSize: 14,
+                color: ColorPalette.greyText,
+                fontWeight: FontWeight.w400,
+              ),
+            )
+          : null,
       trailing: Icon(
         isRtl() ? CupertinoIcons.chevron_left : CupertinoIcons.chevron_right,
         color: ColorPalette.whiteColor,

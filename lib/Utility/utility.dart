@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart';
@@ -155,12 +156,13 @@ void scrollToSelectedContent({GlobalKey? expansionTileKey, double? alignment}) {
   }
 }
 
-String formatPhoneNumber(int phoneNumber) {
+String formatPhoneNumber(int phoneNumber, {bool withCountryCode = true}) {
   String phoneNumberString = phoneNumber.toString();
 
   return phoneNumberString.replaceAllMapped(
     RegExp(r'(\d{3})(\d{3})(\d{4})'),
-    (Match match) => '+964 ${match[1]} ${match[2]} ${match[3]}',
+    withCountryCode? (Match match) => '+964 ${match[1]} ${match[2]} ${match[3]}':
+    (Match match) => '${match[1]} ${match[2]} ${match[3]}',
   );
 }
 
@@ -220,7 +222,6 @@ extension DirectionalityExtension on Widget {
       Transform.rotate(angle: isRtl() ? pi : 0, child: this);
 }
 
-
 extension IndexedIterable<E> on List<E> {
   List<T> mapIndexed<T>(T Function(int index, E element) f) {
     int index = 0;
@@ -229,43 +230,133 @@ extension IndexedIterable<E> on List<E> {
 }
 
 String getTitlesProduct(ProductCategory category) {
-    final String lang = "x-lang".tr;
-    switch (lang) {
-      case "ku":
-        return category.nameKu.toString();
-      case "ar":
-        return category.nameAr.toString();
-      case "en":
-        return category.nameEn.toString();
-      default:
-        return category.nameKu.toString();
-    }
+  final String lang = "x-lang".tr;
+  switch (lang) {
+    case "ku":
+      return category.nameKu.toString();
+    case "ar":
+      return category.nameAr.toString();
+    case "en":
+      return category.nameEn.toString();
+    default:
+      return category.nameKu.toString();
   }
-  String getTitlesCategory(Category category) {
-    final String lang = "x-lang".tr;
-    switch (lang) {
-      case "ku":
-        return category.nameKu.toString();
-      case "ar":
-        return category.nameAr.toString();
-      case "en":
-        return category.nameEn.toString();
-      default:
-        return category.nameKu.toString();
-    }
-  }
-  String getText(LanguagesModel item) {
-    final String lang = "x-lang".tr;
-    switch (lang) {
-      case "ku":
-        return item.ku.toString();
-      case "ar":
-        return item.ar.toString();
-      case "en":
-        return item.en.toString();
-      default:
-        return item.ku.toString();
-    }
-  }
+}
 
+String getTitlesCategory(Category category) {
+  final String lang = "x-lang".tr;
+  switch (lang) {
+    case "ku":
+      return category.nameKu.toString();
+    case "ar":
+      return category.nameAr.toString();
+    case "en":
+      return category.nameEn.toString();
+    default:
+      return category.nameKu.toString();
+  }
+}
 
+String getText(LanguagesModel item) {
+  final String lang = "x-lang".tr;
+  switch (lang) {
+    case "ku":
+      return item.ku.toString();
+    case "ar":
+      return item.ar.toString();
+    case "en":
+      return item.en.toString();
+    default:
+      return item.ku.toString();
+  }
+}
+
+class MaskedTextInputFormatter extends TextInputFormatter {
+  final String mask;
+  final String separator;
+
+  MaskedTextInputFormatter({
+    required this.mask,
+    required this.separator,
+  });
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.text.isNotEmpty) {
+      if (newValue.text.length == 1 &&
+          (newValue.text == separator || newValue.text == '0')) {
+        return const TextEditingValue(
+          text: '',
+          selection: TextSelection.collapsed(offset: 0),
+        );
+      }
+      if (newValue.text.length > oldValue.text.length) {
+        if (newValue.text.length > mask.length) return oldValue;
+        if (newValue.text.length < mask.length &&
+            mask[newValue.text.length - 1] == separator) {
+          return TextEditingValue(
+            text:
+                '${oldValue.text}$separator${newValue.text.substring(newValue.text.length - 1)}',
+            selection: TextSelection.collapsed(
+              offset: newValue.selection.end + 1,
+            ),
+          );
+        }
+      }
+    }
+    return newValue;
+  }
+}
+
+//CHECK IF URL IS IMAGE OR NOT
+bool isImage(String url) {
+  final List<String> imageExtensions = [
+    'jpg',
+    'jpeg',
+    'png',
+    'gif',
+    'webp',
+    'heic',
+    'heif',
+    'bmp',
+    'svg',
+    'ico',
+    'tiff',
+    'tif',
+    'raw',
+    'psd',
+  ];
+  final String extensionUrl = url.split('.').last;
+  return imageExtensions.contains(extensionUrl);
+}
+
+enum UrlType { image, video, unknown }
+
+UrlType getUrlType(String url) {
+  Uri uri = Uri.parse(url);
+  String typeString = uri.path.substring(uri.path.length - 3).toLowerCase();
+  if (typeString == "jpg") {
+    return UrlType.image;
+  }
+  if (typeString == "mp4") {
+    return UrlType.video;
+  } else {
+    return UrlType.unknown;
+  }
+}
+
+extension UrlTypeExtension on String {
+  UrlType get urlType {
+    Uri uri = Uri.parse(this);
+    String typeString = uri.path.split(".").last.toString().toLowerCase();
+    if (typeString == "jpg" || typeString == "png" || typeString == "jpeg") {
+      return UrlType.image;
+    }
+    if (typeString == "mp4" || typeString == "mov" || typeString == "avi") {
+      return UrlType.video;
+    } else {
+      return UrlType.unknown;
+    }
+  }
+}

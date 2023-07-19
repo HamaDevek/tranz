@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tranzhouse/Getx/Controllers/serivices_controller.dart';
 import 'package:tranzhouse/Models/services_model.dart';
 import 'package:tranzhouse/Pages/Client/Services/services_page.dart';
 import 'package:tranzhouse/Theme/theme.dart';
 import 'package:tranzhouse/Utility/utility.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
-import 'package:tranzhouse/Widgets/Other/loading_widget.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
 
 import '../../../Widgets/Containers/services_tile_widget.dart';
@@ -56,30 +56,41 @@ class ListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (ServicesController.to.servicesLoading.value) {
-        return const LoadingWidget();
-      }
-      return ListView.separated(
-        shrinkWrap: true,
-        padding: const EdgeInsets.only(bottom: 100, left: 16, right: 16),
-        itemCount: ServicesController.to.serviceCategories.length,
-        separatorBuilder: (context, index) => AppSpacer.p16(),
-        itemBuilder: (context, index) {
-          final category = ServicesController.to.serviceCategories[index];
-          return ServicesTileWidget(
-            imageUrl:
-                category.category?.image ?? "https://picsum.photos/300/300",
-            title: getTitlesCategory(category.category ?? Category()),
-            description: "Tap Category to see all services in this category",
-            isGrid: false,
-            onTap: () {
-              // print("object");
-              
+      // if (ServicesController.to.servicesLoading.value) {
+      //   return const LoadingWidget();
+      // }
+      return Skeletonizer(
+        enabled: ServicesController.to.servicesLoading.value,
+        // enabled: true,
+        effect: ShimmerEffect.raw(
+          colors: [
+            ColorPalette.primary.withOpacity(1),
+            ColorPalette.greyText,
+            ColorPalette.whiteColor,
+          ],
+        ),
+        child: ListView.separated(
+          shrinkWrap: true,
+          padding: const EdgeInsets.only(bottom: 100, left: 16, right: 16),
+          itemCount: ServicesController.to.serviceCategories.length,
+          separatorBuilder: (context, index) => AppSpacer.p16(),
+          itemBuilder: (context, index) {
+            final category = ServicesController.to.serviceCategories[index];
+            return ServicesTileWidget(
+              imageUrl:
+                  category.category?.image ?? "https://picsum.photos/300/300",
+              title: getTitlesCategory(category.category ?? Category()),
+              description: "Tap Category to see all services in this category",
+              isGrid: false,
+              onTap: () {
+                // print("object");
 
-              Get.toNamed(ServicesPage.routeName, arguments: category.services);
-            },
-          );
-        },
+                Get.toNamed(ServicesPage.routeName,
+                    arguments: category.services);
+              },
+            );
+          },
+        ),
       );
     });
   }

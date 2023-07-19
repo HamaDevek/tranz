@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tranzhouse/Getx/Controllers/user_controller.dart';
+import 'package:tranzhouse/Pages/Auth/login_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/About/about_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/Bookmarks/bookmarks_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/Contact/contact_page.dart';
@@ -24,115 +26,95 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      primary: false,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppSpacer.appBarHeight(),
-          TextWidget(
-            "Settings",
-            style: TextWidget.textStyleCurrent.copyWith(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
+    return Scaffold(body: Obx(() {
+      return SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        primary: false,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppSpacer.appBarHeight(),
+            TextWidget(
+              "Settings",
+              style: TextWidget.textStyleCurrent.copyWith(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-          AppSpacer.p20(),
-          const ProfileCardWidget(
-            profileUrl: "https://picsum.photos/400/200",
-            name: "Jaza Yahya",
-            phoneNumber: 07501380755,
-          ),
-          AppSpacer.p20(),
-          const TextWidget(
-            "Application",
-          ),
-          AppSpacer.p16(),
-          Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            children: List.generate(6, (index) {
-              return SettingsButtonWidget(
-                name: getButtonNames(index),
-                onPressed: getCallBacks(index),
-                icon: getButtonIcons(index),
-              );
-            }),
-          ),
-        ],
-      ),
-    ));
-  }
-
-  String getButtonNames(int index) {
-    switch (index) {
-      case 0:
-        return "Language";
-      case 1:
-        return "Bookmarks";
-      case 2:
-        return "Liked";
-      case 3:
-        return "Contact";
-      case 4:
-        return "About";
-      case 5:
-        return "Feedback";
-      default:
-        return "Language";
-    }
-  }
-
-  IconData getButtonIcons(int index) {
-    switch (index) {
-      case 0:
-        return CupertinoIcons.globe;
-      case 1:
-        return CupertinoIcons.bookmark;
-      case 2:
-        return CupertinoIcons.heart;
-      case 3:
-        return CupertinoIcons.phone;
-      case 4:
-        return CupertinoIcons.info;
-      case 5:
-        return CupertinoIcons.exclamationmark_bubble;
-      default:
-        return CupertinoIcons.globe;
-    }
-  }
-
-  VoidCallback getCallBacks(int index) {
-    switch (index) {
-      case 0:
-        return () {
-          Get.toNamed(LanguagePage.routeName);
-        };
-      case 1:
-        return () {
-          Get.toNamed(BookmarksPage.routeName);
-        };
-      case 2:
-        return () {
-          Get.toNamed(LikedksPage.routeName);
-        };
-      case 3:
-        return () {
-          Get.toNamed(ContactPage.routeName);
-        };
-      case 4:
-        return () {
-          Get.toNamed(AboutPage.routeName);
-        };
-      case 5:
-        return () {
-          Get.toNamed(FeedbackPage.routeName);
-        };
-      default:
-        return () {};
-    }
+            AppSpacer.p20(),
+            ProfileCardWidget(
+              onTap: () {
+                UserController.to.isUserLoggedin()
+                    ? UserController.to.logOut()
+                    : Get.offAllNamed(LoginPage.routeName);
+              },
+              isLoggedIn: UserController.to.isUserLoggedin(),
+              profileUrl: "https://picsum.photos/400/200",
+              name: UserController.to.user?.value.user?.name ?? "User Name",
+              phoneNumber: int.parse(UserController.to.user?.value.user?.phone
+                      ?.substring(4,
+                          UserController.to.user?.value.user?.phone?.length) ??
+                  "0"),
+            ),
+            AppSpacer.p20(),
+            const TextWidget(
+              "Application",
+            ),
+            AppSpacer.p16(),
+            Wrap(
+              spacing: 16,
+              runSpacing: 16,
+              children: [
+                SettingsButtonWidget(
+                  name: "Language",
+                  onPressed: () {
+                    Get.toNamed(LanguagePage.routeName);
+                  },
+                  icon: CupertinoIcons.globe,
+                ),
+                if (UserController.to.isUserLoggedin())
+                  SettingsButtonWidget(
+                    name: "Bookmarks",
+                    onPressed: () {
+                      Get.toNamed(BookmarksPage.routeName);
+                    },
+                    icon: CupertinoIcons.bookmark,
+                  ),
+                if (UserController.to.isUserLoggedin())
+                  SettingsButtonWidget(
+                    name: "Liked",
+                    onPressed: () {
+                      Get.toNamed(LikedksPage.routeName);
+                    },
+                    icon: CupertinoIcons.heart,
+                  ),
+                SettingsButtonWidget(
+                  name: "Contact",
+                  onPressed: () {
+                    Get.toNamed(ContactPage.routeName);
+                  },
+                  icon: CupertinoIcons.phone,
+                ),
+                SettingsButtonWidget(
+                  name: "About",
+                  onPressed: () {
+                    Get.toNamed(AboutPage.routeName);
+                  },
+                  icon: CupertinoIcons.info,
+                ),
+                SettingsButtonWidget(
+                  name: "Feedback",
+                  onPressed: () {
+                    Get.toNamed(FeedbackPage.routeName);
+                  },
+                  icon: CupertinoIcons.exclamationmark_bubble,
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }));
   }
 }
 

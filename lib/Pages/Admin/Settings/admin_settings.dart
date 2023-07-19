@@ -33,7 +33,8 @@ class _AdminSettingsPageState extends State<AdminSettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppSpacer.p20(),
-              const ProfileCardWidget(
+              ProfileCardWidget(
+                onTap: () {},
                 profileUrl: "https://picsum.photos/400/200",
                 name: "Jaza Yahya",
                 phoneNumber: 07501380755,

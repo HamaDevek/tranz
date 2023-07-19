@@ -96,6 +96,7 @@ class GridsWidget extends StatelessWidget {
           itemCount: ProductsController.to.products.length,
           itemBuilder: (context, index) {
             final product = ProductsController.to.products[index];
+            
 
             return ImageGridCardWidget(
               imageUrl: product.images?[0] ?? "https://picsum.photos/400/200",
@@ -103,7 +104,7 @@ class GridsWidget extends StatelessWidget {
               title: getTitles(product.title ?? LanguagesModel()),
               category: product.category ?? "Category Name",
               onTap: () {
-                Get.toNamed(SingleProductPage.routeName);
+                Get.toNamed(SingleProductPage.routeName,arguments: product,);
               },
             );
           },

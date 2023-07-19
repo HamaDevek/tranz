@@ -28,13 +28,27 @@ class ServicesController extends GetxController {
     if (serviceCategories.isEmpty) {
       servicesLoading.value = true;
     }
+    // final services = SetCache.instance.get('services');
+    // if (services != null) {
+    //   serviceCategories.addAll(
+    //     (services as List)
+    //         .map<ServicesModel>(
+    //           (service) => ServicesModel.fromJson(service),
+    //         )
+    //         .toList(),
+    //   );
+    //   servicesLoading.value = false;
+    // }
+    // await Future.delayed(const Duration(milliseconds: 1000));
     ResponseModel res = await DioPlugin().requestWithDio(
       url: getUrl(
         key: ApiEndpoint().client.services,
       ),
+      
     );
 
     if (res.isSuccess) {
+      serviceCategories.clear();
       serviceCategories.addAll(
         (res.data['services'] as List)
             .map<ServicesModel>(
@@ -42,7 +56,9 @@ class ServicesController extends GetxController {
             )
             .toList(),
       );
+      // SetCache.instance.save(res.data["services"], "services");
       prints(serviceCategories, tag: "success");
+      // await Future.delayed(const Duration(milliseconds: 5000));
       servicesLoading.value = false;
     } else {
       prints(res.data, tag: "error");

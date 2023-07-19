@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "535188923299",
+    "project_id": "tranz-house",
+    "storage_bucket": "tranz-house.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:535188923299:android:cfe9e45ab302d65858b016",
+        "android_client_info": {
+          "package_name": "com.tranzhouse.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "535188923299-dcc4iu1c9jsj2psn3ji8qbh4bjfpan9p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tranzhouse.app",
+            "certificate_hash": "2a2076d2886734298985d7bc91276b9012e8170b"
+          }
+        },
+        {
+          "client_id": "535188923299-o9l27ljean14grrugjttoev81on7maqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAn39uxV5XRtt2JoHzijzzmw57A2Nk4emI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "535188923299-o9l27ljean14grrugjttoev81on7maqj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "535188923299-ki6ntp5tchgag43dff828vp6n0nj6inn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tranzhouse.app",
+                "app_store_id": "1602403659"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

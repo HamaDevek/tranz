@@ -3,10 +3,14 @@ import 'package:get/get.dart';
 import 'package:tranzhouse/Pages/Auth/add_phone_page.dart';
 import 'package:tranzhouse/Theme/theme.dart';
 import 'package:tranzhouse/Utility/utility.dart';
+import 'package:tranzhouse/Widgets/Buttons/button_widget.dart';
 import 'package:tranzhouse/Widgets/Buttons/request_button.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
 import 'package:tranzhouse/Widgets/TextField/textfield_widget.dart';
+
+import '../Client/Main Page/main_page.dart';
+import 'login_page.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -17,6 +21,28 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  TextEditingController nameController = TextEditingController();
+  late TextEditingController _passwordController;
+  final ValueNotifier<bool> _isObscure = ValueNotifier<bool>(true);
+  final ValueNotifier<bool> _showEye = ValueNotifier<bool>(false);
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _toggleObsecure() {
+    _isObscure.value = !_isObscure.value;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +64,23 @@ class _SignupPageState extends State<SignupPage> {
                 Image.asset(
                   "assets/images/logo.png",
                   width: screenWidth(context) * 0.5,
+                ),
+                PositionedDirectional(
+                  end: 16,
+                  top: 64,
+                  child: ButtonWidget(
+                    text: "Skip",
+                    textColor: ColorPalette.primary,
+                    fontSize: 14,
+                    borderRadius: 100,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 0,
+                    ),
+                    onPressed: () {
+                      Get.offAllNamed(ClientMainPage.routeName);
+                    },
+                  ),
                 ),
               ],
             ),
@@ -79,27 +122,78 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       ),
                       AppSpacer.p20(),
-                      const TextFieldWidget(
-                        hintText: "First Name",
+                      TextFieldWidget(
+                        controller: nameController,
+                        hintText: "Name",
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter your first name";
+                          }
+                          return null;
+                        },
                       ),
                       AppSpacer.p16(),
-                      const TextFieldWidget(
-                        hintText: "Last Name",
-                      ),
+                      AnimatedBuilder(
+                          animation: Listenable.merge([_isObscure, _showEye]),
+                          builder: (context, chil) {
+                            return TextFieldWidget(
+                              obscureText: _isObscure.value,
+                              controller: _passwordController,
+                              hintText: "password",
+                              suffix: _showEye.value
+                                  ? IconButton(
+                                      onPressed: _toggleObsecure,
+                                      icon: Icon(
+                                        _isObscure.value
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: _isObscure.value
+                                            ? ColorPalette.greyText
+                                            : ColorPalette.whiteColor,
+                                      ),
+                                    )
+                                  : null,
+                              onChanged: (value) {
+                                if (value.isNotEmpty) {
+                                  _showEye.value = true;
+                                } else {
+                                  _showEye.value = false;
+                                  _isObscure.value = true;
+                                }
+                              },
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter your password";
+                                } else if (value.length < 6) {
+                                  return "Password must be at least 6 characters";
+                                }
+
+                                return null;
+                              },
+                            );
+                          }),
                       AppSpacer.p16(),
-                      const TextFieldWidget(
+                      TextFieldWidget(
                         hintText: "Address",
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter your address";
+                          }
+                          return null;
+                        },
                       ),
                       AppSpacer.p20(),
                       RequestButtonWidget(
                         width: double.infinity,
                         onPressed: () async {
-                          await Future.delayed(
-                            const Duration(milliseconds: 500),
-                            () {
-                              Get.toNamed(AddPhoneNumberPage.routeName);
-                            },
-                          );
+                          if (TextFieldValidationController.instance
+                              .validate()) {
+                            Get.toNamed(AddPhoneNumberPage.routeName,
+                                arguments: {
+                                  "name": nameController.text,
+                                  "password": _passwordController.text,
+                                });
+                          }
                         },
                         text: "Sign Up",
                       ),
@@ -115,7 +209,7 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Get.back();
+                              Get.offAllNamed(LoginPage.routeName);
                             },
                             child: TextWidget(
                               "Sign In",

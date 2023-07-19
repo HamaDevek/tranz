@@ -3,7 +3,9 @@ class ApiEndpoint {
   AdminEndpoints admin = AdminEndpoints();
 
   /////////AUTHENTICATION/////////
-  String get auth => "login";
+  String get login => "user/auth/signin";
+  String get signUp => "user/auth/signup";
+  String get me => "user/auth/me";
   String get cities => "cities";
   String get blogs => "blogs";
 }

@@ -15,6 +15,8 @@ dios.FormData mapToFormMap(Map<String, dynamic> map) {
   return formData;
 }
 
+// ignore: constant_identifier_names
+enum RequestType { GET, POST }
 class DioPlugin {
   final NetworkProviderController _networkController =
       NetworkProviderController.to;
@@ -25,10 +27,11 @@ class DioPlugin {
     Map<String, String>? headers,
     Map<String, dynamic>? param,
     dios.FormData? data,
+    Object? object,
     String? scope,
-    String? method = 'GET',
+    RequestType? method = RequestType.GET,
   }) async {
-    final _headers = {
+    final headers0 = {
       'Accept': 'application/json',
       'Content-Type': 'multipart/form-data',
       'x-lang': 'x-lang'.tr,
@@ -36,10 +39,10 @@ class DioPlugin {
       ...headers ?? {},
     };
     if (dotenv.env['USER_TOKEN'] != null) {
-      _headers['Authorization'] = 'Bearer ${dotenv.env['USER_TOKEN']}';
+      headers0['Authorization'] = 'Bearer ${dotenv.env['USER_TOKEN']}';
     }
     if (UserController.to.user?.value.token != null) {
-      _headers['Authorization'] =
+      headers0['Authorization'] =
           'Bearer ${UserController.to.user?.value.token}';
     }
     if (_networkController.connectionType.value == 0) {
@@ -61,7 +64,7 @@ class DioPlugin {
     int total = 0;
     int received = 0;
     try {
-      if (method == 'GET') {
+      if (method ==  RequestType.GET) {
         final res = await dio.get(
           url.toString(),
           queryParameters: {
@@ -69,7 +72,7 @@ class DioPlugin {
           },
           options: dios.Options(
             followRedirects: false,
-            headers: _headers,
+            headers: headers0,
           ),
           onReceiveProgress: (receivedServer, totalServer) {
             total = totalServer;
@@ -84,7 +87,8 @@ class DioPlugin {
           received: received,
           total: total,
         );
-      } else if (method == 'POST') {
+      } else if (method == RequestType.POST) {
+        
         final res = await dio.post(
           url.toString(),
           queryParameters: {
@@ -92,13 +96,13 @@ class DioPlugin {
           },
           options: dios.Options(
             followRedirects: false,
-            headers: _headers,
+            headers: headers0,
           ),
           onReceiveProgress: (receivedServer, totalServer) {
             total = totalServer;
             received = receivedServer;
           },
-          data: data,
+          data: object ?? data ?? {},
         );
 
         return ResponseModel(
@@ -116,20 +120,20 @@ class DioPlugin {
         );
       }
     } on dios.DioError catch (e) {
-      String? _message;
+      String? message;
       switch (e.response?.statusCode) {
         case 423:
-          _message = 'error.blocked'.tr;
+          message = 'error.blocked'.tr;
           break;
         case 401:
           await authStorage.remove('auth');
           UserController.to.user!(UserModel());
-          _message = 'error.unauthorized'.tr;
+          message = 'error.unauthorized'.tr;
           break;
         case 403:
           await authStorage.remove('auth');
           UserController.to.user!(UserModel());
-          _message = 'error.unauthorized'.tr;
+          message = 'error.unauthorized'.tr;
           break;
       }
       // prints(
@@ -139,7 +143,7 @@ class DioPlugin {
       return ResponseModel(
         message: e.response?.statusCode == null
             ? 'error.connection.lost'.tr
-            : (_message ?? e.response?.statusMessage),
+            : (message ?? e.response?.statusMessage),
         responseCode: e.response?.statusCode ?? 0,
         data: e.response?.data ?? {},
         isSuccess: false,

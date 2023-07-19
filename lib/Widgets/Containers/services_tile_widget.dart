@@ -1,4 +1,6 @@
+import 'package:agar/agar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import '../../Theme/theme.dart';
 import '../../Utility/utility.dart';
 import '../Other/image_widget.dart';
@@ -23,9 +25,13 @@ class ServicesTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: SizedBox(
+      child: Container(
         width: screenWidth(context),
         height: screenWidth(context) * .35,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: ColorPalette.greyText.withOpacity(.2),
+        ),
         child: Stack(
           children: [
             ImageWidget(
@@ -62,12 +68,22 @@ class ServicesTileWidget extends StatelessWidget {
                   ),
                   SizedBox(
                     width: isGrid ? null : screenWidth(context) * .7,
-                    child: TextWidget(
-                      "$description",
-                      style: TextWidget.textStyleCurrent.copyWith(
+                    // child: TextWidget(
+                    //   "$description",
+                    //   style: TextWidget.textStyleCurrent.copyWith(
+                    //     color: ColorPalette.whiteColor,
+                    //   ),
+                    //   maxLines: 3,
+                    // ),
+                    child: HtmlWidget(
+                      returnText("$description"),
+                      // description!.length > 100
+                      //     ? "${description?.substring(0, 100).toString()}..."
+                      //     : "$description",
+                      textStyle: TextWidget.textStyleCurrent.copyWith(
                         color: ColorPalette.whiteColor,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 3,
                     ),
                   ),
                 ],
@@ -77,5 +93,20 @@ class ServicesTileWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String returnText(String value) {
+    agarVoid(
+      value.length,
+      '>',
+      100,
+      () {
+        value = "${value.substring(0, 100).toString()}...";
+      },
+      () {
+        value = value;
+      },
+    );
+    return value;
   }
 }

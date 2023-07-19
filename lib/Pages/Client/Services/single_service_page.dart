@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:tranzhouse/Widgets/Containers/Image_gallery_widget.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
 import 'package:tranzhouse/Widgets/Other/appbar_widget.dart';
 import 'package:tranzhouse/Widgets/Other/image_widget.dart';
@@ -53,10 +54,17 @@ class _SingleServicePageState extends State<SingleServicePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppSpacer.p8(),
-            SingleArticleWidget(
-              imageUrl: service.images?[0] ?? "https://picsum.photos/400/200",
+            // SingleArticleWidget(
+            //   imageUrl: service.images?[0] ?? "https://picsum.photos/400/200",
+            //   title: getText(service.title ?? LanguagesModel()),
+            //   description: getText(service.description ?? LanguagesModel()),
+            // ),
+            ImageGalleryWidgetState(
+              imagesUrl: service.images ?? [],
               title: getText(service.title ?? LanguagesModel()),
               description: getText(service.description ?? LanguagesModel()),
+              date: DateTime.parse(
+                  DateTime.now().subtract(const Duration(days: 1)).toString()),
             ),
             AppSpacer.p20(),
             Padding(

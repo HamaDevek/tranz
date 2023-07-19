@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:tranzhouse/Models/product_model.dart';
 import 'package:tranzhouse/Utility/utility.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
 import 'package:tranzhouse/Widgets/Other/appbar_widget.dart';
@@ -18,6 +20,14 @@ class SingleProductPage extends StatefulWidget {
 
 class _SingleProductPageState extends State<SingleProductPage> {
   bool _isLiked = false;
+  ProductModel? product;
+
+  @override
+  void initState() {
+    super.initState();
+    product == Get.arguments as ProductModel;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

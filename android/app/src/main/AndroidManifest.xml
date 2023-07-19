@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tranzhouse.app.tranzhouse">
+    package="com.tranzhouse.app">
    <application
         android:label="tranzhouse"
         android:name="${applicationName}"
