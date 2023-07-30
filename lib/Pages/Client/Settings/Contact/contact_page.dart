@@ -1,21 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tranzhouse/Utility/utility.dart';
+import 'package:get/get.dart';
+import 'package:tranzhouse/Getx/Controllers/client_controller.dart';
 import 'package:tranzhouse/Widgets/Other/appbar_widget.dart';
 
 import '../../../../Theme/theme.dart';
+import '../../../../Utility/utility.dart';
 import '../../../../Widgets/Other/app_spacer.dart';
 import '../../../../Widgets/Text/text_widget.dart';
 
-class ContactPage extends StatefulWidget {
+class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
   static const String routeName = "/contact";
 
-  @override
-  State<ContactPage> createState() => _ContactPageState();
-}
-
-class _ContactPageState extends State<ContactPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,35 +27,71 @@ class _ContactPageState extends State<ContactPage> {
             AppSpacer.p20(),
             Row(
               children: [
-                Expanded(
-                  child: ContactButton(
-                    onPressed: () {},
-                    icon: CupertinoIcons.phone,
-                    phoneNumber: 07501380755,
+                if (ClientController.to.metadata.value.phone1 != '' &&
+                    ClientController.to.metadata.value.phone1 != null)
+                  Expanded(
+                    child: ContactButton(
+                      onPressed: () {
+                        launchPhoneCall(
+                            "${ClientController.to.metadata.value.phone1}");
+                      },
+                      icon: CupertinoIcons.phone,
+                      phoneNumber:
+                          "${ClientController.to.metadata.value.phone1}",
+                    ),
                   ),
-                ),
-                AppSpacer.p16(),
-                Expanded(
-                  child: ContactButton(
-                    onPressed: () {},
-                    icon: Icons.mail_outline_sharp,
-                    name: "hhish4m@gmail.com",
+                if (ClientController.to.metadata.value.phone1 != '' &&
+                    ClientController.to.metadata.value.phone1 != null)
+                  AppSpacer.p16(),
+                if (ClientController.to.metadata.value.phone2 != '' &&
+                    ClientController.to.metadata.value.phone2 != null)
+                  Expanded(
+                    child: ContactButton(
+                      onPressed: () {
+                        launchPhoneCall(
+                            "${ClientController.to.metadata.value.phone2}");
+                      },
+                      icon: CupertinoIcons.phone,
+                      phoneNumber:
+                          "${ClientController.to.metadata.value.phone2}",
+                    ),
                   ),
-                ),
               ],
             ),
             AppSpacer.p16(),
-            ContactButton(
-              isFullWidth: true,
-              onPressed: () {},
-              icon: Icons.location_on_outlined,
-              name:
-                  "Iraq, Kurdistan, Erbil, Empire Towers , 12th Floor, Office NO.8",
-            ),
+            if (ClientController.to.metadata.value.email != '' &&
+                ClientController.to.metadata.value.email != null)
+              ContactButton(
+                onPressed: () {},
+                icon: Icons.mail_outline_sharp,
+                name: ClientController.to.metadata.value.email ?? "",
+              ),
+            AppSpacer.p16(),
+            if (getAddress() != '')
+              ContactButton(
+                isFullWidth: true,
+                onPressed: () {},
+                icon: Icons.location_on_outlined,
+                name: getAddress(),
+              ),
           ],
         ),
       ),
     );
+  }
+
+  String getAddress() {
+    switch ("x-lang".tr) {
+      case "ku":
+        return ClientController.to.metadata.value.addressKu ?? "";
+      case "ar":
+        return ClientController.to.metadata.value.addressAr ?? "";
+      case "en":
+        return ClientController.to.metadata.value.addressEn ?? "";
+
+      default:
+        return ClientController.to.metadata.value.addressEn ?? "";
+    }
   }
 }
 
@@ -75,7 +108,7 @@ class ContactButton extends StatelessWidget {
   final bool isFullWidth;
   final IconData icon;
   final String? name;
-  final int? phoneNumber;
+  final String? phoneNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -105,9 +138,7 @@ class ContactButton extends StatelessWidget {
                   )
                 : FittedBox(
                     child: TextWidget(
-                      phoneNumber != null
-                          ? formatPhoneNumber(phoneNumber!)
-                          : "$name",
+                      phoneNumber != null ? phoneNumber ?? "" : "$name",
                       maxLines: 1,
                     ),
                   )

@@ -5,6 +5,12 @@ final ThemeData theme = ThemeData(
   appBarTheme: const AppBarTheme(
     surfaceTintColor: Colors.transparent,
   ),
+  dividerColor: Colors.transparent,
+  dividerTheme: const DividerThemeData(
+    thickness: 0.5,
+    color: Colors.transparent,
+  ),
+  
   scaffoldBackgroundColor: const Color(0xff1E272E),
   primaryColorDark: ColorPalette.primary,
   primaryColorLight: ColorPalette.primary,

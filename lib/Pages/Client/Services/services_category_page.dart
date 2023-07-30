@@ -119,15 +119,16 @@ class _ServicesTopWidgetState extends State<ServicesTopWidget> {
         ),
         const Spacer(),
         TextButton(
-            style: TextButton.styleFrom(
-              backgroundColor: ColorPalette.whiteColor,
-              foregroundColor: ColorPalette.primary,
-              shape: const CircleBorder(),
-              minimumSize: const Size(35, 35),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            onPressed: () {},
-            child: SvgPicture.asset("assets/icons/cart.svg")),
+          style: TextButton.styleFrom(
+            backgroundColor: ColorPalette.whiteColor,
+            foregroundColor: ColorPalette.primary,
+            shape: const CircleBorder(),
+            minimumSize: const Size(35, 35),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+          onPressed: () {},
+          child: SvgPicture.asset("assets/icons/cart.svg"),
+        ),
       ],
     );
   }

@@ -23,6 +23,7 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   TextEditingController nameController = TextEditingController();
   late TextEditingController _passwordController;
+  TextEditingController addressController = TextEditingController();
   final ValueNotifier<bool> _isObscure = ValueNotifier<bool>(true);
   final ValueNotifier<bool> _showEye = ValueNotifier<bool>(false);
 
@@ -36,6 +37,7 @@ class _SignupPageState extends State<SignupPage> {
   void dispose() {
     nameController.dispose();
     _passwordController.dispose();
+    addressController.dispose();
     super.dispose();
   }
 
@@ -174,10 +176,14 @@ class _SignupPageState extends State<SignupPage> {
                           }),
                       AppSpacer.p16(),
                       TextFieldWidget(
+                        controller: addressController,
                         hintText: "Address",
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Please enter your address";
+                          }
+                        else if (value.length < 6) {
+                            return "Address must be at least 6 characters";
                           }
                           return null;
                         },
@@ -192,6 +198,7 @@ class _SignupPageState extends State<SignupPage> {
                                 arguments: {
                                   "name": nameController.text,
                                   "password": _passwordController.text,
+                                  "address": addressController.text,
                                 });
                           }
                         },

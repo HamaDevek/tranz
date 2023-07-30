@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart';
 import 'package:tranzhouse/Models/services_model.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../Models/product_model.dart';
 
 double screenHeight(BuildContext context) {
@@ -156,13 +156,23 @@ void scrollToSelectedContent({GlobalKey? expansionTileKey, double? alignment}) {
   }
 }
 
+void launchPhoneCall(String phone) async {
+  final launchUri = Uri(scheme: 'tel', path: phone.replaceAll(' ', ''));
+  if (await canLaunchUrl(launchUri)) {
+    await launchUrl(launchUri);
+  } else {
+    print("Can't launch ${launchUri.toString()}");
+  }
+}
+
 String formatPhoneNumber(int phoneNumber, {bool withCountryCode = true}) {
   String phoneNumberString = phoneNumber.toString();
 
   return phoneNumberString.replaceAllMapped(
     RegExp(r'(\d{3})(\d{3})(\d{4})'),
-    withCountryCode? (Match match) => '+964 ${match[1]} ${match[2]} ${match[3]}':
-    (Match match) => '${match[1]} ${match[2]} ${match[3]}',
+    withCountryCode
+        ? (Match match) => '+964 ${match[1]} ${match[2]} ${match[3]}'
+        : (Match match) => '${match[1]} ${match[2]} ${match[3]}',
   );
 }
 

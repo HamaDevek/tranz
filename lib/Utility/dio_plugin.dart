@@ -17,6 +17,7 @@ dios.FormData mapToFormMap(Map<String, dynamic> map) {
 
 // ignore: constant_identifier_names
 enum RequestType { GET, POST }
+
 class DioPlugin {
   final NetworkProviderController _networkController =
       NetworkProviderController.to;
@@ -64,7 +65,7 @@ class DioPlugin {
     int total = 0;
     int received = 0;
     try {
-      if (method ==  RequestType.GET) {
+      if (method == RequestType.GET) {
         final res = await dio.get(
           url.toString(),
           queryParameters: {
@@ -88,7 +89,6 @@ class DioPlugin {
           total: total,
         );
       } else if (method == RequestType.POST) {
-        
         final res = await dio.post(
           url.toString(),
           queryParameters: {

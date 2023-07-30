@@ -23,12 +23,14 @@ class _AddPhoneNumberPageState extends State<AddPhoneNumberPage> {
   TextEditingController phoneController = TextEditingController();
   late String name;
   late String password;
+  late String address;
 
   @override
   void initState() {
     super.initState();
     name = Get.arguments['name'] as String;
     password = Get.arguments["password"] as String;
+    address = Get.arguments["address"] as String;
   }
 
   @override
@@ -115,6 +117,7 @@ class _AddPhoneNumberPageState extends State<AddPhoneNumberPage> {
                         "password": password,
                         "phone":
                             phoneController.text.replaceAll(' ', '').trim(),
+                        "address": address,
                       },
                     );
                   }

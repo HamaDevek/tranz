@@ -2,13 +2,14 @@ import 'package:get/get.dart';
 import 'package:tranzhouse/Pages/Admin/Detail/admin_detail_page.dart';
 import 'package:tranzhouse/Pages/Admin/Main/admin_main_page.dart';
 import 'package:tranzhouse/Pages/Admin/Notifications/admin_notifications_page.dart';
-import 'package:tranzhouse/Pages/Admin/Settings/Feedback/admin_feedback_page.dart';
+import 'package:tranzhouse/Pages/Client/Settings/Feedback/feedback_page.dart';
 import 'package:tranzhouse/Pages/Admin/Settings/admin_settings.dart';
 import 'package:tranzhouse/Pages/Auth/add_phone_page.dart';
 import 'package:tranzhouse/Pages/Auth/login_page.dart';
 import 'package:tranzhouse/Pages/Auth/sign_up.dart';
 import 'package:tranzhouse/Pages/Auth/verify_phone.dart';
 import 'package:tranzhouse/Pages/Client/Articles/single_article_page.dart';
+import 'package:tranzhouse/Pages/Client/Cart/products_cart_page.dart';
 import 'package:tranzhouse/Pages/Client/Main%20Page/main_page.dart';
 import 'package:tranzhouse/Pages/Client/Products/single_productPage.dart';
 import 'package:tranzhouse/Pages/Client/Services/services_page.dart';
@@ -18,6 +19,7 @@ import 'package:tranzhouse/Pages/Client/Settings/Bookmarks/bookmarks_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/Contact/contact_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/Language/language_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/Liked/liked_page.dart';
+import 'package:tranzhouse/Pages/Client/Settings/Profile/edit_profile.dart';
 
 import '../Pages/Splash/splash_page.dart';
 
@@ -63,6 +65,11 @@ class RouteNames {
     GetPage(
       name: ServicesPage.routeName,
       page: () => const ServicesPage(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: CartPage.routeName,
+      page: () => const CartPage(),
       transition: Transition.fadeIn,
     ),
     //////////////SETTINS ROUTES////////////
@@ -130,6 +137,11 @@ class RouteNames {
     GetPage(
       name: FeedbackPage.routeName,
       page: () => const FeedbackPage(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: EditProfilePage.routeName,
+      page: () => const EditProfilePage(),
       transition: Transition.fadeIn,
     ),
   ];

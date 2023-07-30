@@ -1,57 +1,66 @@
-
 import 'dart:convert';
 
 import 'package:tranzhouse/Models/services_model.dart';
-
 
 // To parse this JSON data, do
 //
 //     final productModel = productModelFromJson(jsonString);
 
-
 class ProductModel {
-    String? id;
-    String? language;
-    String? status;
-    LanguagesModel? title;
-    int? price;
-    String? category;
-    LanguagesModel? description;
-    List<String>? images;
-    List<String>? links;
-    int? v;
+  String? id;
+  String? language;
+  String? status;
+  LanguagesModel? title;
+  int? price;
+  String? category;
+  LanguagesModel? description;
+  List<String>? images;
+  List<String>? links;
+  int? v;
+  int quantity;
 
-    ProductModel({
-        this.id,
-        this.language,
-        this.status,
-        this.title,
-        this.price,
-        this.category,
-        this.description,
-        this.images,
-        this.links,
-        this.v,
-    });
+  ProductModel({
+    this.id,
+    this.language,
+    this.status,
+    this.title,
+    this.price,
+    this.category,
+    this.description,
+    this.images,
+    this.links,
+    this.v,
+    this.quantity = 1,
+  });
 
-    factory ProductModel.fromRawJson(String str) => ProductModel.fromJson(json.decode(str));
+  factory ProductModel.fromRawJson(String str) =>
+      ProductModel.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
+  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         id: json["_id"],
         language: json["language"],
         status: json["status"],
-        title: json["title"] == null ? null : LanguagesModel.fromJson(json["title"]),
+        title: json["title"] == null
+            ? null
+            : LanguagesModel.fromJson(json["title"]),
         price: json["price"],
         category: json["category"],
-        description: json["description"] == null ? null : LanguagesModel.fromJson(json["description"]),
-        images: json["images"] == null ? [] : List<String>.from(json["images"]!.map((x) => x)),
-        links: json["links"] == null ? [] : List<String>.from(json["links"]!.map((x) => x)),
+        description: json["description"] == null
+            ? null
+            : LanguagesModel.fromJson(json["description"]),
+        images: json["images"] == null
+            ? []
+            : List<String>.from(json["images"]!.map((x) => x)),
+        links: json["links"] == null
+            ? []
+            : List<String>.from(json["links"]!.map((x) => x)),
         v: json["__v"],
-    );
+        quantity: json["quantity"] ?? 1,
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "_id": id,
         "language": language,
         "status": status,
@@ -59,22 +68,13 @@ class ProductModel {
         "price": price,
         "category": category,
         "description": description?.toJson(),
-        "images": images == null ? [] : List<dynamic>.from(images!.map((x) => x)),
+        "images":
+            images == null ? [] : List<dynamic>.from(images!.map((x) => x)),
         "links": links == null ? [] : List<dynamic>.from(links!.map((x) => x)),
         "__v": v,
-    };
+        "quantity": quantity,
+      };
 }
-
-
-
-
-
-
-
-
-
-
-
 
 class ProductCategory {
   String? id;
@@ -96,7 +96,8 @@ class ProductCategory {
 
   String toRawJson() => json.encode(toJson());
 
-  factory ProductCategory.fromJson(Map<String, dynamic> json) => ProductCategory(
+  factory ProductCategory.fromJson(Map<String, dynamic> json) =>
+      ProductCategory(
         id: json["_id"],
         nameKu: json["name_ku"],
         nameEn: json["name_en"],

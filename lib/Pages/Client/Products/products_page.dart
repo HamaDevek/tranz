@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tranzhouse/Getx/Controllers/product_controller.dart';
+import 'package:tranzhouse/Pages/Client/Cart/products_cart_page.dart';
 import 'package:tranzhouse/Pages/Client/Products/tabbar_widget.dart';
 import 'package:tranzhouse/Utility/utility.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
@@ -96,7 +97,6 @@ class GridsWidget extends StatelessWidget {
           itemCount: ProductsController.to.products.length,
           itemBuilder: (context, index) {
             final product = ProductsController.to.products[index];
-            
 
             return ImageGridCardWidget(
               imageUrl: product.images?[0] ?? "https://picsum.photos/400/200",
@@ -104,7 +104,10 @@ class GridsWidget extends StatelessWidget {
               title: getTitles(product.title ?? LanguagesModel()),
               category: product.category ?? "Category Name",
               onTap: () {
-                Get.toNamed(SingleProductPage.routeName,arguments: product,);
+                Get.toNamed(
+                  SingleProductPage.routeName,
+                  arguments: product,
+                );
               },
             );
           },
@@ -155,7 +158,9 @@ class ProductsTopWidget extends StatelessWidget {
                 minimumSize: const Size(35, 35),
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(CartPage.routeName);
+              },
               child: SvgPicture.asset("assets/icons/cart.svg")),
           AppSpacer.p8(),
         ],

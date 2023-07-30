@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tranzhouse/Pages/Admin/Settings/Feedback/admin_feedback_page.dart';
+import 'package:tranzhouse/Pages/Client/Settings/Feedback/feedback_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/About/about_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/Contact/contact_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/Language/language_page.dart';

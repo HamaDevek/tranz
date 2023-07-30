@@ -50,10 +50,63 @@ class UserController extends GetxController {
     return user?.value.token != null;
   }
 
+///////////////////////////////////////////
+  ///PROFILE INFO VALIDATION////////////////
+  RxBool isProfileInfoChanged = false.obs;
+  RxBool isUserNameChanged = false.obs;
+  RxBool isUserImageChanged = false.obs;
+  RxBool isUserPhoneChanged = false.obs;
+  void isNameChanged({required String name}) {
+    if (user?.value.user?.name != name) {
+      isUserNameChanged.value = true;
+    } else {
+      isUserNameChanged.value = false;
+    }
+    isProfileChanged();
+  }
+
+  void isPhoneChanged({required String phone}) {
+    if (user?.value.user?.phone != "+964${phone.replaceAll(' ', '').trim()}") {
+      isUserPhoneChanged.value = true;
+    } else {
+      isUserPhoneChanged.value = false;
+    }
+    isProfileChanged();
+  }
+  // void isImageChanged({required String image}) {
+  //   if (user?.value.user?.image != image) {
+  //     isUserImageChanged.value = true;
+  //   }else{
+  //     isUserImageChanged.value = false;
+  //   }
+  // }
+  // void isImageChanged({required String image}) {
+  //   if (user?.value.user?.image != image) {
+  //     isUserImageChanged.value = true;
+  //   }else{
+  //     isUserImageChanged.value = false;
+  //   }
+  // }
+
+  void isProfileChanged() {
+    if (isUserNameChanged.value || isUserPhoneChanged.value) {
+      isProfileInfoChanged.value = true;
+    } else {
+      isProfileInfoChanged.value = false;
+    }
+  }
+
+  void resetValues() {
+    isUserNameChanged.value = false;
+    isUserPhoneChanged.value = false;
+    isUserImageChanged.value = false;
+    isProfileInfoChanged.value = false;
+  }
+
 ///////////FIREBASE VERIFY PHONE/////////////////////
 ///////////////////////////////////////////
 ///////////////////////////////////////////
-  ///
+
   Future<String?> firebaseVerifyPhoneNumber(String phone) async {
     print('fbVerifyPhoneNumber($phone)');
     Completer<String?> completer = Completer();
@@ -96,6 +149,7 @@ class UserController extends GetxController {
     required String code,
     required String sessionInfo,
     required String password,
+    required String address,
   }) async {
     final res = await DioPlugin().requestWithDio(
       url: getUrl(
@@ -114,6 +168,7 @@ class UserController extends GetxController {
           "code": code,
           "session_info": sessionInfo,
           "password": password,
+          "address": address,
         },
         // ),
       ),
@@ -235,4 +290,6 @@ class UserController extends GetxController {
     }
     return res.isSuccess;
   }
+
+  
 }

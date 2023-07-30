@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:get/get.dart';
+import 'package:tranzhouse/Getx/Controllers/client_controller.dart';
 import 'package:tranzhouse/Widgets/Other/appbar_widget.dart';
-import 'package:tranzhouse/Widgets/Other/statecycle_widget.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
 
+import '../../../../Theme/theme.dart';
 import '../../../../Widgets/Other/app_spacer.dart';
 
 class AboutPage extends StatelessWidget {
@@ -22,9 +25,18 @@ class AboutPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppSpacer.p20(),
-            TextWidget(
-              "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-              style: TextWidget.textStyleCurrent.copyWith(
+            // TextWidget(
+            //   getAboutDescription(),
+            //   style: TextWidget.textStyleCurrent.copyWith(
+            //     fontWeight: FontWeight.w300,
+            //   ),
+            //   // textAlign: TextAlign.start,
+            // ),
+            HtmlWidget(
+              getAboutDescription(),
+
+              textStyle: TextWidget.textStyleCurrent.copyWith(
+                color: ColorPalette.whiteColor,
                 fontWeight: FontWeight.w300,
               ),
               // textAlign: TextAlign.start,
@@ -33,15 +45,20 @@ class AboutPage extends StatelessWidget {
           ],
         ),
       ),
-    ).onInit(() {
-      print(DateTime.now().millisecondsSinceEpoch.toString());
-      print("onInit");
-    }).onDispose(() {
-      print("onDispose");
-    }).afterInit(() {
-      print(DateTime.now().millisecondsSinceEpoch.toString());
+    );
+  }
 
-      print("afterInit");
-    });
+  String getAboutDescription() {
+    switch ("x-lang".tr) {
+      case "ku":
+        return ClientController.to.metadata.value.descriptionKu ?? "";
+      case "ar":
+        return ClientController.to.metadata.value.descriptionAr ?? "";
+      case "en":
+        return ClientController.to.metadata.value.descriptionEn ?? "";
+
+      default:
+        return ClientController.to.metadata.value.descriptionKu ?? "";
+    }
   }
 }

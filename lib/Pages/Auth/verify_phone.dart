@@ -30,6 +30,7 @@ class _VerifyPhoneNumberPageState extends State<VerifyPhoneNumberPage> {
   String sessionInfo = "";
   String name = "";
   String password = "";
+  String address = "";
   bool isResendAvailable = false;
 
   @override
@@ -38,8 +39,10 @@ class _VerifyPhoneNumberPageState extends State<VerifyPhoneNumberPage> {
     phoneNumber = Get.arguments['phone'] as String;
     name = Get.arguments['name'] as String;
     password = Get.arguments['password'] as String;
+    address = Get.arguments['address'] as String;
 
-    print("PHONE: $phoneNumber, NAME: $name, PASSWORD: $password");
+    print(
+        "PHONE: $phoneNumber, NAME: $name, PASSWORD: $password, ADDRESS: $address");
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       UserController.to
@@ -154,6 +157,7 @@ class _VerifyPhoneNumberPageState extends State<VerifyPhoneNumberPage> {
                       code: textController.text,
                       sessionInfo: sessionInfo,
                       password: password,
+                      address: address,
                     );
                     if (res.isSuccess) {
                       Get.offAllNamed(ClientMainPage.routeName);
