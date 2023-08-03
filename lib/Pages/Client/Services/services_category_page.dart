@@ -10,7 +10,10 @@ import 'package:tranzhouse/Utility/utility.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
 
+import '../../../Getx/Controllers/client_controller.dart';
 import '../../../Widgets/Containers/services_tile_widget.dart';
+import '../Cart/products_cart_page.dart';
+import '../Cart/services_cart_page.dart';
 
 class ServicesCategoriesPage extends StatefulWidget {
   const ServicesCategoriesPage({super.key});
@@ -24,25 +27,45 @@ class _ServicesCategoriesPageState extends State<ServicesCategoriesPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      ServicesController.to.serviceCategories.clear();
       ServicesController.to.getServices();
+      ClientController.to.getLocalCartItems(cartType: CartType.service);
+    });
+  }
+
+  void refreshPage() async {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ServicesController.to.serviceCategories.clear();
+
+      ServicesController.to.getServices();
+      ClientController.to.getLocalCartItems(cartType: CartType.service);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          AppSpacer.appBarHeight(),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: ServicesTopWidget(),
-          ),
-          AppSpacer.p20(),
-          const Expanded(
-            child: ListWidget(),
-          ),
-        ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          refreshPage();
+        },
+        edgeOffset: 100,
+        // backgroundColor: ColorPalette.whiteColor,
+        // color: ColorPalette.primary,
+        strokeWidth: 2,
+        child: Column(
+          children: [
+            AppSpacer.appBarHeight(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: ServicesTopWidget(),
+            ),
+            AppSpacer.p20(),
+            const Expanded(
+              child: ListWidget(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -76,6 +99,7 @@ class ListWidget extends StatelessWidget {
           separatorBuilder: (context, index) => AppSpacer.p16(),
           itemBuilder: (context, index) {
             final category = ServicesController.to.serviceCategories[index];
+            print(category.category?.image);
             return ServicesTileWidget(
               imageUrl:
                   category.category?.image ?? "https://picsum.photos/300/300",
@@ -126,7 +150,9 @@ class _ServicesTopWidgetState extends State<ServicesTopWidget> {
             minimumSize: const Size(35, 35),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Get.toNamed(ServicesCartPage.routeName);
+          },
           child: SvgPicture.asset("assets/icons/cart.svg"),
         ),
       ],

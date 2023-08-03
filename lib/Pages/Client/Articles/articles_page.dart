@@ -5,7 +5,6 @@ import 'package:tranzhouse/Getx/Controllers/serivices_controller.dart';
 import 'package:tranzhouse/Pages/Client/Articles/single_article_page.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
 
-import '../../../Theme/theme.dart';
 import '../../../Widgets/Containers/image_grid_card_widget.dart';
 import '../../../Widgets/Other/app_spacer.dart';
 
@@ -76,7 +75,11 @@ class GridsWidget extends StatelessWidget {
             onTap: () {
               Get.toNamed(
                 SingleArticlePage.routeName,
-                arguments: [blog.title?.ku, blog.description?.ku, blog.images?[0]],
+                arguments: [
+                  blog.title?.ku,
+                  blog.description?.ku,
+                  blog.images?[0]
+                ],
               );
             },
           );
@@ -104,22 +107,22 @@ class ArticlesTopWidget extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          const Spacer(),
-          TextButton(
-            style: TextButton.styleFrom(
-              backgroundColor: ColorPalette.whiteColor,
-              foregroundColor: ColorPalette.primary,
-              shape: const CircleBorder(),
-              minimumSize: const Size(35, 35),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            onPressed: () {},
-            child: const Icon(
-              CupertinoIcons.bookmark,
-              size: 15,
-            ),
-          ),
-          AppSpacer.p8(),
+          // const Spacer(),
+          // TextButton(
+          //   style: TextButton.styleFrom(
+          //     backgroundColor: ColorPalette.whiteColor,
+          //     foregroundColor: ColorPalette.primary,
+          //     shape: const CircleBorder(),
+          //     minimumSize: const Size(35, 35),
+          //     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          //   ),
+          //   onPressed: () {},
+          //   child: const Icon(
+          //     CupertinoIcons.bookmark,
+          //     size: 15,
+          //   ),
+          // ),
+          // AppSpacer.p8(),
         ],
       ),
     );

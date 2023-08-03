@@ -5,10 +5,8 @@ import 'package:tranzhouse/Getx/Controllers/client_controller.dart';
 import 'package:tranzhouse/Getx/Controllers/user_controller.dart';
 import 'package:tranzhouse/Pages/Auth/login_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/About/about_page.dart';
-import 'package:tranzhouse/Pages/Client/Settings/Bookmarks/bookmarks_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/Contact/contact_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/Language/language_page.dart';
-import 'package:tranzhouse/Pages/Client/Settings/Liked/liked_page.dart';
 import 'package:tranzhouse/Theme/theme.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
@@ -86,22 +84,22 @@ class _SettingsPageState extends State<SettingsPage> {
                       },
                       icon: CupertinoIcons.globe,
                     ),
-                    if (isUserLoggedin)
-                      SettingsButtonWidget(
-                        name: "Bookmarks",
-                        onPressed: () {
-                          Get.toNamed(BookmarksPage.routeName);
-                        },
-                        icon: CupertinoIcons.bookmark,
-                      ),
-                    if (isUserLoggedin)
-                      SettingsButtonWidget(
-                        name: "Liked",
-                        onPressed: () {
-                          Get.toNamed(LikedksPage.routeName);
-                        },
-                        icon: CupertinoIcons.heart,
-                      ),
+                    // if (isUserLoggedin)
+                    //   SettingsButtonWidget(
+                    //     name: "Bookmarks",
+                    //     onPressed: () {
+                    //       Get.toNamed(BookmarksPage.routeName);
+                    //     },
+                    //     icon: CupertinoIcons.bookmark,
+                    //   ),
+                    // if (isUserLoggedin)
+                    //   SettingsButtonWidget(
+                    //     name: "Liked",
+                    //     onPressed: () {
+                    //       Get.toNamed(LikedksPage.routeName);
+                    //     },
+                    //     icon: CupertinoIcons.heart,
+                    //   ),
                     SettingsButtonWidget(
                       name: "Contact",
                       onPressed: () {

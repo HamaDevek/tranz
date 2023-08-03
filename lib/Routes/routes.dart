@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:tranzhouse/Pages/Admin/Detail/admin_detail_page.dart';
 import 'package:tranzhouse/Pages/Admin/Main/admin_main_page.dart';
 import 'package:tranzhouse/Pages/Admin/Notifications/admin_notifications_page.dart';
+import 'package:tranzhouse/Pages/Client/Cart/services_cart_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/Feedback/feedback_page.dart';
 import 'package:tranzhouse/Pages/Admin/Settings/admin_settings.dart';
 import 'package:tranzhouse/Pages/Auth/add_phone_page.dart';
@@ -68,8 +69,13 @@ class RouteNames {
       transition: Transition.fadeIn,
     ),
     GetPage(
-      name: CartPage.routeName,
-      page: () => const CartPage(),
+      name: ProductsCartPage.routeName,
+      page: () => const ProductsCartPage(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: ServicesCartPage.routeName,
+      page: () => const ServicesCartPage(),
       transition: Transition.fadeIn,
     ),
     //////////////SETTINS ROUTES////////////

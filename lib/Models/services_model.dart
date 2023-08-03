@@ -97,6 +97,8 @@ class Service {
   List<Article>? articles;
   int? v;
   Category? category;
+  int? price;
+  int quantity;
 
   Service({
     this.id,
@@ -110,7 +112,41 @@ class Service {
     this.articles,
     this.v,
     this.category,
+    this.price,
+    this.quantity=1,
   });
+
+  Service copyWith({
+    String? id,
+    String? language,
+    String? status,
+    LanguagesModel? title,
+    LanguagesModel? description,
+    String? contactEmail,
+    List<String>? images,
+    String? parent,
+    List<Article>? articles,
+    int? v,
+    Category? category,
+    int? price,
+    int? quantity,
+  }) {
+    return Service(
+      id: id ?? this.id,
+      language: language ?? this.language,
+      status: status ?? this.status,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      contactEmail: contactEmail ?? this.contactEmail,
+      images: images ?? this.images,
+      parent: parent ?? this.parent,
+      articles: articles ?? this.articles,
+      v: v ?? this.v,
+      category: category ?? this.category,
+      price: price ?? this.price,
+      quantity: quantity ?? this.quantity,
+    );
+  }
 
   factory Service.fromRawJson(String str) => Service.fromJson(json.decode(str));
 
@@ -139,6 +175,8 @@ class Service {
         category: json["category"] == null
             ? null
             : Category.fromJson(json["category"]),
+            price: json["price"]??0,
+            quantity: json["quantity"]??1,
       );
 
   Map<String, dynamic> toJson() => {
@@ -156,6 +194,8 @@ class Service {
             : List<dynamic>.from(articles!.map((x) => x.toJson())),
         "__v": v,
         "category": category?.toJson(),
+        "price": price,
+        "quantity": quantity,
       };
 }
 

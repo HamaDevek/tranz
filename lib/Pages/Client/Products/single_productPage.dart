@@ -1,13 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:tranzhouse/Getx/Controllers/user_controller.dart';
 import 'package:tranzhouse/Models/product_model.dart';
+import 'package:tranzhouse/Pages/Auth/login_page.dart';
+import 'package:tranzhouse/Pages/Client/Cart/products_cart_page.dart';
 import 'package:tranzhouse/Utility/utility.dart';
+import 'package:tranzhouse/Widgets/Containers/Image_gallery_widget.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
 import 'package:tranzhouse/Widgets/Other/appbar_widget.dart';
 import 'package:tranzhouse/Widgets/Other/image_widget.dart';
+import '../../../Getx/Controllers/client_controller.dart';
+import '../../../Models/services_model.dart';
 import '../../../Theme/theme.dart';
+import '../../../Widgets/Buttons/button_widget.dart';
 import '../../../Widgets/Buttons/order_now_button.dart';
+import '../../../Widgets/Modal/confirmation_modal.dart';
 import '../../../Widgets/Text/text_widget.dart';
 
 class SingleProductPage extends StatefulWidget {
@@ -19,32 +28,81 @@ class SingleProductPage extends StatefulWidget {
 }
 
 class _SingleProductPageState extends State<SingleProductPage> {
-  bool _isLiked = false;
   ProductModel? product;
 
   @override
   void initState() {
     super.initState();
-    product == Get.arguments as ProductModel;
+    product = Get.arguments as ProductModel;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-        pageTitle: "Product Name",
+        pageTitle: getText(product?.title ?? LanguagesModel()),
         actions: [
-          TextButton(
-            style: TextButton.styleFrom(
-              backgroundColor: ColorPalette.whiteColor,
-              foregroundColor: ColorPalette.primary,
-              shape: const CircleBorder(),
-              minimumSize: const Size(35, 35),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            onPressed: () {},
-            child: SvgPicture.asset("assets/icons/cart.svg"),
-          ),
+          Obx(() {
+            if (ClientController.to.isProductInCart(product!.id!)) {
+              return TextWidget(
+                "In Cart",
+                style: TextWidget.textStyleCurrent.copyWith(
+                  color: ColorPalette.whiteColor,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ).directionalPadding(end: 4);
+            }
+            return const SizedBox();
+          }),
+          Obx(() {
+            return TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: ColorPalette.whiteColor,
+                foregroundColor: ColorPalette.primary,
+                shape: const CircleBorder(),
+                minimumSize: const Size(35, 35),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              onPressed: ClientController.to.isProductInCart(product!.id!)
+                  ? () {
+                      print(product?.toJson());
+                    }
+                  : () {
+                      if (product?.id != null) {
+                        print(product?.toJson());
+                        // copy product into another object with changes in main product when changes made in copied one
+
+                        ProductModel productModel = ProductModel(
+                          id: product?.id,
+                          language: product?.language,
+                          status: product?.status,
+                          title: product?.title,
+                          price: product?.price,
+                          category: product?.category,
+                          description: product?.description,
+                          images: product?.images,
+                          links: product?.links,
+                          v: product?.v,
+                          quantity: product?.quantity ?? 1,
+                        );
+                        ClientController.to.addItemToCart(productModel,
+                            cartType: CartType.product);
+                        // Get.toNamed(ProductsCartPage.routeName);
+
+                        _showSnackBar();
+                        // ClientController.to.getLocalCartProducts();
+                      }
+                    },
+              child: ClientController.to.isProductInCart(product!.id!)
+                  ? const Icon(
+                      CupertinoIcons.check_mark,
+                      size: 15,
+                      color: ColorPalette.primary,
+                    )
+                  : SvgPicture.asset("assets/icons/cart.svg"),
+            );
+          }),
           AppSpacer.p16(),
         ],
       ),
@@ -54,34 +112,97 @@ class _SingleProductPageState extends State<SingleProductPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppSpacer.p8(),
-            SinglePruductWidget(
-              ctx: context,
-              imageUrl: const [
-                "https://picsum.photos/100/200",
-                "https://picsum.photos/200/200",
-                "https://picsum.photos/300/200",
-                "https://picsum.photos/400/200",
-                "https://picsum.photos/500/200",
-                "https://picsum.photos/600/200",
-                "https://picsum.photos/700/200",
-              ],
-              title: "Title Name",
-              category: "Category Name",
-              description:
-                  "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+            ImageGalleryWidgetState(
+              imagesUrl: product?.images != null
+                  ? product!.images!.where((element) {
+                      return element.urlType == 'image';
+                    }).toList()
+                  : [],
+              price: product?.price.toString() ?? "0",
+              title: getText(
+                product?.title ?? LanguagesModel(),
+              ),
+              description: getText(
+                product?.description ?? LanguagesModel(),
+              ),
             ),
             AppSpacer.p32(),
           ],
         ),
       ),
-      bottomNavigationBar: OrderNowButtonWidget(
-        isLiked: ValueNotifier<bool>(_isLiked),
-        orderNowPressed: () {},
-        onLikeChanged: (value) async {
-          _isLiked = value;
-          print(_isLiked);
+      bottomNavigationBar: Obx(() {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (UserController.to.isUserLoggedin())
+              OrderNowButtonWidget(
+                // isLiked: ValueNotifier<bool>(_isLiked),
+                orderNowPressed: () async {
+                  final value = await ConfirmationDialogWidget.show(
+                    context,
+                    onConfirmed: () async {
+                      Get.back(result: true);
+                    },
+                    bodyText: "Are you sure you want to order this product?",
+                  );
+                  // print(value);
+                  if (value == true) {
+                    await ClientController.to.orderProduct(
+                      pruduct: [
+                        {
+                          "product": product?.id,
+                          "quantity": product?.quantity,
+                        }
+                      ],
+                    );
+                  }
+                },
+              )
+            else
+              ButtonWidget(
+                leading: const Icon(
+                  CupertinoIcons.person_solid,
+                  // color: ColorPalette.whiteColor,
+                ),
+                width: double.maxFinite,
+                text: " Login to order",
+                onPressed: () {
+                  Get.toNamed(LoginPage.routeName, arguments: true);
+                },
+              ).paddingSymmetric(horizontal: 16, vertical: 32),
+          ],
+        );
+      }),
+    );
+  }
+
+  void _showSnackBar() {
+    Get.rawSnackbar(
+      messageText: TextWidget("Product added to cart",
+          style: TextWidget.textStyleCurrent.copyWith(
+            color: ColorPalette.primary,
+            fontSize: 14,
+          )),
+      mainButton: ButtonWidget(
+        backgroundColor: Colors.grey.shade300,
+        textColor: ColorPalette.primary,
+        fontSize: 12,
+        height: 35,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+        text: "View Cart",
+        onPressed: () {
+          Get.closeCurrentSnackbar();
+          Get.toNamed(ProductsCartPage.routeName);
         },
-      ),
+      ).directionalPadding(end: 8),
+      duration: const Duration(seconds: 20),
+      borderRadius: 8,
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
+      isDismissible: true,
+      snackPosition: SnackPosition.BOTTOM,
+      snackStyle: SnackStyle.FLOATING,
+      backgroundColor: ColorPalette.whiteColor,
     );
   }
 }

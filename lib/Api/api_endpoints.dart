@@ -19,6 +19,8 @@ class ClientEndpoints {
   String get productCategories => "products/category";
   String get feedback => "feedback";
   String get metadata => "metadata";
+  String get orderProduct => "products/order";
+  String get orderService => "services/order";
 }
 
 /////////ADMIN/////////

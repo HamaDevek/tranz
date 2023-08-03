@@ -7,22 +7,27 @@ import '../../Theme/theme.dart';
 import '../Other/app_spacer.dart';
 import '../Text/text_widget.dart';
 
-class OrderNowButtonWidget extends StatelessWidget {
+class OrderNowButtonWidget extends StatefulWidget {
   const OrderNowButtonWidget({
     super.key,
     required this.orderNowPressed,
-    required this.onLikeChanged,
+    // required this.onLikeChanged,
     // this.isLiked = false,
-    required this.isLiked,
+    // required this.isLiked,
   });
-  final VoidCallback orderNowPressed;
+  final Future Function() orderNowPressed;
   // final bool isLiked;
-  final Future Function(bool value) onLikeChanged;
-  final ValueNotifier<bool> isLiked;
+  // final Future Function(bool value) onLikeChanged;
+  // final ValueNotifier<bool> isLiked;
 
   @override
+  State<OrderNowButtonWidget> createState() => _OrderNowButtonWidgetState();
+}
+
+class _OrderNowButtonWidgetState extends State<OrderNowButtonWidget> {
+  bool _isLoading = false;
+  @override
   Widget build(BuildContext context) {
-    // ValueNotifier<bool> isLikedValue = ValueNotifier<bool>(false);
     return Container(
       width: double.maxFinite,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -37,35 +42,48 @@ class OrderNowButtonWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              ValueListenableBuilder(
-                valueListenable: isLiked,
-                builder: (context, value, child) {
-                  return TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: ColorPalette.whiteColor,
-                      foregroundColor: ColorPalette.primary,
-                      shape: const CircleBorder(),
-                      minimumSize: const Size(35, 35),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    onPressed: () async {
-                      isLiked.value = !isLiked.value;
-                      await onLikeChanged(isLiked.value);
-                    },
-                    child: Icon(
-                      isLiked.value
-                          ? CupertinoIcons.heart_fill
-                          : CupertinoIcons.heart,
-                      color: ColorPalette.primary,
-                      size: 20,
-                    ),
-                  );
-                },
-              ),
-              AppSpacer.p16(),
+              // if (!_isLoading)
+              //   ValueListenableBuilder(
+              //     valueListenable: widget.isLiked,
+              //     builder: (context, value, child) {
+              //       return TextButton(
+              //         style: TextButton.styleFrom(
+              //           backgroundColor: ColorPalette.whiteColor,
+              //           foregroundColor: ColorPalette.primary,
+              //           shape: const CircleBorder(),
+              //           minimumSize: const Size(35, 35),
+              //           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              //         ),
+              //         onPressed: () async {
+              //           widget.isLiked.value = !widget.isLiked.value;
+              //           await widget.onLikeChanged(widget.isLiked.value);
+              //         },
+              //         child: Icon(
+              //           widget.isLiked.value
+              //               ? CupertinoIcons.heart_fill
+              //               : CupertinoIcons.heart,
+              //           color: ColorPalette.primary,
+              //           size: 20,
+              //         ),
+              //       );
+              //     },
+              //   ),
+              // AppSpacer.p16(),
               Expanded(
                 child: GestureDetector(
-                  onTap: orderNowPressed,
+                  onTap: () async {
+                    if (_isLoading) {
+                      return;
+                    }
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    widget.orderNowPressed().then((value) {
+                      setState(() {
+                        _isLoading = false;
+                      });
+                    });
+                  },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 12),
@@ -77,24 +95,32 @@ class OrderNowButtonWidget extends StatelessWidget {
                         width: .5,
                       ),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/cart.svg",
-                          width: 18,
-                          height: 18,
-                          colorFilter: const ColorFilter.mode(
-                            ColorPalette.yellow,
-                            BlendMode.srcIn,
+                    child: _isLoading
+                        ? const UnconstrainedBox(
+                            constrainedAxis: Axis.vertical,
+                            child: CupertinoActivityIndicator(
+                              radius: 12,
+                              color: ColorPalette.whiteColor,
+                            ),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SvgPicture.asset(
+                                "assets/icons/cart.svg",
+                                width: 18,
+                                height: 18,
+                                colorFilter: const ColorFilter.mode(
+                                  ColorPalette.yellow,
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                              const TextWidget(
+                                "Order Now",
+                              ),
+                              const SizedBox(),
+                            ],
                           ),
-                        ),
-                        const TextWidget(
-                          "Order Now",
-                        ),
-                        const SizedBox(),
-                      ],
-                    ),
                   ),
                 ),
               ),

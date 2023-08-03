@@ -343,30 +343,23 @@ bool isImage(String url) {
 
 enum UrlType { image, video, unknown }
 
-UrlType getUrlType(String url) {
-  Uri uri = Uri.parse(url);
-  String typeString = uri.path.substring(uri.path.length - 3).toLowerCase();
-  if (typeString == "jpg") {
-    return UrlType.image;
-  }
-  if (typeString == "mp4") {
-    return UrlType.video;
-  } else {
-    return UrlType.unknown;
+extension UrlTypeExtension on String {
+  String get urlType {
+    Uri uri = Uri.parse(this);
+    String typeString = uri.path.split(".").last.toString().toLowerCase();
+    if (typeString == "jpg" ||
+        typeString == "png" ||
+        typeString == "jpeg" ||
+        typeString == "webp") {
+      return UrlType.image.name;
+    }
+    if (typeString == "mp4" || typeString == "mov" || typeString == "avi") {
+      return UrlType.video.name;
+    } else {
+      return UrlType.unknown.name;
+    }
   }
 }
 
-extension UrlTypeExtension on String {
-  UrlType get urlType {
-    Uri uri = Uri.parse(this);
-    String typeString = uri.path.split(".").last.toString().toLowerCase();
-    if (typeString == "jpg" || typeString == "png" || typeString == "jpeg") {
-      return UrlType.image;
-    }
-    if (typeString == "mp4" || typeString == "mov" || typeString == "avi") {
-      return UrlType.video;
-    } else {
-      return UrlType.unknown;
-    }
-  }
-}
+ 
+

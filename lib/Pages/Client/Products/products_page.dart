@@ -7,6 +7,7 @@ import 'package:tranzhouse/Pages/Client/Products/tabbar_widget.dart';
 import 'package:tranzhouse/Utility/utility.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
 
+import '../../../Getx/Controllers/client_controller.dart';
 import '../../../Models/product_model.dart';
 import '../../../Models/services_model.dart';
 import '../../../Theme/theme.dart';
@@ -28,31 +29,54 @@ class _ProductsPageState extends State<ProductsPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ProductsController.to.products.clear();
       ProductsController.to.fetchProducts();
+      ClientController.to.getLocalCartItems(cartType:CartType.product );
+    });
+  }
+
+  void refreshPage() async {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ProductsController.to.products.clear();
+      ProductsController.to.fetchProducts();
+      ClientController.to.getLocalCartItems( cartType:CartType.product);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AppSpacer.appBarHeight(),
-        const ProductsTopWidget(),
-        AppSpacer.p20(),
-        TabbarWidget(
-          tabTitles: ProductsController.to.productsCategories
-              .mapIndexed((index, element) => getTitles(element)),
-          // tabTitles:
-          //     ProductsController.to.productsCategories.asMap().entries.map((e) {
-          //   print(e.key);
-          //   return getTitles(e.value);
-          // }).toList(),
-          onTabChanged: (index) {},
-        ),
-        AppSpacer.p20(),
-        const Expanded(child: GridsWidget()),
-      ],
+        body: RefreshIndicator(
+      onRefresh: () async {
+        refreshPage();
+      },
+      edgeOffset: 100,
+      // backgroundColor: ColorPalette.whiteColor,
+      // color: ColorPalette.primary,
+      strokeWidth: 2,
+      child: Obx(() {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppSpacer.appBarHeight(),
+            const ProductsTopWidget(),
+            AppSpacer.p20(),
+            if (ProductsController.to.productsCategories.isNotEmpty)
+              TabbarWidget(
+                tabTitles: ProductsController.to.productsCategories
+                    .mapIndexed((index, element) => getTitles(element)),
+                // tabTitles:
+                //     ProductsController.to.productsCategories.asMap().entries.map((e) {
+                //   print(e.key);
+                //   return getTitles(e.value);
+                // }).toList(),
+                onTabChanged: (index) {},
+              ),
+            AppSpacer.p20(),
+            const Expanded(
+              child: GridsWidget(),
+            ),
+          ],
+        );
+      }),
     ));
   }
 
@@ -159,7 +183,7 @@ class ProductsTopWidget extends StatelessWidget {
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
               onPressed: () {
-                Get.toNamed(CartPage.routeName);
+                Get.toNamed(ProductsCartPage.routeName);
               },
               child: SvgPicture.asset("assets/icons/cart.svg")),
           AppSpacer.p8(),

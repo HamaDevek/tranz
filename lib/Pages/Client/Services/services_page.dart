@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tranzhouse/Models/services_model.dart';
 import 'package:tranzhouse/Theme/theme.dart';
@@ -35,17 +34,17 @@ class _ServicesPageState extends State<ServicesPage> {
       appBar: AppBarWidget(
         pageTitle: "Services",
         actions: [
-          TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: ColorPalette.whiteColor,
-                foregroundColor: ColorPalette.primary,
-                shape: const CircleBorder(),
-                minimumSize: const Size(35, 35),
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
-              onPressed: () {},
-              child: SvgPicture.asset("assets/icons/cart.svg")),
-          AppSpacer.p8(),
+          // TextButton(
+          //     style: TextButton.styleFrom(
+          //       backgroundColor: ColorPalette.whiteColor,
+          //       foregroundColor: ColorPalette.primary,
+          //       shape: const CircleBorder(),
+          //       minimumSize: const Size(35, 35),
+          //       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          //     ),
+          //     onPressed: () {},
+          //     child: SvgPicture.asset("assets/icons/cart.svg")),
+          // AppSpacer.p8(),
           TextButton(
             style: TextButton.styleFrom(
               backgroundColor: ColorPalette.whiteColor,

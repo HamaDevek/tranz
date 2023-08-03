@@ -33,6 +33,34 @@ class ProductModel {
     this.quantity = 1,
   });
 
+  ProductModel copyWith({
+    String? id,
+    String? language,
+    String? status,
+    LanguagesModel? title,
+    int? price,
+    String? category,
+    LanguagesModel? description,
+    List<String>? images,
+    List<String>? links,
+    int? v,
+    int? quantity,
+  }) {
+    return ProductModel(
+      id: id ?? this.id,
+      language: language ?? this.language,
+      status: status ?? this.status,
+      title: title ?? this.title,
+      price: price ?? this.price,
+      category: category ?? this.category,
+      description: description ?? this.description,
+      images: images ?? this.images,
+      links: links ?? this.links,
+      v: v ?? this.v,
+      quantity: quantity ?? this.quantity,
+    );
+  }
+
   factory ProductModel.fromRawJson(String str) =>
       ProductModel.fromJson(json.decode(str));
 
@@ -113,3 +141,7 @@ class ProductCategory {
         "__v": v,
       };
 }
+
+
+
+

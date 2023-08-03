@@ -22,7 +22,9 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    _navigateToNextPage();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _navigateToNextPage();
+    });
   }
 
   void _navigateToNextPage() async {

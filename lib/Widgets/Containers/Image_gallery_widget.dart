@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:intl/intl.dart';
 
 import '../../Theme/theme.dart';
 import '../../Utility/utility.dart';
@@ -137,6 +138,7 @@ class _ImageGalleryWidgetStateState extends State<ImageGalleryWidgetState> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
@@ -151,7 +153,10 @@ class _ImageGalleryWidgetStateState extends State<ImageGalleryWidgetState> {
               ),
               if (widget.price != null)
                 TextWidget(
-                  "\$${widget.price}",
+                  NumberFormat.currency(
+                    customPattern: "###,###,###,### IQD",
+                    decimalDigits: 0,
+                  ).format(int.parse(widget.price!)),
                   style: TextWidget.textStyleCurrent.copyWith(
                     color: ColorPalette.whiteColor,
                     fontWeight: FontWeight.w600,

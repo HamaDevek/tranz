@@ -4,8 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
-import '../../Theme/theme.dart';
-
 class ImageWidget extends StatelessWidget {
   const ImageWidget({
     super.key,
@@ -83,17 +81,7 @@ class ImageWidget extends StatelessWidget {
               ),
               errorWidget: placeholder != null
                   ? (context, url, error) => placeholder!
-                  : (context, url, error) => const DecoratedBox(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: ColorPalette.whiteColor,
-                        ),
-                        child: Icon(
-                          CupertinoIcons.person_solid,
-                          size: 60,
-                          color: ColorPalette.primary,
-                        ),
-                      ),
+                  : (context, url, error) => placeholder ?? const SizedBox(),
               cacheManager: CacheManager(
                 Config(
                   imageUrl ?? '',

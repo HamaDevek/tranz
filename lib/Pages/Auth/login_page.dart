@@ -5,6 +5,7 @@ import 'package:tranzhouse/Theme/theme.dart';
 import 'package:tranzhouse/Utility/utility.dart';
 import 'package:tranzhouse/Widgets/Buttons/request_button.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
+import 'package:tranzhouse/Widgets/Other/appbar_widget.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
 import 'package:tranzhouse/Widgets/TextField/textfield_widget.dart';
 
@@ -22,6 +23,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool isFromOrder = false;
   late TextEditingController phoneController;
   late TextEditingController passwordController;
   final ValueNotifier<bool> _isObscure = ValueNotifier<bool>(true);
@@ -30,6 +32,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    isFromOrder = Get.arguments ?? false;
     phoneController = TextEditingController();
     passwordController = TextEditingController();
   }
@@ -48,6 +51,12 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: isFromOrder
+          ? const AppBarWidget(
+              backgroundColor: Colors.transparent,
+            )
+          : null,
       backgroundColor: ColorPalette.black,
       body: SizedBox(
         height: screenHeight(context),
@@ -67,23 +76,24 @@ class _LoginPageState extends State<LoginPage> {
                   "assets/images/logo.png",
                   width: screenWidth(context) * 0.5,
                 ),
-                PositionedDirectional(
-                  end: 16,
-                  top: 64,
-                  child: ButtonWidget(
-                    text: "Skip",
-                    textColor: ColorPalette.primary,
-                    fontSize: 14,
-                    borderRadius: 100,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 0,
+                if (!isFromOrder)
+                  PositionedDirectional(
+                    end: 16,
+                    top: 64,
+                    child: ButtonWidget(
+                      text: "Skip",
+                      textColor: ColorPalette.primary,
+                      fontSize: 14,
+                      borderRadius: 100,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 0,
+                      ),
+                      onPressed: () {
+                        Get.offAllNamed(ClientMainPage.routeName);
+                      },
                     ),
-                    onPressed: () {
-                      Get.offAllNamed(ClientMainPage.routeName);
-                    },
                   ),
-                ),
               ],
             ),
             Positioned(
@@ -212,7 +222,11 @@ class _LoginPageState extends State<LoginPage> {
                             );
 
                             if (res.isSuccess) {
-                              Get.offAllNamed(ClientMainPage.routeName);
+                              if (isFromOrder) {
+                                Get.back();
+                              } else {
+                                Get.offAllNamed(ClientMainPage.routeName);
+                              }
                             }
                           }
                           // Get.toNamed(AdminMainPage.routeName);

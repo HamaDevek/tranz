@@ -25,19 +25,19 @@ class ButtonWidget extends StatelessWidget {
     Key? key,
     required this.text,
     this.backgroundColor = ColorPalette.yellow,
-    this.textColor = Colors.white,
+    this.textColor = ColorPalette.primary,
     required this.onPressed,
     this.height,
     this.width,
     this.leading,
     this.trailing,
     this.borderColor,
-    this.borderRadius = 10,
+    this.borderRadius = 20,
     this.textStyle,
     this.onLongPress,
     this.padding = const EdgeInsets.symmetric(vertical: 12, horizontal: 0),
     this.textAlignment = Alignment.center,
-    this.fontSize = 18,
+    this.fontSize = 16,
   }) : super(key: key);
 
   @override
@@ -47,14 +47,12 @@ class ButtonWidget extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius),
-        
-        
       ),
       child: TextButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
           foregroundColor: textColor,
-          backgroundColor:  backgroundColor,
+          backgroundColor: backgroundColor,
           padding: padding,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
