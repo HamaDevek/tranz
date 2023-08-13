@@ -59,9 +59,7 @@ class _SingleServicePageState extends State<SingleServicePage> {
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
               onPressed: ClientController.to.isServicenCart(service.id!)
-                  ? () {
-                      print(service.toJson());
-                    }
+                  ? () {}
                   : () {
                       if (service.id != null) {
                         print(service.toJson());
@@ -78,6 +76,9 @@ class _SingleServicePageState extends State<SingleServicePage> {
                           parent: service.parent,
                           status: service.status,
                           v: service.v,
+                          price: service.price,
+                          quantity: service.quantity,
+                          updatedAt: service.updatedAt,
                         );
                         ClientController.to.addItemToCart(
                           copiedService,
@@ -104,32 +105,31 @@ class _SingleServicePageState extends State<SingleServicePage> {
             children: [
               AppSpacer.p8(),
               ImageGalleryWidgetState(
-                imagesUrl: service.images != null
-                    ? service.images!.where((element) {
-                        return element.urlType == 'image';
-                      }).toList()
-                    : [],
-                title: getText(service.title ?? LanguagesModel()),
-                description: getText(service.description ?? LanguagesModel()),
-                date: DateTime.parse(DateTime.now()
-                    .subtract(const Duration(days: 1))
-                    .toString()),
+                imagesUrl: service.images ?? [],
+                title: getText(
+                    service.title ?? LanguagesModel(en: "", ar: "", ku: "")),
+                description: getText(service.description ??
+                    LanguagesModel(en: "", ar: "", ku: "")),
+                // date: DateTime.parse(DateTime.now()
+                //     .subtract(const Duration(days: 1))
+                //     .toString()),
+                price: service.price,
               ),
-              AppSpacer.p20(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: AspectRatio(
-                  aspectRatio: 16 / 8,
-                  child: Container(
-                    color: ColorPalette.greyText,
-                    child: const Center(
-                      child: TextWidget(
-                        "Video",
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              // AppSpacer.p20(),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 16),
+              //   child: AspectRatio(
+              //     aspectRatio: 16 / 8,
+              //     child: Container(
+              //       color: ColorPalette.greyText,
+              //       child: const Center(
+              //         child: TextWidget(
+              //           "Video",
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               AppSpacer.p32(),
             ],
           ),
@@ -167,7 +167,7 @@ class _SingleServicePageState extends State<SingleServicePage> {
                   // color: ColorPalette.whiteColor,
                 ),
                 width: double.maxFinite,
-                text: " Login to order",
+                text: "Login to order",
                 onPressed: () {
                   Get.toNamed(LoginPage.routeName, arguments: true);
                 },

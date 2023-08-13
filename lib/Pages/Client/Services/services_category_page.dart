@@ -11,6 +11,7 @@ import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
 
 import '../../../Getx/Controllers/client_controller.dart';
+import '../../../Utility/constants.dart';
 import '../../../Widgets/Containers/services_tile_widget.dart';
 import '../Cart/products_cart_page.dart';
 import '../Cart/services_cart_page.dart';
@@ -92,29 +93,34 @@ class ListWidget extends StatelessWidget {
             ColorPalette.whiteColor,
           ],
         ),
-        child: ListView.separated(
-          shrinkWrap: true,
-          padding: const EdgeInsets.only(bottom: 100, left: 16, right: 16),
-          itemCount: ServicesController.to.serviceCategories.length,
-          separatorBuilder: (context, index) => AppSpacer.p16(),
-          itemBuilder: (context, index) {
-            final category = ServicesController.to.serviceCategories[index];
-            print(category.category?.image);
-            return ServicesTileWidget(
-              imageUrl:
-                  category.category?.image ?? "https://picsum.photos/300/300",
-              title: getTitlesCategory(category.category ?? Category()),
-              description: "Tap Category to see all services in this category",
-              isGrid: false,
-              onTap: () {
-                // print("object");
+        child: ServicesController.to.servicesLoading.value
+            ? const ServiceCategoryLoadingWidget()
+            : ListView.separated(
+                shrinkWrap: true,
+                padding:
+                    const EdgeInsets.only(bottom: 100, left: 16, right: 16),
+                itemCount: ServicesController.to.serviceCategories.length,
+                separatorBuilder: (context, index) => AppSpacer.p16(),
+                itemBuilder: (context, index) {
+                  final category =
+                      ServicesController.to.serviceCategories[index];
 
-                Get.toNamed(ServicesPage.routeName,
-                    arguments: category.services);
-              },
-            );
-          },
-        ),
+                  return ServicesTileWidget(
+                    imageUrl: category.category?.image ??
+                        "https://picsum.photos/400/200",
+                    title: getTitlesCategory(category.category ?? Category()),
+                    description:
+                        "Tap Category to see all services in this category",
+                    isGrid: false,
+                    onTap: () {
+                      // print("object");
+
+                      Get.toNamed(ServicesPage.routeName,
+                          arguments: category.services);
+                    },
+                  );
+                },
+              ),
       );
     });
   }
@@ -156,6 +162,35 @@ class _ServicesTopWidgetState extends State<ServicesTopWidget> {
           child: SvgPicture.asset("assets/icons/cart.svg"),
         ),
       ],
+    );
+  }
+}
+
+class ServiceCategoryLoadingWidget extends StatelessWidget {
+  const ServiceCategoryLoadingWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      shrinkWrap: true,
+      padding: const EdgeInsets.only(bottom: 100, left: 16, right: 16),
+      itemCount: 3,
+      separatorBuilder: (context, index) => AppSpacer.p16(),
+      itemBuilder: (context, index) {
+        final category = fakeServiceCategories[index];
+
+        return ServicesTileWidget(
+          imageUrl: category.category?.image ?? "https://picsum.photos/400/200",
+          title: category.category?.nameEn ?? "Tittle",
+          description: "Tap Category to see all services in this category",
+          isGrid: false,
+          onTap: () {
+            // print("object");
+
+            Get.toNamed(ServicesPage.routeName, arguments: category.services);
+          },
+        );
+      },
     );
   }
 }

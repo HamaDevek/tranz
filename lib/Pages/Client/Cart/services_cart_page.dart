@@ -67,9 +67,10 @@ class _ServicesCartPageState extends State<ServicesCartPage> {
                 opacity: animation,
                 child: CartWidget(
                   cartType: CartType.service,
-                  title: getText(item.title ?? LanguagesModel()),
+                  title: getText(
+                      item.title ?? LanguagesModel(en: "", ar: "", ku: "")),
                   quantity: item.quantity,
-                  price: item.price!,
+                  price: item.price ?? 0,
                   onQuantityChanged: (newQuantity) {},
                 ),
               ),
@@ -86,7 +87,7 @@ class _ServicesCartPageState extends State<ServicesCartPage> {
     return Obx(() {
       return Scaffold(
           appBar: const AppBarWidget(
-            pageTitle: "My Services Cart",
+            pageTitle: "Services Cart",
           ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -105,21 +106,15 @@ class _ServicesCartPageState extends State<ServicesCartPage> {
                       sizeFactor: animation,
                       child: CartWidget(
                         cartType: CartType.service,
-                        title: getText(item.title ?? LanguagesModel()),
+                        title: getText(item.title ??
+                            LanguagesModel(en: "", ar: "", ku: "")),
                         imageUrl: item.images?.first ?? "",
                         quantity: item.quantity,
                         price: item.price ?? 0,
-                        onQuantityChanged: (newQuantity) {
-                          item.quantity = newQuantity.value;
-                          if (item.quantity == 0) {
-                            ClientController.to.removeItemFromCart(index,
-                                cartType: CartType.service);
-                            _removeItem(index, item);
-                          } else {
-                            ClientController.to.updateItemInCart(index,
-                                cartType: CartType.service, item: item);
-                          }
-
+                        onRemoveService: () {
+                          ClientController.to.removeItemFromCart(index,
+                              cartType: CartType.service);
+                          _removeItem(index, item);
                           getTotalPrice();
                           setState(() {});
                         },
@@ -159,54 +154,53 @@ class _ServicesCartPageState extends State<ServicesCartPage> {
           bottomNavigationBar: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              UserController.to.isUserLoggedin()
-                  ? ClientController.to.cartServices.isNotEmpty
-                      ? OrderNowButtonWidgetWithTotalPrice(
-                          orderNowPressed: () async {
-                            final value = await ConfirmationDialogWidget.show(
-                              context,
-                              onConfirmed: () async {
-                                Get.back(result: true);
-                              },
-                              bodyText:
-                                  "Are you sure you want to order this product?",
+              if (ClientController.to.cartServices.isNotEmpty) ...[
+                UserController.to.isUserLoggedin()
+                    ? OrderNowButtonWidgetWithTotalPrice(
+                        orderNowPressed: () async {
+                          final value = await ConfirmationDialogWidget.show(
+                            context,
+                            onConfirmed: () async {
+                              Get.back(result: true);
+                            },
+                            bodyText:
+                                "Are you sure you want to order this service?",
+                          );
+                          // print(value);
+                          if (value == true) {
+                            final res = await ClientController.to.orderService(
+                              service: ClientController.to.cartServices
+                                  .map((element) {
+                                return {
+                                  "service": element.id,
+                                };
+                              }).toList(),
                             );
-                            // print(value);
-                            if (value == true) {
-                              final res =
-                                  await ClientController.to.orderService(
-                                service: ClientController.to.cartServices
-                                    .map((element) {
-                                  return {
-                                    "service": element.id,
-                                  };
-                                }).toList(),
-                              );
 
-                              if (res.isSuccess) {
-                                ClientController.to
-                                    .clearCart(cartType: CartType.service);
-                                animatedListKey.currentState!.removeAllItems(
-                                  (context, animation) => const SizedBox(),
-                                  duration: const Duration(milliseconds: 300),
-                                );
-                              }
+                            if (res.isSuccess) {
+                              ClientController.to
+                                  .clearCart(cartType: CartType.service);
+                              animatedListKey.currentState!.removeAllItems(
+                                (context, animation) => const SizedBox(),
+                                duration: const Duration(milliseconds: 300),
+                              );
                             }
-                          },
-                          totalPrice: getTotalPrice(),
-                        )
-                      : const SizedBox()
-                  : ButtonWidget(
-                      leading: const Icon(
-                        CupertinoIcons.person_solid,
-                        // color: ColorPalette.whiteColor,
-                      ),
-                      width: double.maxFinite,
-                      text: " Login to order",
-                      onPressed: () {
-                        Get.toNamed(LoginPage.routeName, arguments: true);
-                      },
-                    ).paddingSymmetric(horizontal: 16, vertical: 32),
+                          }
+                        },
+                        totalPrice: getTotalPrice(),
+                      )
+                    : ButtonWidget(
+                        leading: const Icon(
+                          CupertinoIcons.person_solid,
+                          // color: ColorPalette.whiteColor,
+                        ),
+                        width: double.maxFinite,
+                        text: " Login to order",
+                        onPressed: () {
+                          Get.toNamed(LoginPage.routeName, arguments: true);
+                        },
+                      ).paddingSymmetric(horizontal: 16, vertical: 32),
+              ]
             ],
           ));
     });

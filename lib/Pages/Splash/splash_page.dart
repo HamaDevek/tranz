@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tranzhouse/Pages/Admin/Main/admin_main_page.dart';
 import 'package:tranzhouse/Pages/Client/Main%20Page/main_page.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
@@ -8,7 +9,6 @@ import '../../Getx/Controllers/language_controller.dart';
 import '../../Getx/Controllers/user_controller.dart';
 import '../../Models/user_model.dart';
 import '../../Utility/prints.dart';
-import '../Auth/login_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -36,11 +36,18 @@ class _SplashPageState extends State<SplashPage> {
         await UserController.to.authStorage.remove('auth');
         prints('access token splash: ${UserController.to.user?.value.token}',
             tag: 'error');
-        Get.offAllNamed(LoginPage.routeName);
-      } else {
         Get.offAllNamed(ClientMainPage.routeName);
-        prints('access token splash: ${UserController.to.user?.value.token}',
-            tag: 'success');
+      } else {
+        if (UserController.to.user?.value.user?.employee != null &&
+            UserController.to.user?.value.user?.employee ==true) {
+          Get.offAllNamed(AdminMainPage.routeName);
+          prints('access token splash: ${UserController.to.user?.value.token}',
+              tag: 'success');
+        } else {
+          Get.offAllNamed(ClientMainPage.routeName);
+          prints('access token splash: ${UserController.to.user?.value.token}',
+              tag: 'success');
+        }
       }
 
       // Get.toNamed(ClientMainPage.routeName);

@@ -99,6 +99,7 @@ class Service {
   Category? category;
   int? price;
   int quantity;
+  DateTime? updatedAt;
 
   Service({
     this.id,
@@ -113,7 +114,8 @@ class Service {
     this.v,
     this.category,
     this.price,
-    this.quantity=1,
+    this.quantity = 1,
+    this.updatedAt,
   });
 
   Service copyWith({
@@ -175,8 +177,11 @@ class Service {
         category: json["category"] == null
             ? null
             : Category.fromJson(json["category"]),
-            price: json["price"]??0,
-            quantity: json["quantity"]??1,
+        price: json["price"] ?? 0,
+        quantity: json["quantity"] ?? 1,
+        updatedAt: json["updatedAt"] == null
+            ? null
+            : DateTime.parse(json["updatedAt"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -196,6 +201,7 @@ class Service {
         "category": category?.toJson(),
         "price": price,
         "quantity": quantity,
+        "updatedAt": updatedAt?.toIso8601String(),
       };
 }
 

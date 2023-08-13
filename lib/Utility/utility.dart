@@ -1,10 +1,13 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'dart:ui' as ui;
+import 'package:dio/dio.dart' as dios;
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:timeago/timeago.dart';
 import 'package:tranzhouse/Models/services_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../Models/product_model.dart';
@@ -35,111 +38,6 @@ String dateTimeFormat({required String date, String? format}) {
 
 int? calculateDateWithNow(date) {
   return (date.difference(DateTime.now()).inDays * -1);
-}
-
-class MyCustomMessages implements LookupMessages {
-  @override
-  String prefixAgo() => '';
-  @override
-  String prefixFromNow() => '';
-  @override
-  String suffixAgo() => '';
-  @override
-  String suffixFromNow() => '';
-  @override
-  String lessThanOneMinute(int seconds) => 'Now'.tr;
-  @override
-  String aboutAMinute(int minutes) => 'Minute ago'.tr;
-  @override
-  String minutes(int minutes) {
-    if (minutes == 1) {
-      return 'Minute ago'.tr;
-    }
-    return "language.rtl".tr.parseBool
-        ? 'Minutes ago'.trParams({
-            'minutes': '${replaceKurdishNumber('$minutes')}',
-          })
-        : 'Minutes ago'.trParams({
-            'minutes': '$minutes',
-          });
-    // return '$minutes ${'label.minutes.ago'.tr}';
-  }
-
-  @override
-  String aboutAnHour(int minutes) => 'Hour ago';
-  @override
-  String hours(int hours) {
-    if (hours == 1) {
-      return 'Hour ago';
-    }
-    return "language.rtl".tr.parseBool
-        ? 'Hours ago'.trParams({
-            "hours": "${replaceKurdishNumber('$hours')}",
-          })
-        : 'Hours ago'.trParams({
-            "hours": "$hours",
-          });
-    // return '$hours ${'label.hours.ago'.tr}';
-  }
-
-  @override
-  String aDay(int hours) {
-    return 'Yesterday'.tr;
-  }
-
-  @override
-  String days(int days) {
-    if (days == 1) {
-      return 'Yesterday'.tr;
-    }
-    return "language.rtl".tr.parseBool
-        ? 'd ago'.trParams({
-            "days": "${replaceKurdishNumber('$days')}",
-          })
-        : 'd ago'.trParams({
-            'days': '$days',
-          });
-
-    // return '$days${'d ago'.tr}';
-  }
-
-  @override
-  String aboutAMonth(int days) => 'Month ago'.tr;
-  @override
-  String months(int months) {
-    {
-      if (months == 1) {
-        return "Month ago".tr;
-      }
-      return "language.rtl".tr.parseBool
-          ? 'Months ago'.trParams({
-              'months': '${replaceKurdishNumber('$months')}',
-            })
-          : 'Months ago'.trParams({
-              'months': '$months',
-            });
-      // return '$months ${'label.months.ago'.tr}';
-    }
-  }
-
-  @override
-  String aboutAYear(int year) => 'Year ago';
-  @override
-  String years(int years) {
-    if (years == 1) {
-      return 'Year ago'.tr;
-    }
-    return "language.rtl".tr.parseBool
-        ? 'Years ago'.trParams({
-            'years': '${replaceKurdishNumber('$years')}',
-          })
-        : 'Years ago'.trParams({
-            'years': '$years',
-          });
-  }
-
-  @override
-  String wordSeparator() => ' '.tr;
 }
 
 void scrollToSelectedContent({GlobalKey? expansionTileKey, double? alignment}) {
@@ -361,5 +259,23 @@ extension UrlTypeExtension on String {
   }
 }
 
- 
+Future<String> imageToBase64(File imageFile) async {
+  return base64Encode(imageFile.readAsBytesSync());
+}
 
+Future<dios.Response> sendForm(
+    String url, Map<String, dynamic> data, Map<String, File> files) async {
+  Map<String, dios.MultipartFile> fileMap = {};
+  for (MapEntry fileEntry in files.entries) {
+    File file = fileEntry.value;
+    String fileName = file.path.split('/').last;
+    fileMap[fileEntry.key] = dios.MultipartFile(
+        file.openRead(), await file.length(),
+        filename: fileName);
+  }
+  data.addAll(fileMap);
+  var formData = dios.FormData.fromMap(data);
+  Dio dio = Dio();
+  return await dio.post(url,
+      data: formData, options: Options(contentType: 'multipart/form-data'));
+}

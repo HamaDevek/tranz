@@ -75,10 +75,11 @@ class _ProductsCartPageState extends State<ProductsCartPage> {
                 opacity: animation,
                 child: CartWidget(
                   cartType: CartType.product,
-                  title: getText(item.title ?? LanguagesModel()),
+                  title: getText(
+                      item.title ?? LanguagesModel(en: "", ar: "", ku: "")),
                   imageUrl: item.images?.first ?? "",
                   quantity: item.quantity,
-                  price: item.price!,
+                  price: item.price ?? 0,
                   onQuantityChanged: (newQuantity) {},
                 ),
               ),
@@ -95,7 +96,7 @@ class _ProductsCartPageState extends State<ProductsCartPage> {
     return Obx(() {
       return Scaffold(
         appBar: const AppBarWidget(
-          pageTitle: "My Products Cart",
+          pageTitle: "Products Cart",
         ),
         body: Column(
           children: [
@@ -118,10 +119,11 @@ class _ProductsCartPageState extends State<ProductsCartPage> {
                           sizeFactor: animation,
                           child: CartWidget(
                             cartType: CartType.product,
-                            title: getText(item.title ?? LanguagesModel()),
+                            title: getText(item.title ??
+                                LanguagesModel(en: "", ar: "", ku: "")),
                             imageUrl: item.images?.first ?? "",
                             quantity: item.quantity,
-                            price: item.price!,
+                            price: item.price ?? 0,
                             onQuantityChanged: (newQuantity) {
                               item.quantity = newQuantity.value;
                               if (item.quantity == 0) {
@@ -170,54 +172,54 @@ class _ProductsCartPageState extends State<ProductsCartPage> {
                 ),
               ),
             ),
-            UserController.to.isUserLoggedin()
-                ? ClientController.to.cartProducts.isNotEmpty
-                    ? OrderNowButtonWidgetWithTotalPrice(
-                        orderNowPressed: () async {
-                          final value = await ConfirmationDialogWidget.show(
-                            context,
-                            onConfirmed: () async {
-                              Get.back(result: true);
-                            },
-                            bodyText:
-                                "Are you sure you want to order this product?",
+            if (ClientController.to.cartProducts.isNotEmpty) ...[
+              UserController.to.isUserLoggedin()
+                  ? OrderNowButtonWidgetWithTotalPrice(
+                      orderNowPressed: () async {
+                        final value = await ConfirmationDialogWidget.show(
+                          context,
+                          onConfirmed: () async {
+                            Get.back(result: true);
+                          },
+                          bodyText:
+                              "Are you sure you want to order this product?",
+                        );
+                        // print(value);
+                        if (value == true) {
+                          final res = await ClientController.to.orderProduct(
+                            pruduct:
+                                ClientController.to.cartProducts.map((element) {
+                              return {
+                                "product": element.id,
+                                "quantity": element.quantity,
+                              };
+                            }).toList(),
                           );
-                          // print(value);
-                          if (value == true) {
-                            final res = await ClientController.to.orderProduct(
-                              pruduct: ClientController.to.cartProducts
-                                  .map((element) {
-                                return {
-                                  "product": element.id,
-                                  "quantity": element.quantity,
-                                };
-                              }).toList(),
-                            );
 
-                            if (res.isSuccess) {
-                              ClientController.to
-                                  .clearCart(cartType: CartType.product);
-                              animatedListKey.currentState!.removeAllItems(
-                                (context, animation) => const SizedBox(),
-                                duration: const Duration(milliseconds: 300),
-                              );
-                            }
+                          if (res.isSuccess) {
+                            ClientController.to
+                                .clearCart(cartType: CartType.product);
+                            animatedListKey.currentState!.removeAllItems(
+                              (context, animation) => const SizedBox(),
+                              duration: const Duration(milliseconds: 300),
+                            );
                           }
-                        },
-                        totalPrice: getTotalPrice(),
-                      )
-                    : const SizedBox()
-                : ButtonWidget(
-                    leading: const Icon(
-                      CupertinoIcons.person_solid,
-                      // color: ColorPalette.whiteColor,
-                    ),
-                    width: double.maxFinite,
-                    text: " Login to order",
-                    onPressed: () {
-                      Get.toNamed(LoginPage.routeName, arguments: true);
-                    },
-                  ).paddingSymmetric(horizontal: 16, vertical: 32),
+                        }
+                      },
+                      totalPrice: getTotalPrice(),
+                    )
+                  : ButtonWidget(
+                      leading: const Icon(
+                        CupertinoIcons.person_solid,
+                        // color: ColorPalette.whiteColor,
+                      ),
+                      width: double.maxFinite,
+                      text: " Login to order",
+                      onPressed: () {
+                        Get.toNamed(LoginPage.routeName, arguments: true);
+                      },
+                    ).paddingSymmetric(horizontal: 16, vertical: 32),
+            ]
           ],
         ),
       );
@@ -233,14 +235,16 @@ class CartWidget extends StatefulWidget {
     this.imageUrl,
     this.quantity = 1,
     this.price = 0,
-    required this.onQuantityChanged,
+    this.onQuantityChanged,
+    this.onRemoveService,
   });
   final CartType cartType;
   final String? title;
   final String? imageUrl;
   final int quantity;
   final int price;
-  final Function(ValueNotifier<int> newQuantity) onQuantityChanged;
+  final Function(ValueNotifier<int> newQuantity)? onQuantityChanged;
+  final VoidCallback? onRemoveService;
 
   @override
   State<CartWidget> createState() => _CartWidgetState();
@@ -257,13 +261,13 @@ class _CartWidgetState extends State<CartWidget> {
 
   void _increment() {
     currentQuantity.value++;
-    widget.onQuantityChanged(currentQuantity);
+    widget.onQuantityChanged!(currentQuantity);
   }
 
   void _decrement() {
     if (currentQuantity.value > 0) {
       currentQuantity.value--;
-      widget.onQuantityChanged(currentQuantity);
+      widget.onQuantityChanged!(currentQuantity);
     }
   }
 
@@ -284,7 +288,7 @@ class _CartWidgetState extends State<CartWidget> {
             child: ImageWidget(
               borderRadius: 0,
               width: double.infinity,
-              imageUrl: widget.imageUrl ?? "https://picsum.photos/400/200",
+              imageUrl: widget.imageUrl ?? "",
             ),
           ),
           Expanded(
@@ -391,6 +395,26 @@ class _CartWidgetState extends State<CartWidget> {
                                 ),
                               ),
                             ],
+                          ),
+                        ] else ...[
+                          AppSpacer.p8(),
+                          ButtonWidget(
+                            text: "Remove",
+                            leading: const Icon(
+                              Icons.remove,
+                              color: ColorPalette.primaryDark,
+                              size: 15,
+                            ),
+                            height: 30,
+                            fontSize: 10,
+                            borderRadius: 10,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 0,
+                            ),
+                            backgroundColor: ColorPalette.whiteColor,
+                            textColor: ColorPalette.primaryDark,
+                            onPressed: widget.onRemoveService ?? () {},
                           ),
                         ]
                       ],

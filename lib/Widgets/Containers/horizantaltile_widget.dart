@@ -8,8 +8,8 @@ import '../Text/text_widget.dart';
 
 enum OrderStatus {
   pending,
-  completed,
-  declined,
+  accepted,
+  rejected,
 }
 
 class HorizantalTileWidget extends StatelessWidget {
@@ -20,18 +20,20 @@ class HorizantalTileWidget extends StatelessWidget {
     required this.date,
     required this.status,
     required this.onTap,
+    this.cardColor = ColorPalette.whiteColor,
   });
   final String title;
   final String subtitle;
   final String date;
   final OrderStatus status;
   final Function() onTap;
+  final Color cardColor;
 
   @override
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(18),
-      color: ColorPalette.whiteColor,
+      color: cardColor,
       child: Stack(
         children: [
           Image.asset(
@@ -53,7 +55,7 @@ class HorizantalTileWidget extends StatelessWidget {
                 ),
                 AppSpacer.p4(),
                 TextWidget(
-                  title,  
+                  title,
                   style: TextWidget.textStyleCurrent.copyWith(
                     fontWeight: FontWeight.w600,
                     color: ColorPalette.primary,
@@ -71,6 +73,7 @@ class HorizantalTileWidget extends StatelessWidget {
             ),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextWidget(
                   "Ordered on",
@@ -83,7 +86,7 @@ class HorizantalTileWidget extends StatelessWidget {
                 TextWidget(
                   dateTimeFormat(
                     date: date,
-                    format: "dd.MM.yyyy",
+                    format: "dd.MM.yyyy hh:mm a",
                   ),
                   style: TextWidget.textStyleCurrent.copyWith(
                     fontSize: 12,
@@ -102,9 +105,9 @@ class HorizantalTileWidget extends StatelessWidget {
     switch (status) {
       case OrderStatus.pending:
         return ColorPalette.yellow;
-      case OrderStatus.completed:
+      case OrderStatus.accepted:
         return ColorPalette.green;
-      case OrderStatus.declined:
+      case OrderStatus.rejected:
         return ColorPalette.red;
       default:
         return ColorPalette.primary;

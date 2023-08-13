@@ -44,11 +44,9 @@ class ServicesController extends GetxController {
       url: getUrl(
         key: ApiEndpoint().client.services,
       ),
-      
     );
 
     if (res.isSuccess) {
-      serviceCategories.clear();
       serviceCategories.addAll(
         (res.data['services'] as List)
             .map<ServicesModel>(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:tranzhouse/Pages/Admin/Main/admin_main_page.dart';
 import 'package:tranzhouse/Theme/theme.dart';
 import 'package:tranzhouse/Utility/utility.dart';
 import 'package:tranzhouse/Widgets/Buttons/request_button.dart';
@@ -139,20 +139,42 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: "Phone Number",
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return "Please enter your phone number";
-                          } else if (value.length < 12) {
+                            return "This field is required";
+                          } else if (GetUtils.isNumericOnly(value) &&
+                              value.length < 10) {
                             return "Please enter a valid phone number";
                           }
                           return null;
                         },
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp(r'[0-9 ]')),
-                          MaskedTextInputFormatter(
-                            mask: "### ### ####",
-                            separator: ' ',
+                        // inputFormatters: [
+                        //   FilteringTextInputFormatter.allow(RegExp(r'[0-9 ]')),
+                        //   MaskedTextInputFormatter(
+                        //     mask: "### ### ####",
+                        //     separator: ' ',
+                        //   ),
+                        // ],
+                      ),
+                      Row(
+                        children: [
+                          TextWidget(
+                            "E.g.",
+                            style: TextWidget.textStyleCurrent.copyWith(
+                              // fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: ColorPalette.whiteColor,
+                            ),
+                          ),
+                          AppSpacer.p4(),
+                          TextWidget(
+                            "7703662766",
+                            style: TextWidget.textStyleCurrent.copyWith(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: ColorPalette.greyText,
+                            ),
                           ),
                         ],
-                      ),
+                      ).directionalPadding(start: 16, top: 4),
                       AppSpacer.p16(),
                       AnimatedBuilder(
                           animation: Listenable.merge([_isObscure, _showEye]),
@@ -195,40 +217,53 @@ class _LoginPageState extends State<LoginPage> {
                               },
                             );
                           }),
-                      Align(
-                        alignment: AlignmentDirectional.centerEnd,
-                        child: TextButton(
-                          onPressed: () {},
-                          child: TextWidget(
-                            "Forgot Password?",
-                            style: TextWidget.textStyleCurrent.copyWith(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: ColorPalette.greyText,
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Align(
+                      //   alignment: AlignmentDirectional.centerEnd,
+                      //   child: TextButton(
+                      //     onPressed: () {},
+                      //     child: TextWidget(
+                      //       "Forgot Password?",
+                      //       style: TextWidget.textStyleCurrent.copyWith(
+                      //         fontSize: 14,
+                      //         fontWeight: FontWeight.w400,
+                      //         color: ColorPalette.greyText,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      AppSpacer.p32(),
                       RequestButtonWidget(
                         width: double.infinity,
                         onPressed: () async {
                           if (TextFieldValidationController.instance
                               .validate()) {
-                            final res = await UserController.to.login(
-                              phone: phoneController.text
-                                  .replaceAll(' ', '')
-                                  .trim(),
-                              password: passwordController.text,
-                            );
+                            if (phoneController.text
+                                .contains(RegExp(r'[a-zA-Z]'))) {
+                              final res = await UserController.to.employeeLogin(
+                                email: phoneController.text,
+                                password: passwordController.text,
+                              );
+                              if (res.isSuccess) {
+                                Get.offAllNamed(AdminMainPage.routeName);
+                              }
+                            } else {
+                              final res = await UserController.to.login(
+                                phone: phoneController.text
+                                    .replaceAll(' ', '')
+                                    .trim(),
+                                password: passwordController.text,
+                              );
 
-                            if (res.isSuccess) {
-                              if (isFromOrder) {
-                                Get.back();
-                              } else {
-                                Get.offAllNamed(ClientMainPage.routeName);
+                              if (res.isSuccess) {
+                                if (isFromOrder) {
+                                  Get.back();
+                                } else {
+                                  Get.offAllNamed(ClientMainPage.routeName);
+                                }
                               }
                             }
                           }
+
                           // Get.toNamed(AdminMainPage.routeName);
                         },
                         text: "Sign In",
@@ -245,7 +280,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Get.offNamed(SignupPage.routeName);
+                              Get.toNamed(SignupPage.routeName);
                             },
                             child: TextWidget(
                               "Register",

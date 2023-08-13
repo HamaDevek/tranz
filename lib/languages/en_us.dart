@@ -5,99 +5,147 @@ final Map<String, String> enUs = {
   "x-lang": "en",
 
   ///////////////////////
-////LOGIN PAGE
-  "Login": "Login",
+////AUTH
   "Password": "Password",
-  "Email Or Phone Number": "Email Or Phone Number",
-  "Login to your account": "Login to your account",
-  "Login to your account to continue using the app":
-      "Login to your account to continue using the app",
   "Logout": "Logout",
   "English": "English",
   "Arabic": "Arabic",
   "Kurdish": "Kurdish",
-
-  //////DRIVER SIDE
-  "Driver": "Driver",
-  "Orders that are in the office ": "Orders that are in the office ",
-  "OrderID:": "ContractNumber:",
-  "Sender's Name:": "Sender's Name:",
-  "Driver's Name:": "Driver's Name:",
-  "Profile": "Profile",
-  "Sender's Number:": "Sender's Number:",
-  "Receiver's Number:": "Receiver's Number:",
-  "Order Location:": "Order Location:",
-  "Order Price:": "Order Price:",
-  "Pick up Order": "Pick up Order",
-  "it's with me": "it's with me",
-  "Return": "Return",
-  "Delay": "Delay",
-  "Done": "Arrived",
+  "Login to order": "Login to order",
+  "Register": "Register",
+  "Don’t have an account?": "Don’t have an account?",
+  "Sign In": "Sign In",
+  "E.g.": "E.g.",
+  "Phone Number": "Phone Number",
+  "Long time no see! Let’s login to get started":
+      "Long time no see! Let’s login to get started",
+  "Welcome Back!": "Welcome Back!",
+  "Skip": "Skip",
+  "Already have an account?": "Already have an account?",
+  "Sign Up": "Sign Up",
+  "Address": "Address",
+  "Name": "Name",
+  "Create your account": "Create your account",
+  "Add Phone Number": "Add Phone Number",
+  "Your phone number will be used to verify your account":
+      "Your phone number will be used to verify your account",
+  "Continue": "Continue",
+  "Verify Phone Number": "Verify Phone Number",
+  "We have sent you an SMS with a verification code to\n +964 @param please enter it below":
+      "We have sent you an SMS with a verification code to\n +964 @param please enter it below",
+  "Didn't receive the code? ": "Didn't receive the code? ",
+  "Resend": "Resend",
+///////////////////////
+  //////ADMIN SIDE
+  "Accept": "Accepted",
+  "Rejected": "Rejected",
   "All": "All",
-  "Delayed": "Delayed",
-  "Returned": "Returned",
-  "Success": "Success",
   "Pending": "Pending",
-  "Transactions": "Transactions",
-  "Finished Tasks": "Finished Tasks",
-  "Choose Date": "Choose Date",
-  "includes a returned item:": "includes a returned item:",
   "Yes": "Yes",
   "No": "No",
-  "is order's money has been cleared with driver:":
-      "is order's money has been cleared with driver:",
-  "is driver returned the returned item to branch:":
-      "is driver returned the returned item to branch:",
-  "Company Profit": "Company Profit",
-  "Today Income": "Today Income",
-  "Delivered  Today": "Delivered  Today",
-  "Succeeded Today": "Succeeded Today",
-  "Failed Today": "Failed Today",
-  "Message": "Send message to sender",
-  "Search": "Search",
-  "Reason for returning order": "Reason for returning order",
-  "Enter reason": "Enter reason",
-  "Confirm": "Confirm",
-  "The cause of the order's delay": "The cause of the order's delay",
-  "Delayed reason:": "Delayed reason:",
-  "Driver's Number:": "Driver's Number:",
-  "Order date:":"Order date:",
+  "Orders": "Orders",
+  "Order Details": "Order Details",
+  "Ordered on": "Ordered on:",
+  "Decline": "Decline",
+  "accept": "Accept",
+  "Settings": "Settings",
+  "Language": "Language",
 
+//////////////////
 ///////CLIENT SIDE
-  "Company": "Company",
-  "Total Balance": "Not delivered goods",
-  "Balance": "Cash payments",
-  "All Orders": "All Orders",
-  "Recieved": "in branch",
-  "Driver’s Got": "Driver’s Got",
-  "Successed": "Delivered",
+  "Service Categories": "Service Categories",
+  "Tap Category to see all services in this category":
+      "Tap Category to see all services in this category",
+  "Services": "Services",
+  "Service Details": "Service Details",
+  "In Cart": "In Cart",
+  "Service": "Service",
+  "Services Cart": "Services Cart",
+  "Products Cart": "Products Cart",
+  "Your Cart is Empty": "Your Cart is Empty",
+  "Product": "Product",
+  "Products": "Products",
+  "Remove": "Remove",
+  "Total": "Total",
+  "Order Now": "Order Now",
+  "Articles": "Articles",
+  "Article": "Article",
+  "Application": "Application",
+  "Contact": "Contact",
+  "About": "About",
+  "Feedback": "Feedback",
+  "Tell us your feedback": "Tell us your feedback",
+  "We are always looking for ways to improve our service. Your feedback is important to us.":
+      "We are always looking for ways to improve our service. Your feedback is important to us.",
+  "Email": "Email",
+  "We will contact you on this email": "We will contact you on this email",
+  "Title": "Title",
+  "Write your feedback here...": "Write your feedback here...",
+  "Send": "Send",
+  "Now": "Now",
+  "A minute ago": "A minute ago",
+  "Minutes ago": "@minutes Minutes ago",
+  "An hour ago": "An hour ago",
+  "Hours ago": "@hours Hours ago",
+  "Yesterday": "Yesterday",
+  "Days ago": "@days Days ago",
+  "A month ago": "A month ago",
+  "Months ago": "@months Months ago",
+  "A year ago": "A year ago",
+  "Years ago": "@years Years ago",
 
-  "Today's Orders": "Today's Orders",
-  "Driver'sCar:": "Driver'sCar:",
-  "CarPalleteNumber:": "CarPalleteNumber:",
-  "Driver'sAddress:": "Driver'sAddress:",
-  "Archived": "Archived",
-  "SUCCESSED": "SUCCESSED",
-  "RETURNED": "RETURNED",
-  "DELAYED": "DELAYED",
-  "DRIVER'S GOT": "DRIVER'S GOT",
-  "IN BRANCH": "IN BRANCH",
-  "is Branch returned the returned item to Sender:":
-      "is Branch returned the returned item to Sender:",
-      "is order's money has been cleared with Sender:": "is order's money has been cleared with Sender:",
-      "Send message to driver": "Send message to driver",
+  ////////////////
 
-//////////////MESSAGE
-  "Write a new message": "Write a new message",
-  "Messages": "Messages",
-
+////////////
 /////////ERRORS
+
+  "Error": "Error",
+  "Something went wrong!": "Something went wrong!",
+  "Please enter note": "Please enter note",
+  "Email is required": "Email is required",
+  "Please enter valid email": "Please enter valid email",
+  "Title is required": "Title is required",
+  "Title must be at least 3 characters long":
+      "Title must be at least 3 characters long",
+  "Description is required": "Description is required",
+  "Description must be at least 10 characters long":
+      "Description must be at least 10 characters long",
+
+  ///////////////////
+  //////////////MODAL TEXTS
+  "Are you sure you want to accept this order?":
+      "Are you sure you want to accept this order?",
+  "Write a note": "Write a note",
+  "write a note to the user why the order is declined":
+      "write a note to the user why the order is declined",
+  "Are you sure you want to logout?": "Are you sure you want to logout?",
+  "Are you sure you want to decline this order?":
+      "Are you sure you want to decline this order?",
+  "Order updated successfully!": "Order updated successfully!",
+  "Success": "Success",
+  "Service added to cart": "Service added to cart",
+  "View Cart": "View Cart",
+  "Are you sure you want to order this service?":
+      "Are you sure you want to order this service?",
+  "Are you sure you want to order this product?":
+      "Are you sure you want to order this product?",
+  "Product added to cart": "Product added to cart",
+  "Number taken": "Number taken",
+  "This Phone number is already taken": "This Phone number is already taken",
+  "Account created successfully": "Account created successfully",
+  "Profile updated successfully": "Profile updated successfully",
+  "OTP Error": "OTP Error",
+  "Order sent successfully": "Order sent successfully",
+  "This field is required": "This field is required",
+  "Please enter a valid phone number": "Please enter a valid phone number",
   "Please enter your password": "Please enter your password",
-  "The password must be between 6 to 30 characters":
-      "The password must be between 6 to 30 characters",
-  "Please enter your email or phone number":
-      "Please enter your email or phone number",
-  "Email or Phone must be between 6 to 30 characters":
-      "Email or Phone must be between 6 to 30 characters",
-      "Please enter reason": "Please enter reason",
+  "Password must be at least 8 characters":
+      "Password must be at least 8 characters",
+  "Please enter your address": "Please enter your address",
+  "Address must be at least 6 characters":
+      "Address must be at least 6 characters",
+  "Please enter your name": "Please enter your name",
+  "Please enter your phone number": "Please enter your phone number",
+  "Please enter a valid verification code":
+      "Please enter a valid verification code",
 };

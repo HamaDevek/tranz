@@ -3,14 +3,10 @@ import 'package:get/get.dart';
 import 'package:tranzhouse/Pages/Auth/add_phone_page.dart';
 import 'package:tranzhouse/Theme/theme.dart';
 import 'package:tranzhouse/Utility/utility.dart';
-import 'package:tranzhouse/Widgets/Buttons/button_widget.dart';
 import 'package:tranzhouse/Widgets/Buttons/request_button.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
 import 'package:tranzhouse/Widgets/TextField/textfield_widget.dart';
-
-import '../Client/Main Page/main_page.dart';
-import 'login_page.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -67,23 +63,23 @@ class _SignupPageState extends State<SignupPage> {
                   "assets/images/logo.png",
                   width: screenWidth(context) * 0.5,
                 ),
-                PositionedDirectional(
-                  end: 16,
-                  top: 64,
-                  child: ButtonWidget(
-                    text: "Skip",
-                    textColor: ColorPalette.primary,
-                    fontSize: 14,
-                    borderRadius: 100,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 0,
-                    ),
-                    onPressed: () {
-                      Get.offAllNamed(ClientMainPage.routeName);
-                    },
-                  ),
-                ),
+                // PositionedDirectional(
+                //   end: 16,
+                //   top: 64,
+                //   child: ButtonWidget(
+                //     text: "Skip",
+                //     textColor: ColorPalette.primary,
+                //     fontSize: 14,
+                //     borderRadius: 100,
+                //     padding: const EdgeInsets.symmetric(
+                //       horizontal: 16,
+                //       vertical: 0,
+                //     ),
+                //     onPressed: () {
+                //       Get.offAllNamed(ClientMainPage.routeName);
+                //     },
+                //   ),
+                // ),
               ],
             ),
             Positioned(
@@ -117,7 +113,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       AppSpacer.p4(),
                       TextWidget(
-                        "Long time no see! Let’s login to get started",
+                        "Create your account",
                         style: TextWidget.textStyleCurrent.copyWith(
                           fontWeight: FontWeight.w400,
                           color: ColorPalette.greyText,
@@ -129,7 +125,7 @@ class _SignupPageState extends State<SignupPage> {
                         hintText: "Name",
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return "Please enter your first name";
+                            return "Please enter your name";
                           }
                           return null;
                         },
@@ -141,7 +137,7 @@ class _SignupPageState extends State<SignupPage> {
                             return TextFieldWidget(
                               obscureText: _isObscure.value,
                               controller: _passwordController,
-                              hintText: "password",
+                              hintText: "Password",
                               suffix: _showEye.value
                                   ? IconButton(
                                       onPressed: _toggleObsecure,
@@ -166,8 +162,8 @@ class _SignupPageState extends State<SignupPage> {
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Please enter your password";
-                                } else if (value.length < 6) {
-                                  return "Password must be at least 6 characters";
+                                } else if (value.length < 8) {
+                                  return "Password must be at least 8 characters";
                                 }
 
                                 return null;
@@ -181,8 +177,7 @@ class _SignupPageState extends State<SignupPage> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Please enter your address";
-                          }
-                        else if (value.length < 6) {
+                          } else if (value.length < 6) {
                             return "Address must be at least 6 characters";
                           }
                           return null;
@@ -216,7 +211,7 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Get.offAllNamed(LoginPage.routeName);
+                              Get.back();
                             },
                             child: TextWidget(
                               "Sign In",

@@ -14,6 +14,8 @@ class BlogsModel {
   List<String>? images;
   List<String>? links;
   int? v;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   BlogsModel({
     this.id,
@@ -24,6 +26,8 @@ class BlogsModel {
     this.images,
     this.links,
     this.v,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory BlogsModel.fromRawJson(String str) =>
@@ -48,6 +52,12 @@ class BlogsModel {
             ? []
             : List<String>.from(json["links"]!.map((x) => x)),
         v: json["__v"],
+        createdAt: json["createdAt"] == null
+            ? null
+            : DateTime.parse(json["createdAt"]),
+        updatedAt: json["updatedAt"] == null
+            ? null
+            : DateTime.parse(json["updatedAt"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -60,5 +70,7 @@ class BlogsModel {
             images == null ? [] : List<dynamic>.from(images!.map((x) => x)),
         "links": links == null ? [] : List<dynamic>.from(links!.map((x) => x)),
         "__v": v,
+        "createdAt": createdAt?.toIso8601String(),
+        "updatedAt": updatedAt?.toIso8601String(),
       };
 }

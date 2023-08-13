@@ -47,6 +47,28 @@ class ProductsController extends GetxController {
       productsLoading.value = false;
     }
   }
+  /////////////////////////////////
+  ///FILTER PRODUCTS BY CATEGORY///
+
+  RxList<ProductModel> filteredProducts = <ProductModel>[].obs;
+
+  void filterProductsByCategory(String categoryId) {
+    if (categoryId == "0") {
+      filteredProducts.value = List.from(products);
+    } else {
+      filteredProducts.clear();
+      for (var product in products) {
+        if (product.category?.id == categoryId) {
+          filteredProducts.add(product);
+        }
+      }
+      // filteredProducts.value = List.from(products
+      //     .where(
+      //       (product) => product.category?.id == categoryId,
+      //     )
+      //     .toList());
+    }
+  }
 
   /////GET PRODUCTS CATEGORIES//////
   ///
@@ -65,11 +87,20 @@ class ProductsController extends GetxController {
             (category) => ProductCategory.fromJson(category),
           )
           .toList();
+      productsCategories.insert(
+          0,
+          ProductCategory(
+            id: "0",
+            nameEn: "All",
+            nameAr: "الكل",
+            nameKu: "هەموو",
+            updatedAt: DateTime.now(),
+            v: 0,
+          ));
 
       prints(productsCategories, tag: "success");
     } else {
       prints(res.data, tag: "error");
     }
   }
-    
 }

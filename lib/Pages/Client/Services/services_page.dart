@@ -115,8 +115,12 @@ class ListWidget extends StatelessWidget {
         final service = ServicesPage.services[index];
         return ServicesTileWidget(
           imageUrl: service.images?[0] ?? "https://picsum.photos/300/300",
-          title: getText(service.title ?? LanguagesModel()),
-          description: getText(service.description ?? LanguagesModel()),
+          title: getText(service.title ?? LanguagesModel(en: "",
+                  ar: "",
+                  ku: "")),
+          description: getText(service.description ?? LanguagesModel(en: "",
+                  ar: "",
+                  ku: "")),
           isGrid: false,
           onTap: () {
             // print("object");
@@ -151,8 +155,12 @@ class GridsWidget extends StatelessWidget {
 
         return ServicesTileWidget(
           imageUrl: service.images?[0] ?? "https://picsum.photos/300/300",
-          title: getText(service.title ?? LanguagesModel()),
-          description: getText(service.description ?? LanguagesModel()),
+          title: getText(service.title ?? LanguagesModel(en: "",
+                  ar: "",
+                  ku: "")),
+          description: getText(service.description ?? LanguagesModel(en: "",
+                  ar: "",
+                  ku: "")),
           isGrid: true,
           onTap: () {
             // print("object");

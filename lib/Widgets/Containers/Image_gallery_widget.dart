@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:intl/intl.dart';
@@ -15,6 +16,7 @@ class ImageGalleryWidgetState extends StatefulWidget {
     required this.title,
     required this.description,
     this.category,
+    this.text,
     this.price,
     this.date,
   });
@@ -22,7 +24,8 @@ class ImageGalleryWidgetState extends StatefulWidget {
   final String title;
   final String description;
   final String? category;
-  final String? price;
+  final String? text;
+  final int? price;
   final DateTime? date;
 
   @override
@@ -31,13 +34,17 @@ class ImageGalleryWidgetState extends StatefulWidget {
 }
 
 class _ImageGalleryWidgetStateState extends State<ImageGalleryWidgetState> {
-  late String selectedUrl;
+  late String? selectedUrl;
   final List<GlobalKey> keys = <GlobalKey>[];
 
   @override
   void initState() {
     super.initState();
-    selectedUrl = widget.imagesUrl[0];
+    if (widget.imagesUrl.isNotEmpty) {
+      selectedUrl = widget.imagesUrl[0];
+    } else {
+      selectedUrl = null;
+    }
     updateKeys();
   }
 
@@ -57,28 +64,31 @@ class _ImageGalleryWidgetStateState extends State<ImageGalleryWidgetState> {
           aspectRatio: 1.3,
           child: Stack(
             children: [
-              ImageWidget(
-                imageUrl: selectedUrl,
-                borderRadius: 0,
-              ),
-              GestureDetector(
-                // onTap: () {
-                //   ShowSingleImageDialog.showImage(
-                //     ctx,
-                //     imageUrl: selectedUrl,
-                //   );
-                //   print("object");
-                // },
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: AlignmentDirectional.centerStart,
-                      end: AlignmentDirectional.centerEnd,
-                      colors: [
-                        Colors.black.withOpacity(.7),
-                        Colors.transparent,
-                      ],
+              if (selectedUrl != null && selectedUrl!.isNotEmpty)
+                ImageWidget(
+                  imageUrl: selectedUrl,
+                  borderRadius: 0,
+                )
+              else
+                Container(
+                  color: ColorPalette.greyText,
+                  child: const Center(
+                    child: Icon(
+                      CupertinoIcons.photo_fill_on_rectangle_fill,
+                      color: ColorPalette.primary,
+                      size: 40,
                     ),
+                  ),
+                ),
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: AlignmentDirectional.centerStart,
+                    end: AlignmentDirectional.centerEnd,
+                    colors: [
+                      Colors.black.withOpacity(.7),
+                      Colors.transparent,
+                    ],
                   ),
                 ),
               ),
@@ -156,7 +166,7 @@ class _ImageGalleryWidgetStateState extends State<ImageGalleryWidgetState> {
                   NumberFormat.currency(
                     customPattern: "###,###,###,### IQD",
                     decimalDigits: 0,
-                  ).format(int.parse(widget.price!)),
+                  ).format(widget.price),
                   style: TextWidget.textStyleCurrent.copyWith(
                     color: ColorPalette.whiteColor,
                     fontWeight: FontWeight.w600,
@@ -168,7 +178,7 @@ class _ImageGalleryWidgetStateState extends State<ImageGalleryWidgetState> {
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: "Ordered On:",
+                        text:widget.text ?? "",
                         style: TextWidget.textStyleCurrent.copyWith(
                           color: ColorPalette.greyText,
                           fontWeight: FontWeight.w400,

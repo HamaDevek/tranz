@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:tranzhouse/Getx/Controllers/user_controller.dart';
 import 'package:tranzhouse/Utility/utility.dart';
 import 'package:tranzhouse/Widgets/Other/appbar_widget.dart';
 import 'package:tranzhouse/Widgets/TextField/textfield_widget.dart';
@@ -63,7 +64,7 @@ class _AddPhoneNumberPageState extends State<AddPhoneNumberPage> {
               ),
               AppSpacer.p4(),
               TextWidget(
-                "You will receive an SMS verification that may apply message and data rates",
+                "Your phone number will be used to verify your account",
                 style: TextWidget.textStyleCurrent.copyWith(
                   fontWeight: FontWeight.w400,
                   color: ColorPalette.greyText,
@@ -105,21 +106,48 @@ class _AddPhoneNumberPageState extends State<AddPhoneNumberPage> {
                   ),
                 ],
               ),
+              Row(
+                children: [
+                  TextWidget(
+                    "E.g.",
+                    style: TextWidget.textStyleCurrent.copyWith(
+                      // fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      color: ColorPalette.whiteColor,
+                    ),
+                  ),
+                  AppSpacer.p4(),
+                  TextWidget(
+                    "770 366 2766",
+                    style: TextWidget.textStyleCurrent.copyWith(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      color: ColorPalette.greyText,
+                    ),
+                  ),
+                ],
+              ).directionalPadding(start: 16, top: 4),
               const Spacer(),
               RequestButtonWidget(
                 width: double.infinity,
                 onPressed: () async {
                   if (TextFieldValidationController.instance.validate()) {
-                    Get.toNamed(
-                      VerifyPhoneNumberPage.routeName,
-                      arguments: {
-                        "name": name,
-                        "password": password,
-                        "phone":
-                            phoneController.text.replaceAll(' ', '').trim(),
-                        "address": address,
-                      },
-                    );
+                    final res = await UserController.to.phoneTaken(
+                        phone: phoneController.text.replaceAll(' ', '').trim());
+
+                    if (res.isSuccess &&
+                        UserController.to.isPhoneTaken.value == false) {
+                      Get.toNamed(
+                        VerifyPhoneNumberPage.routeName,
+                        arguments: {
+                          "name": name,
+                          "password": password,
+                          "phone":
+                              phoneController.text.replaceAll(' ', '').trim(),
+                          "address": address,
+                        },
+                      );
+                    }
                   }
                 },
                 text: "Continue",

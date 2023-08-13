@@ -40,7 +40,9 @@ class _SingleProductPageState extends State<SingleProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-        pageTitle: getText(product?.title ?? LanguagesModel()),
+        pageTitle: getText(product?.title ?? LanguagesModel(en: "",
+                  ar: "",
+                  ku: "")),
         actions: [
           Obx(() {
             if (ClientController.to.isProductInCart(product!.id!)) {
@@ -118,12 +120,18 @@ class _SingleProductPageState extends State<SingleProductPage> {
                       return element.urlType == 'image';
                     }).toList()
                   : [],
-              price: product?.price.toString() ?? "0",
+              category:
+                  getTitlesProduct(product?.category ?? ProductCategory()),
+              price: product?.price??0,
               title: getText(
-                product?.title ?? LanguagesModel(),
+                product?.title ?? LanguagesModel(en: "",
+                  ar: "",
+                  ku: ""),
               ),
               description: getText(
-                product?.description ?? LanguagesModel(),
+                product?.description ?? LanguagesModel(en: "",
+                  ar: "",
+                  ku: ""),
               ),
             ),
             AppSpacer.p32(),

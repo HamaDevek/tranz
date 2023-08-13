@@ -21,9 +21,14 @@ class ClientEndpoints {
   String get metadata => "metadata";
   String get orderProduct => "products/order";
   String get orderService => "services/order";
+  String get updateProfile => "user/update-profile";
+  String get phoneTaken => "phone-taken";
 }
 
 /////////ADMIN/////////
 class AdminEndpoints {
   AdminEndpoints();
+  String get allOrders => "employee/home";
+  String get employeeMe => "employee/me";
+  String get acceptDeclineOrder => "employee/order-accept-decline";
 }

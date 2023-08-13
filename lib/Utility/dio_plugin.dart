@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart' as dios;
 import 'package:dio_smart_retry/dio_smart_retry.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tranzhouse/Utility/prints.dart';
@@ -33,23 +32,24 @@ class DioPlugin {
     RequestType? method = RequestType.GET,
   }) async {
     final headers0 = {
-      'Accept': 'application/json',
+      'Accept': '*/*',
       'Content-Type': 'multipart/form-data',
       'x-lang': 'x-lang'.tr,
       'A': 'a',
       ...headers ?? {},
     };
-    if (dotenv.env['USER_TOKEN'] != null) {
-      headers0['Authorization'] = 'Bearer ${dotenv.env['USER_TOKEN']}';
-    }
+    // if (dotenv.env['USER_TOKEN'] != null) {
+    //   headers0['Authorization'] = 'Bearer ${dotenv.env['USER_TOKEN']}';
+    // }
     if (UserController.to.user?.value.token != null) {
       headers0['Authorization'] =
           'Bearer ${UserController.to.user?.value.token}';
     }
     if (_networkController.connectionType.value == 0) {
-      // sprints('Connection lost', tag: 'error');
+      prints('Connection lost', tag: 'error');
     }
     final dio = dios.Dio();
+    dio.options.headers = headers0;
     dio.interceptors.add(RetryInterceptor(
       dio: dio,
       logPrint: (message) => prints(message, tag: 'error'),
@@ -136,9 +136,9 @@ class DioPlugin {
           message = 'error.unauthorized'.tr;
           break;
       }
-      // prints(
-      //     "Message:${e.response?.statusMessage}\nCode:${e.response?.statusCode}\nData:${e.response?.data}",
-      //     tag: 'error');
+      prints(
+          "Message:${e.response?.statusMessage}\nCode:${e.response?.statusCode}\nData:${e.response?.data}",
+          tag: 'error');
 
       return ResponseModel(
         message: e.response?.statusCode == null

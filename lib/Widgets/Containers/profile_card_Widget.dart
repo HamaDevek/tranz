@@ -52,7 +52,7 @@ class ProfileCardWidget extends StatelessWidget {
         ),
       ),
       title: TextWidget(
-        isLoggedIn ? name : "Login",
+        isLoggedIn ? name : "Sign In",
         style: TextWidget.textStyleCurrent.copyWith(),
       ),
       subtitle: isLoggedIn

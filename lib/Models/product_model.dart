@@ -12,12 +12,13 @@ class ProductModel {
   String? status;
   LanguagesModel? title;
   int? price;
-  String? category;
+  ProductCategory? category;
   LanguagesModel? description;
   List<String>? images;
   List<String>? links;
   int? v;
   int quantity;
+  DateTime? updatedAt;
 
   ProductModel({
     this.id,
@@ -31,6 +32,7 @@ class ProductModel {
     this.links,
     this.v,
     this.quantity = 1,
+    this.updatedAt,
   });
 
   ProductModel copyWith({
@@ -39,7 +41,7 @@ class ProductModel {
     String? status,
     LanguagesModel? title,
     int? price,
-    String? category,
+    ProductCategory? category,
     LanguagesModel? description,
     List<String>? images,
     List<String>? links,
@@ -74,7 +76,9 @@ class ProductModel {
             ? null
             : LanguagesModel.fromJson(json["title"]),
         price: json["price"],
-        category: json["category"],
+        category: json["category"] == null
+            ? null
+            : ProductCategory.fromJson(json["category"]),
         description: json["description"] == null
             ? null
             : LanguagesModel.fromJson(json["description"]),
@@ -86,6 +90,9 @@ class ProductModel {
             : List<String>.from(json["links"]!.map((x) => x)),
         v: json["__v"],
         quantity: json["quantity"] ?? 1,
+        updatedAt: json["updatedAt"] == null
+            ? null
+            : DateTime.parse(json["updatedAt"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -94,13 +101,14 @@ class ProductModel {
         "status": status,
         "title": title?.toJson(),
         "price": price,
-        "category": category,
+        "category": category?.toJson(),
         "description": description?.toJson(),
         "images":
             images == null ? [] : List<dynamic>.from(images!.map((x) => x)),
         "links": links == null ? [] : List<dynamic>.from(links!.map((x) => x)),
         "__v": v,
         "quantity": quantity,
+        "updatedAt": updatedAt?.toIso8601String(),
       };
 }
 
@@ -110,6 +118,7 @@ class ProductCategory {
   String? nameEn;
   String? nameAr;
   int? v;
+  DateTime? updatedAt;
 
   ProductCategory({
     this.id,
@@ -117,6 +126,7 @@ class ProductCategory {
     this.nameEn,
     this.nameAr,
     this.v,
+    this.updatedAt,
   });
 
   factory ProductCategory.fromRawJson(String str) =>
@@ -131,6 +141,9 @@ class ProductCategory {
         nameEn: json["name_en"],
         nameAr: json["name_ar"],
         v: json["__v"],
+        updatedAt: json["updatedAt"] == null
+            ? null
+            : DateTime.parse(json["updatedAt"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -139,9 +152,6 @@ class ProductCategory {
         "name_en": nameEn,
         "name_ar": nameAr,
         "__v": v,
+        "updatedAt": updatedAt?.toIso8601String(),
       };
 }
-
-
-
-

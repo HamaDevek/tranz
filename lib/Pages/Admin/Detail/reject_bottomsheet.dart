@@ -9,13 +9,15 @@ import 'package:tranzhouse/Widgets/TextField/textfield_widget.dart';
 class DeclineBottomsheetWidget extends StatefulWidget {
   const DeclineBottomsheetWidget({
     super.key,
-   required this.onDeclinePressed,
+    required this.onDeclinePressed,
   });
   final Function(String note) onDeclinePressed;
 
-  static show({required Function(String note) onDeclinePressed,}) {
+  static show({
+    required Function(String note) onDeclinePressed,
+  }) {
     Get.bottomSheet(
-       DeclineBottomsheetWidget(
+      DeclineBottomsheetWidget(
         onDeclinePressed: onDeclinePressed,
       ),
       isScrollControlled: true,
@@ -23,16 +25,18 @@ class DeclineBottomsheetWidget extends StatefulWidget {
   }
 
   @override
-  State<DeclineBottomsheetWidget> createState() => _DeclineBottomsheetWidgetState();
+  State<DeclineBottomsheetWidget> createState() =>
+      _DeclineBottomsheetWidgetState();
 }
 
 class _DeclineBottomsheetWidgetState extends State<DeclineBottomsheetWidget> {
- late TextEditingController _noteController;
+  late TextEditingController _noteController;
   @override
   void initState() {
     super.initState();
     _noteController = TextEditingController();
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -76,12 +80,17 @@ class _DeclineBottomsheetWidgetState extends State<DeclineBottomsheetWidget> {
             ),
           ),
           AppSpacer.p20(),
-           TextFieldWidget(
+          TextFieldWidget(
             controller: _noteController,
-
             hintText: "Write a note",
             maxLines: 5,
             minLines: 5,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Please enter note";
+              }
+              return null;
+            },
           ),
           AppSpacer.p20(),
           RequestButtonWidget(
@@ -89,10 +98,9 @@ class _DeclineBottomsheetWidgetState extends State<DeclineBottomsheetWidget> {
             textColor: ColorPalette.whiteColor,
             width: double.maxFinite,
             onPressed: () async {
-             if(_noteController.text.isNotEmpty){
-             await  widget.onDeclinePressed(_noteController.text);
-             }
-             
+              if (TextFieldValidationController.instance.validate()) {
+                await widget.onDeclinePressed(_noteController.text);
+              }
             },
             text: "Decline",
           ),

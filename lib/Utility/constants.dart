@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tranzhouse/Models/admin_order_model.dart';
+import 'package:tranzhouse/Models/blogs_model.dart';
+import 'package:tranzhouse/Models/product_model.dart';
 
-import '../Models/product_model.dart';
 import '../Models/services_model.dart';
-
 
 const List<BoxShadow> boxShadows = [
   BoxShadow(
@@ -42,39 +43,55 @@ const List<BoxShadow> boxShadows = [
     spreadRadius: 0,
   )
 ];
-
-List<String> categoris = [
-  "All Orders",
-  "Pending Orders",
-  "Completed Orders",
-  "Declined Orders",
+List<String> orderStatus = [
+  "All",
+  "Pending",
+  "Accept",
+  "Rejected",
 ];
 
- List<ProductModel> counterList = [];
-    void generateList(){
-      counterList = List.generate(
-      5,
-      (index) => ProductModel(
-        category: "category",
-        description: LanguagesModel(
-          ku: "description",
-          en: "description",
-          ar: "description",
-        ),
-        id: "id",
-        images: ["https://picsum.photos/400/200"],
-        links: ["links"],
-        price: 23000,
-        status: "status",
-        title: LanguagesModel(
-          ku: "title",
-          en: "title",
-          ar: "title",
-        ),
-        language: "language",
-      ),
-    );
-    }
+List<ServicesModel> fakeServiceCategories = List.generate(
+  3,
+  (index) => ServicesModel(
+    category: Category(
+        image: "https://picsum.photos/200/300", nameEn: "Category Name"),
+  ),
+);
+List<ProductModel> fakeProducts = List.generate(
+    3,
+    (index) => ProductModel(
+          description: LanguagesModel(
+            en: "Description",
+          ),
+          images: [
+            "https://picsum.photos/200/300",
+            "https://picsum.photos/200/300",
+            "https://picsum.photos/200/300",
+            "https://picsum.photos/200/300",
+          ],
+          title: LanguagesModel(
+            en: "Product Name",
+          ),
+        ));
 
-
-
+List<BlogsModel> fakeBlogs = List.generate(
+    3,
+    (index) => BlogsModel(
+          updatedAt: DateTime.parse(DateTime.now().toString()),
+          title: LanguagesModel(
+            en: "Title",
+          ),
+        ));
+List<AdminOrderModel> fakeAdminOrders = List.generate(
+    3,
+    (index) => AdminOrderModel(
+          owner: Owner(
+            name: "Owner Name",
+          ),
+          createdAt: DateTime.parse(DateTime.now().toString()),
+          service: Service(
+            title: LanguagesModel(
+              en: "Title",
+            ),
+          ),
+        ));

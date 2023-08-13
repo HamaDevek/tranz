@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tranzhouse/Getx/Controllers/product_controller.dart';
 import 'package:tranzhouse/Pages/Client/Cart/products_cart_page.dart';
 import 'package:tranzhouse/Pages/Client/Products/tabbar_widget.dart';
+import 'package:tranzhouse/Utility/constants.dart';
 import 'package:tranzhouse/Utility/utility.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
 
@@ -23,21 +25,29 @@ class ProductsPage extends StatefulWidget {
 }
 
 class _ProductsPageState extends State<ProductsPage> {
+  int selectedIndex = 0;
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       ProductsController.to.products.clear();
-      ProductsController.to.fetchProducts();
-      ClientController.to.getLocalCartItems(cartType:CartType.product );
+      await ProductsController.to.fetchProducts();
+      ClientController.to.getLocalCartItems(cartType: CartType.product);
+      ProductsController.to.filterProductsByCategory(
+        "0",
+      );
     });
   }
 
   void refreshPage() async {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       ProductsController.to.products.clear();
-      ProductsController.to.fetchProducts();
-      ClientController.to.getLocalCartItems( cartType:CartType.product);
+      await ProductsController.to.fetchProducts();
+      // ProductsController.to.getProductCategories();
+      ClientController.to.getLocalCartItems(cartType: CartType.product);
+      ProductsController.to.filterProductsByCategory(
+        ProductsController.to.productsCategories[selectedIndex].id ?? "0",
+      );
     });
   }
 
@@ -61,18 +71,26 @@ class _ProductsPageState extends State<ProductsPage> {
             AppSpacer.p20(),
             if (ProductsController.to.productsCategories.isNotEmpty)
               TabbarWidget(
-                tabTitles: ProductsController.to.productsCategories
-                    .mapIndexed((index, element) => getTitles(element)),
+                tabTitles: ProductsController.to.productsCategories.mapIndexed(
+                  (index, element) => getTitles(element),
+                ),
                 // tabTitles:
                 //     ProductsController.to.productsCategories.asMap().entries.map((e) {
                 //   print(e.key);
                 //   return getTitles(e.value);
                 // }).toList(),
-                onTabChanged: (index) {},
+                onTabChanged: (index) {
+                  selectedIndex = index;
+                  ProductsController.to.filterProductsByCategory(
+                    ProductsController.to.productsCategories[index].id!,
+                  );
+                },
               ),
             AppSpacer.p20(),
-            const Expanded(
-              child: GridsWidget(),
+            Expanded(
+              child: GridsWidget(
+                selectedIndex: selectedIndex,
+              ),
             ),
           ],
         );
@@ -98,43 +116,64 @@ class _ProductsPageState extends State<ProductsPage> {
 class GridsWidget extends StatelessWidget {
   const GridsWidget({
     super.key,
+    required this.selectedIndex,
   });
+  final int selectedIndex;
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () {
-        if (ProductsController.to.productsLoading.value) {
-          return const SizedBox.shrink();
-        }
+        // if (ProductsController.to.productsLoading.value) {
+        //   return const SizedBox.shrink();
+        // }
 
-        return GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: .8,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
+        return Skeletonizer(
+          enabled: ProductsController.to.productsLoading.value,
+          // enabled: true,
+          effect: ShimmerEffect.raw(
+            colors: [
+              ColorPalette.primary.withOpacity(1),
+              ColorPalette.greyText,
+              ColorPalette.whiteColor,
+            ],
           ),
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          padding: const EdgeInsets.only(bottom: 100, left: 16, right: 16),
-          itemCount: ProductsController.to.products.length,
-          itemBuilder: (context, index) {
-            final product = ProductsController.to.products[index];
 
-            return ImageGridCardWidget(
-              imageUrl: product.images?[0] ?? "https://picsum.photos/400/200",
-              price: product.price ?? 0,
-              title: getTitles(product.title ?? LanguagesModel()),
-              category: product.category ?? "Category Name",
-              onTap: () {
-                Get.toNamed(
-                  SingleProductPage.routeName,
-                  arguments: product,
-                );
-              },
-            );
-          },
+          child: ProductsController.to.productsLoading.value
+              ? const ProductsLoadingWidget()
+              : GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: .8,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                  ),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  padding:
+                      const EdgeInsets.only(bottom: 100, left: 16, right: 16),
+                  itemCount: ProductsController.to.filteredProducts.length,
+                  itemBuilder: (context, index) {
+                    final product =
+                        ProductsController.to.filteredProducts[index];
+
+                    return ImageGridCardWidget(
+                      imageUrl:
+                          product.images?[0] ?? "",
+                      price: product.price ?? 0,
+                      title: getTitles(product.title ??
+                          LanguagesModel(en: "", ar: "", ku: "")),
+                      category: getTitlesProduct(
+                          product.category ?? ProductCategory()),
+                      onTap: () {
+                        Get.toNamed(
+                          SingleProductPage.routeName,
+                          arguments: product,
+                        );
+                      },
+                    );
+                  },
+                ),
         );
       },
     );
@@ -186,9 +225,46 @@ class ProductsTopWidget extends StatelessWidget {
                 Get.toNamed(ProductsCartPage.routeName);
               },
               child: SvgPicture.asset("assets/icons/cart.svg")),
-          AppSpacer.p8(),
+          // AppSpacer.p8(),
         ],
       ),
+    );
+  }
+}
+
+class ProductsLoadingWidget extends StatelessWidget {
+  const ProductsLoadingWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: .8,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+      ),
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      padding: const EdgeInsets.only(bottom: 100, left: 16, right: 16),
+      itemCount: fakeProducts.length,
+      itemBuilder: (context, index) {
+        final product = fakeProducts[index];
+
+        return ImageGridCardWidget(
+          imageUrl: product.images?[0] ?? "https://picsum.photos/400/200",
+          price: product.price ?? 0,
+          title:
+              getText(product.title ?? LanguagesModel(en: "", ar: "", ku: "")),
+          category: getTitlesProduct(product.category ?? ProductCategory()),
+          onTap: () {
+            Get.toNamed(
+              SingleProductPage.routeName,
+              arguments: product,
+            );
+          },
+        );
+      },
     );
   }
 }

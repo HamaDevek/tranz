@@ -8,5 +8,5 @@ enum OrderStatus {
 
 enum UserType {
   client,
-  driver,
+  admin,
 }

@@ -12,6 +12,8 @@ class ConfirmationDialogWidget extends StatelessWidget {
   final String? confirmText;
   final String? cancelText;
   final Future Function() onConfirmed;
+  final Future Function()? onCancel;
+
   final Color? confirmButtonColor;
   final Color? cancelButtonColor;
   final Color? confirmTextColor;
@@ -19,6 +21,7 @@ class ConfirmationDialogWidget extends StatelessWidget {
   const ConfirmationDialogWidget({
     Key? key,
     required this.onConfirmed,
+    this.onCancel,
     required this.bodyText,
     this.titleText,
     this.confirmText,
@@ -32,6 +35,7 @@ class ConfirmationDialogWidget extends StatelessWidget {
   static Future<bool?> show(
     BuildContext context, {
     required Future Function() onConfirmed,
+    Future Function()? onCancel,
     required String? bodyText,
     String? titleText,
     String? confirmText,
@@ -48,6 +52,7 @@ class ConfirmationDialogWidget extends StatelessWidget {
         return ConfirmationDialogWidget(
           bodyText: bodyText,
           onConfirmed: onConfirmed,
+          onCancel: onCancel,
           titleText: titleText,
           confirmText: confirmText,
           cancelText: cancelText,
@@ -97,6 +102,9 @@ class ConfirmationDialogWidget extends StatelessWidget {
                       textColor: cancelTextColor ?? ColorPalette.whiteColor,
                       text: cancelText ?? 'No',
                       onPressed: () async {
+                        if (onCancel != null) {
+                          onCancel!();
+                        }
                         Get.back(result: false);
                       },
                     ),
@@ -104,7 +112,6 @@ class ConfirmationDialogWidget extends StatelessWidget {
                   AppSpacer.p16(),
                   Expanded(
                     child: RequestButtonWidget(
-                      
                       fontSize: 14,
                       color: confirmButtonColor ?? ColorPalette.green,
                       text: confirmText ?? 'Yes',

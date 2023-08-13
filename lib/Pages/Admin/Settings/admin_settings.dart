@@ -8,7 +8,9 @@ import 'package:tranzhouse/Pages/Client/Settings/Language/language_page.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
 import 'package:tranzhouse/Widgets/Other/appbar_widget.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
-import '../../../Widgets/Containers/profile_card_Widget.dart';
+import '../../../Getx/Controllers/user_controller.dart';
+import '../../../Theme/theme.dart';
+import '../../../Widgets/Modal/confirmation_modal.dart';
 import '../../Client/Settings/settings_page.dart';
 
 class AdminSettingsPage extends StatefulWidget {
@@ -33,21 +35,20 @@ class _AdminSettingsPageState extends State<AdminSettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppSpacer.p20(),
-              ProfileCardWidget(
+              AdminProfileCardWidget(
                 onTap: () {},
-                profileUrl: "https://picsum.photos/400/200",
-                name: "Jaza Yahya",
-                phoneNumber: 07501380755,
+                name: UserController.to.user?.value.user?.name ?? '',
+                email: UserController.to.user?.value.user?.email ?? '',
               ),
               AppSpacer.p20(),
-              const TextWidget(
-                "Application",
-              ),
-              AppSpacer.p16(),
+              // const TextWidget(
+              //   "Application",
+              // ),
+              // AppSpacer.p16(),
               Wrap(
                 spacing: 16,
                 runSpacing: 16,
-                children: List.generate(4, (index) {
+                children: List.generate(1, (index) {
                   return SettingsButtonWidget(
                     name: getButtonNames(index),
                     onPressed: getCallBacks(index),
@@ -114,5 +115,71 @@ class _AdminSettingsPageState extends State<AdminSettingsPage> {
       default:
         return () {};
     }
+  }
+}
+
+class AdminProfileCardWidget extends StatelessWidget {
+  const AdminProfileCardWidget({
+    super.key,
+    required this.name,
+    required this.email,
+    required this.onTap,
+  });
+  final String name;
+  final String email;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: onTap,
+      tileColor: ColorPalette.black,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      dense: false,
+      horizontalTitleGap: 16,
+      leading: const FittedBox(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              CupertinoIcons.person,
+              size: 50,
+              color: ColorPalette.greyText,
+            )
+          ],
+        ),
+      ),
+      title: TextWidget(
+        name,
+        style: TextWidget.textStyleCurrent.copyWith(),
+      ),
+      subtitle: TextWidget(
+        email,
+        style: TextWidget.textStyleCurrent.copyWith(
+          fontSize: 14,
+          color: ColorPalette.greyText,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+      trailing: IconButton(
+        onPressed: () {
+          ConfirmationDialogWidget.show(
+            context,
+            onConfirmed: () async {
+              UserController.to.logOut();
+            },
+            bodyText: "Are you sure you want to logout?",
+          );
+        },
+        icon: const Icon(
+          Icons.logout,
+          color: ColorPalette.red,
+        ),
+      ),
+    );
   }
 }

@@ -56,17 +56,18 @@ class _SettingsPageState extends State<SettingsPage> {
                     isUserLoggedin
                         ? Get.toNamed(EditProfilePage.routeName)
                         //  UserController.to.logOut()
-                        : Get.offAllNamed(LoginPage.routeName);
+                        : Get.toNamed(LoginPage.routeName, arguments: true);
                   },
                   isLoggedIn: isUserLoggedin,
-                  profileUrl: "https://picsum.photos/400/200",
-                  name: UserController.to.user?.value.user?.name ?? "User Name",
+                  profileUrl: UserController.to.user?.value.user?.image ?? "",
+                  name: UserController.to.user?.value.user?.name ?? "",
                   phoneNumber: int.parse(
                       UserController.to.user?.value.user?.phone?.substring(
                               4,
                               UserController
-                                  .to.user?.value.user?.phone?.length) ??
-                          "0"),
+                                      .to.user?.value.user?.phone?.length ??
+                                  0) ??
+                          '0'),
                 ),
                 AppSpacer.p20(),
                 const TextWidget(

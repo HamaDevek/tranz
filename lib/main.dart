@@ -9,7 +9,7 @@ import 'Theme/theme.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import 'Utility/utility.dart';
+import 'Utility/timeago.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

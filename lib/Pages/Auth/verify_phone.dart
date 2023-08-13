@@ -81,10 +81,17 @@ class _VerifyPhoneNumberPageState extends State<VerifyPhoneNumberPage> {
               ),
               AppSpacer.p4(),
               TextWidget(
-                "We have sent you an SMS with a verification code to\n +964 ${formatPhoneNumber(
-                  int.parse(phoneNumber),
-                  withCountryCode: false,
-                )} please enter it below",
+                "We have sent you an SMS with a verification code to\n +964 @param please enter it below"
+                    .trParams({
+                  "param": formatPhoneNumber(
+                    int.parse(phoneNumber),
+                    withCountryCode: false,
+                  ),
+                }),
+                // "We have sent you an SMS with a verification code to\n +964 ${formatPhoneNumber(
+                //   int.parse(phoneNumber),
+                //   withCountryCode: false,
+                // )} please enter it below",
                 style: TextWidget.textStyleCurrent.copyWith(
                   fontWeight: FontWeight.w400,
                   color: ColorPalette.greyText,

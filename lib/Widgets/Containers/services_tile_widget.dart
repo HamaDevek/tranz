@@ -30,7 +30,7 @@ class ServicesTileWidget extends StatelessWidget {
         height: screenWidth(context) * .35,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: ColorPalette.greyText.withOpacity(.2),
+          color: ColorPalette.black,
         ),
         child: Stack(
           children: [
