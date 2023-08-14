@@ -149,6 +149,10 @@ class _AmdinOrderDetailPageState extends State<AmdinOrderDetailPage> {
                                 );
                                 if (res.isSuccess) {
                                   order?.status = "accept";
+                                  if (tempStatus.isNotEmpty) {
+                                    AdminController.to
+                                        .filterOrdersByStatus(tempStatus);
+                                  }
                                   setState(() {});
                                 }
                               }

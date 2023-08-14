@@ -31,10 +31,11 @@ final Map<String, String> enUs = {
       "Your phone number will be used to verify your account",
   "Continue": "Continue",
   "Verify Phone Number": "Verify Phone Number",
-  "We have sent you an SMS with a verification code to\n +964 @param please enter it below":
+  "We have sent you an SMS with a verification code to +964 please enter it below":
       "We have sent you an SMS with a verification code to\n +964 @param please enter it below",
   "Didn't receive the code? ": "Didn't receive the code? ",
   "Resend": "Resend",
+  
 ///////////////////////
   //////ADMIN SIDE
   "Accept": "Accepted",
@@ -68,8 +69,8 @@ final Map<String, String> enUs = {
   "Remove": "Remove",
   "Total": "Total",
   "Order Now": "Order Now",
-  "Articles": "Articles",
-  "Article": "Article",
+  "Blogs": "Blogs",
+  "Blog": "Blog",
   "Application": "Application",
   "Contact": "Contact",
   "About": "About",
@@ -93,6 +94,8 @@ final Map<String, String> enUs = {
   "Months ago": "@months Months ago",
   "A year ago": "A year ago",
   "Years ago": "@years Years ago",
+  "Edit Profile": "Edit Profile",
+  "Update": "Update",
 
   ////////////////
 
@@ -110,6 +113,18 @@ final Map<String, String> enUs = {
   "Description is required": "Description is required",
   "Description must be at least 10 characters long":
       "Description must be at least 10 characters long",
+  "This field is required": "This field is required",
+  "Please enter a valid phone number": "Please enter a valid phone number",
+  "Please enter your password": "Please enter your password",
+  "Password must be at least 8 characters":
+      "Password must be at least 8 characters",
+  "Please enter your address": "Please enter your address",
+  "Address must be at least 6 characters":
+      "Address must be at least 6 characters",
+  "Please enter your name": "Please enter your name",
+  "Please enter your phone number": "Please enter your phone number",
+  "Please enter a valid verification code":
+      "Please enter a valid verification code",
 
   ///////////////////
   //////////////MODAL TEXTS
@@ -136,16 +151,8 @@ final Map<String, String> enUs = {
   "Profile updated successfully": "Profile updated successfully",
   "OTP Error": "OTP Error",
   "Order sent successfully": "Order sent successfully",
-  "This field is required": "This field is required",
-  "Please enter a valid phone number": "Please enter a valid phone number",
-  "Please enter your password": "Please enter your password",
-  "Password must be at least 8 characters":
-      "Password must be at least 8 characters",
-  "Please enter your address": "Please enter your address",
-  "Address must be at least 6 characters":
-      "Address must be at least 6 characters",
-  "Please enter your name": "Please enter your name",
-  "Please enter your phone number": "Please enter your phone number",
-  "Please enter a valid verification code":
-      "Please enter a valid verification code",
+  "Save changes before leaving?": "Save changes before leaving?",
+  "Save": "Save",
+  "Don't Save": "Don't Save",
+  
 };

@@ -34,7 +34,7 @@ class _SingleArticlePageState extends State<SingleArticlePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
-        pageTitle: "Article",
+        pageTitle: "Blog",
       ),
       body: SingleChildScrollView(
         primary: false,
@@ -44,17 +44,11 @@ class _SingleArticlePageState extends State<SingleArticlePage> {
             AppSpacer.p8(),
             SingleArticleWidget(
               imageUrl: blog?.images![0] ?? "",
-              title: getText(blog?.title ?? LanguagesModel(
-                en: "",
-                  ar: "",
-                  ku: ""
-              )),
+              title: getText(
+                  blog?.title ?? LanguagesModel(en: "", ar: "", ku: "")),
               date: blog?.updatedAt ?? DateTime.now(),
-              description: getText(blog?.description ?? LanguagesModel(
-                en: "",
-                  ar: "",
-                  ku: ""
-              )),
+              description: getText(
+                  blog?.description ?? LanguagesModel(en: "", ar: "", ku: "")),
             ),
             AppSpacer.p32(),
           ],
@@ -112,7 +106,7 @@ class SingleArticleWidget extends StatelessWidget {
             timeago.format(
               date,
               locale: LanguageController().getSelectedLanguage(),
-              allowFromNow: true,
+              // allowFromNow: true,
             ),
             style: TextWidget.textStyleCurrent.copyWith(
               color: ColorPalette.greyText,

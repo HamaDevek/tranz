@@ -138,7 +138,7 @@ class ArticlesTopWidget extends StatelessWidget {
       child: Row(
         children: [
           TextWidget(
-            "Articles",
+            "Blogs",
             style: TextWidget.textStyleCurrent.copyWith(
               fontSize: 20,
               fontWeight: FontWeight.w600,

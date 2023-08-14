@@ -140,6 +140,7 @@ class ContactButton extends StatelessWidget {
                     child: TextWidget(
                       phoneNumber != null ? phoneNumber ?? "" : "$name",
                       maxLines: 1,
+                      textDirection: TextDirection.ltr,
                     ),
                   )
           ],

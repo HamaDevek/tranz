@@ -44,7 +44,7 @@ class MaterialAppWithProviderState extends State<MaterialAppWithProvider> {
   void initState() {
     super.initState();
     timeago.setLocaleMessages(
-      lang.languageCode.toString(),
+      lang.toString(),
       MyCustomMessages(),
     );
   }

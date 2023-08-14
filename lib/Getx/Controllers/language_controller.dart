@@ -8,7 +8,7 @@ import '../../Utility/prints.dart';
 class LanguageController extends GetxController {
   static LanguageController get to =>
       Get.find<LanguageController>(tag: 'language');
-  String _selectedLanguage = '';
+  String _selectedLanguage = 'en_US';
   @override
   void onInit() {
     super.onInit();
@@ -27,6 +27,7 @@ class LanguageController extends GetxController {
       language: prefs.getString('language') ?? 'en',
       dialect: prefs.getString('dialect') ?? 'US',
     );
+    print("SELECTED LANGUAGE: $_selectedLanguage");
   }
 
   void changeLanguage({required String language, required String dialect}) {

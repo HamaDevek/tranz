@@ -56,15 +56,21 @@ class ProfileCardWidget extends StatelessWidget {
         style: TextWidget.textStyleCurrent.copyWith(),
       ),
       subtitle: isLoggedIn
-          ? TextWidget(
-              formatPhoneNumber(
-                phoneNumber,
-              ),
-              style: TextWidget.textStyleCurrent.copyWith(
-                fontSize: 14,
-                color: ColorPalette.greyText,
-                fontWeight: FontWeight.w400,
-              ),
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                TextWidget(
+                  formatPhoneNumber(
+                    phoneNumber,
+                  ),
+                  style: TextWidget.textStyleCurrent.copyWith(
+                    fontSize: 14,
+                    color: ColorPalette.greyText,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  textDirection: TextDirection.ltr,
+                ),
+              ],
             )
           : null,
       trailing: Icon(

@@ -129,7 +129,7 @@ class _ClientMainPageState extends State<ClientMainPage> {
                                       },
                                     ),
                                     NavigationBarButton(
-                                      name: 'Articles',
+                                      name: 'Blogs',
                                       selectedIcon:
                                           'assets/icons/article.selected.svg',
                                       icon: 'assets/icons/article.svg',

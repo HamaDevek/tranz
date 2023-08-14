@@ -158,7 +158,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             ),
             constraints: widget.constraints,
             prefixStyle: TextWidget.textStyleCurrent.copyWith(),
-            errorText: errorText,
+            errorText: errorText?.tr,
 
             hintText: widget.hintText?.tr,
             prefixIcon: widget.prefixIcon,

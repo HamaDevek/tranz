@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tranzhouse/Pages/Auth/add_phone_page.dart';
+import 'package:tranzhouse/Pages/Auth/login_page.dart';
 import 'package:tranzhouse/Theme/theme.dart';
 import 'package:tranzhouse/Utility/utility.dart';
 import 'package:tranzhouse/Widgets/Buttons/request_button.dart';
@@ -211,7 +212,8 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Get.back();
+                              Get.offNamed(LoginPage.routeName,
+                                  arguments: true);
                             },
                             child: TextWidget(
                               "Sign In",

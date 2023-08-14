@@ -280,7 +280,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Get.toNamed(SignupPage.routeName);
+                              Get.offNamed(SignupPage.routeName);
                             },
                             child: TextWidget(
                               "Register",

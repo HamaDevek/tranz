@@ -105,7 +105,7 @@ class _AddPhoneNumberPageState extends State<AddPhoneNumberPage> {
                     separator: ' ',
                   ),
                 ],
-              ),
+              ).ltr,
               Row(
                 children: [
                   TextWidget(
@@ -124,6 +124,7 @@ class _AddPhoneNumberPageState extends State<AddPhoneNumberPage> {
                       fontSize: 12,
                       color: ColorPalette.greyText,
                     ),
+                    textDirection: TextDirection.ltr,
                   ),
                 ],
               ).directionalPadding(start: 16, top: 4),

@@ -5,6 +5,7 @@ import 'package:tranzhouse/Pages/Client/Settings/Feedback/feedback_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/About/about_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/Contact/contact_page.dart';
 import 'package:tranzhouse/Pages/Client/Settings/Language/language_page.dart';
+import 'package:tranzhouse/Utility/utility.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
 import 'package:tranzhouse/Widgets/Other/appbar_widget.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
@@ -178,7 +179,7 @@ class AdminProfileCardWidget extends StatelessWidget {
         icon: const Icon(
           Icons.logout,
           color: ColorPalette.red,
-        ),
+        ).matchDirectionality,
       ),
     );
   }

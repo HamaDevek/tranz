@@ -1,6 +1,7 @@
 import 'package:agar/agar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:get/get.dart';
 import '../../Theme/theme.dart';
 import '../../Utility/utility.dart';
 import '../Other/image_widget.dart';
@@ -75,16 +76,30 @@ class ServicesTileWidget extends StatelessWidget {
                     //   ),
                     //   maxLines: 3,
                     // ),
-                    child: HtmlWidget(
-                      returnText("$description"),
-                      // description!.length > 100
-                      //     ? "${description?.substring(0, 100).toString()}..."
-                      //     : "$description",
-                      textStyle: TextWidget.textStyleCurrent.copyWith(
-                        color: ColorPalette.whiteColor,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
+                    child: isGrid
+                        ? HtmlWidget(
+                            description!.length > 80
+                                ? "${description?.substring(0, 80).toString()}..."
+                                : "$description",
+                            textStyle: TextWidget.textStyleCurrent.copyWith(
+                              color: ColorPalette.whiteColor,
+                              overflow: TextOverflow.ellipsis,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 14,
+                            ),
+                          )
+                        : HtmlWidget(
+                            returnText("$description".tr),
+                            // description!.length > 100
+                            //     ? "${description?.substring(0, 100).toString()}..."
+                            //     : "$description",
+                            textStyle: TextWidget.textStyleCurrent.copyWith(
+                              color: ColorPalette.whiteColor,
+                              fontWeight: FontWeight.w300,
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: 14,
+                            ),
+                          ),
                   ),
                 ],
               ),

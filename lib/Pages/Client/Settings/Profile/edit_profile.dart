@@ -206,9 +206,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
               },
               validator: (value) {
                 if (value!.isEmpty) {
-                  return "Address must not be empty";
-                } else if (value.length < 5) {
-                  return "Address must be at least 5 characters";
+                  return "Please enter your address";
+                } else if (value.length < 6) {
+                  return "Address must be at least 6 characters";
                 }
                 return null;
               },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tranzhouse/Pages/Admin/Main/admin_main_page.dart';
 import 'package:tranzhouse/Pages/Client/Main%20Page/main_page.dart';
+import 'package:tranzhouse/Utility/utility.dart';
 import 'package:tranzhouse/Widgets/Other/app_spacer.dart';
 import 'package:tranzhouse/Widgets/Text/text_widget.dart';
 
@@ -39,7 +40,7 @@ class _SplashPageState extends State<SplashPage> {
         Get.offAllNamed(ClientMainPage.routeName);
       } else {
         if (UserController.to.user?.value.user?.employee != null &&
-            UserController.to.user?.value.user?.employee ==true) {
+            UserController.to.user?.value.user?.employee == true) {
           Get.offAllNamed(AdminMainPage.routeName);
           prints('access token splash: ${UserController.to.user?.value.token}',
               tag: 'success');
@@ -89,7 +90,7 @@ class _SplashPageState extends State<SplashPage> {
                   textAlign: TextAlign.center,
                 ),
               ],
-            ),
+            ).ltr,
           ),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../Theme/theme.dart';
@@ -178,7 +179,7 @@ class _ImageGalleryWidgetStateState extends State<ImageGalleryWidgetState> {
                   TextSpan(
                     children: [
                       TextSpan(
-                        text:widget.text ?? "",
+                        text: "${widget.text}".tr,
                         style: TextWidget.textStyleCurrent.copyWith(
                           color: ColorPalette.greyText,
                           fontWeight: FontWeight.w400,
